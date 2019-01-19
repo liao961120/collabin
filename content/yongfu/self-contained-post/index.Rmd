@@ -3,8 +3,9 @@ title: self contained post
 author: Yongfu Liao
 mysite: https://liao961120.github.io
 slug: self-contained-post
-tags: ['R']
 date: '2019-01-17'
+comment: true
+tags: ['R']
 bibliography: ref.bib
 ---
 
