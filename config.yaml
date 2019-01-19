@@ -1,7 +1,7 @@
 theme: hugo-ivy
-baseurl: /
+baseurl: https://corbloggers.netlify.com/
 languageCode: zh-tw
-title: R部落客
+title: R部落客 · 協作
 ignoreFiles:
   - \.Rmd$
   - _files$
@@ -43,7 +43,7 @@ params:
     - js/external-link.js
     - js/alt-title.js
   description: 開源協作部落格
-  disqusURL: 'http://yihui.name'
+  disqusURL: 'http://corbloggers.disqus.com'
   footer: '© [R部落客 · 協作](/) 2019'
   githubContentURL: 'https://github.com/rbind/yihui/edit/master/content/'
   highlightjsCDN: //cdn.bootcss.com
