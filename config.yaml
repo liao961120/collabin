@@ -1,0 +1,57 @@
+theme: hugo-ivy
+baseurl: /
+languageCode: zh-tw
+title: R部落客
+ignoreFiles:
+  - \.Rmd$
+  - _files$
+  - _cache$
+hasCJKLanguage: true
+enableEmoji: true
+rssLimit: 100
+footnotereturnlinkcontents: ↩
+menu:
+  main:
+    - name: "Home\U0001F3E0"
+      url: /
+      weight: 1
+    - name: About
+      url: /info/about/
+      weight: 2
+    - name: Tags
+      url: /tags/
+      weight: 3
+    - name: ''
+      weight: 4
+    - name: "作者\U0001F465"
+      url: /info/authors/
+      weight: 5
+    - name: 王小明
+      url: /wang/
+      weight: 10
+    - name: Yongfu Liao
+      url: /yongfu/
+      weight: 10
+params:
+  customJS:
+    - js/fix-toc.js
+    - js/center-img.js
+    - js/right-quote.js
+    - js/no-highlight.js
+    - js/fix-footnote.js
+    - js/math-code.js
+    - js/external-link.js
+    - js/alt-title.js
+  description: 開源協作部落格
+  disqusURL: 'http://yihui.name'
+  footer: '© [R部落客 · 協作](/) 2019'
+  githubContentURL: 'https://github.com/rbind/yihui/edit/master/content/'
+  highlightjsCDN: //cdn.bootcss.com
+  highlightjsLang:
+    - r
+    - yaml
+    - tex
+  highlightjsTheme: github
+  highlightjsVersion: 9.12.0
+  twitterImage: /images/logo.png
+

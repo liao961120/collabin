@@ -1,0 +1,33 @@
+---
+title: self contained post
+author: author2
+mysite: https://liao961120.github.io
+slug: self-contained-post
+date: '2019-01-17'
+bibliography: ref.bib
+---
+
+
+## markdown syntax
+
+![](img.png)
+
+## knitr::include_graphics
+
+```{r}
+knitr::include_graphics('img.png')
+```
+
+## R Plots
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length)) +
+  geom_point(aes(y = Petal.Width,
+                 color = Species))
+```
+
+## References {#references}
+
+Automatic citation [@leung2008]
+

@@ -1,0 +1,5 @@
+blogdown::html_page:
+  toc: false
+  highlight: default
+  dev: "svg"
+  fig_width: 6
