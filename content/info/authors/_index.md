@@ -1,7 +1,6 @@
 ---
 title: 作者簡介
-subtitle: 來認識大家吧
-disable_mathjax: true
+subtitle: Hello World!
 disable_highlight: true
 ---
 
