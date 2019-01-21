@@ -9,6 +9,7 @@ cache:
 
 before_install:
   - Rscript -e 'devtools::install_github("rstudio/blogdown")'
+  - Rscript -e 'blogdown::install_hugo()'
 
 script:
   - Rscript -e 'options(blogdown.new_bundle = TRUE); blogdown::build_site()'
