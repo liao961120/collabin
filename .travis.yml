@@ -1,0 +1,22 @@
+language: r
+pandoc_version: 2.3.1
+sudo: false
+
+cache:
+  packages: yes
+  directories:
+    - $TRAVIS_BUILD_DIR/layouts
+
+script:
+  - Rscript -e 'options(blogdown.new_bundle = TRUE); blogdown::build_site()'
+
+
+deploy:
+  provider: pages
+  target-branch: web
+  local_dir: public
+  skip-cleanup: true
+  github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  on:
+    branch: master
