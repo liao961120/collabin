@@ -17,6 +17,7 @@ LazyData: true
 VignetteBuilder: knitr
 Imports: bookdown,
   tidyverse,
-  knitr
+  knitr,
+  devtools
 Remotes: rstudio/blogdown
 RoxygenNote: 6.1.0

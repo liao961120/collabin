@@ -7,6 +7,9 @@ cache:
   directories:
     - $TRAVIS_BUILD_DIR/layouts
 
+before_install:
+  - Rscript -e 'devtools::install_github("rstudio/blogdown")'
+
 script:
   - Rscript -e 'options(blogdown.new_bundle = TRUE); blogdown::build_site()'
 
