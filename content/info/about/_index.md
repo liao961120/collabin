@@ -19,48 +19,12 @@ disable_highlight: true
 1. 將 `.Rmd` 檔與相關外部檔案（Rmd 所在之資料夾）壓縮成 `.zip` 檔
 1. 填寫文章上傳表單：<http://bit.ly/coRbloggersForm>
 
-### GitHub 使用者
-
-**R部落客 • 協作** 託管於 GitHub 上。因此，若熟悉 GitHub，可直接以 Pull Request 的方式新增文章：
-
-1. Fork [Rbloggers/coBlogger](https://github.com/Rbloggers/coBlogger)
-
-1. 在 `content/` 下新增作者資料夾及文章資料夾，每篇文章是各自獨立的一個資料夾：
-
-    ```yml
-    /
-    ├── content/
-        ├── <作者資料夾>/
-            ├── _index.md        # 作者個人頁面（文章列表）
-            ├── <文章資料夾1>/   # 文章1
-            │   ├── index.Rmd    # 文章1 內文
-            │   ├── ref.bib
-            │   ├── img1.gif
-            │   ├── ... 
-            │   └── img2.png
-            │
-            └── <文章資料夾2>/   # 文章2
-                ├── index.Rmd    # 文章2 內文
-                ├── ... 
-                └── img2.png
-    ```
-
-1. 在 `content/<作者資料夾>/_index.md` 第一行開始新增下列內容：
-    
-    ```yml
-    ---
-    title: <標題> # e.g., Yongfu's Blog
-    subtitle: <副標題> #e.g.,  R · Learning · Life
-    disable_mathjax: true
-    disable_highlight: true
-    ---
-    ```
-
-1. 至 [config.yaml](https://github.com/Rbloggers/coBlogger/blob/dd235acb6debd9d5bc29abd8f104dc3143769ad7/config.yaml#L32-L34) `menu > main` 之下新增連結資訊
-
-1. 提出 Pull Request
+若您熟悉 GitHub 的 Pull Request，可直接使用 GitHub 新增文章。詳見 [GitHub 使用者](/info/submit/#github-使用者)。
 
 
+## 增加文章能見度
+
+若您想讓發表在 **R部落客 • 協作** 的文章出現在 [R部落客](https://www.facebook.com/twRblogger) 粉專上，僅需在 `.Rmd` yaml 中的 `tags` 加入 **rblog**。加入標籤前，請您務必先閱讀 [R部落客 文章提交規定](https://rbloggers.github.io/join.html#%E5%BF%85%E8%A6%81%E8%A6%8F%E5%AE%9A)。
 
 ## 為作者保存所有文章
 
