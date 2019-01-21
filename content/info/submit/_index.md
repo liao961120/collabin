@@ -9,20 +9,49 @@ disable_highlight: true
 
 ## 兩種提交機制
 
-**R部落客 • 協作** 提供兩種提交文章的方式：
-
-1. 知道如何使用 GitHub pull request 者，可直接透過 GitHub 上傳新文章
-1. 不會使用 GitHub 者，可透過
+### Google 表單提交
 
 
+### GitHub 使用者
 
-- 文章模板範例 ([部落格](/example-post.html), [GitHub](https://github.com/Rbloggers/blog/tree/master/_post-source/yongfu_liao/post-template))
+**R部落客 • 協作** 託管於 GitHub 上。因此，若熟悉 GitHub，可直接以 Pull Request 的方式新增文章：
 
-- [填寫作者資料](https://github.com/Rbloggers/blog/blob/master/_data/authors.yml)
+1. Fork [Rbloggers/coBlogger](https://github.com/Rbloggers/coBlogger)
 
-- [已發表文章之檔名](/published.html)
+1. 在 `content/` 下新增作者資料夾及文章資料夾，每篇文章是各自獨立的一個資料夾：
 
-- [模板](/post_template.zip)
+    ```yml
+    /
+    ├── content/
+        ├── <作者資料夾>/
+            ├── _index.md        # 作者個人頁面（文章列表）
+            ├── <文章資料夾1>/   # 文章1
+            │   ├── index.Rmd    # 文章1 內文
+            │   ├── ref.bib
+            │   ├── img1.gif
+            │   ├── ... 
+            │   └── img2.png
+            │
+            └── <文章資料夾2>/   # 文章2
+                ├── index.Rmd    # 文章2 內文
+                ├── ... 
+                └── img2.png
+    ```
+
+1. 在 `content/<作者資料夾>/_index.md` 第一行開始新增下列內容：
+    
+    ```yml
+    ---
+    title: <標題> # e.g., Yongfu's Blog
+    subtitle: <副標題> #e.g.,  R · Learning · Life
+    disable_mathjax: true
+    disable_highlight: true
+    ---
+    ```
+
+1. 至 [config.yaml](https://github.com/Rbloggers/coBlogger/blob/dd235acb6debd9d5bc29abd8f104dc3143769ad7/config.yaml#L32-L34) `menu > main` 之下新增連結資訊
+
+1. 提出 Pull Request
 
 ## 問題協助
 
