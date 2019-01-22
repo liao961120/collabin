@@ -1,6 +1,6 @@
 ---
 title: 協作部落格
-subtitle: 三步驟發表文章
+subtitle: Collaborate
 disable_mathjax: true
 comment: true
 ---
@@ -11,7 +11,7 @@ comment: true
 
 ### Google 表單
 
-見 [三步驟發表文章](https://corbloggers.netlify.com/info/about/#三步驟發表)
+見 [三步驟發表文章](/info/about/#三步驟發表)。
 
 ### GitHub 使用者
 
