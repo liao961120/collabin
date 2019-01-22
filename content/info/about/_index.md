@@ -2,7 +2,8 @@
 title: 關於
 subtitle: A Blog for Anyone
 disable_mathjax: true
-disable_highlight: true
+disable_highlight: false
+comment: true
 ---
 
 
@@ -13,13 +14,15 @@ disable_highlight: true
 
 ## 簡單的文章發表機制
 
-發表文章步驟：
+### 三步驟發表
 
-1. 使用 R Markdown 撰寫文章
+1. 使用 R Markdown 撰寫文章 (下載[模板](#))
 1. 將 `.Rmd` 檔與相關外部檔案（Rmd 所在之資料夾）壓縮成 `.zip` 檔
 1. 填寫文章上傳表單：<http://bit.ly/coRbloggersForm>
 
-若您熟悉 GitHub 的 Pull Request，可直接使用 GitHub 新增文章。詳見 [GitHub 使用者](/info/submit/#github-使用者)。
+### GitHub
+
+若您熟悉如何使用 GitHub 的 Pull Request，可透過此方式新增文章。更多資訊，詳見 [GitHub 使用者](/info/submit/#github-使用者)。
 
 
 ## 增加文章能見度

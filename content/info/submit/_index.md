@@ -2,14 +2,16 @@
 title: 協作部落格
 subtitle: 三步驟發表文章
 disable_mathjax: true
+comment: true
 ---
 
 
 
-## 兩種提交機制
+## 兩種文章發表方式
 
-### Google 表單提交
+### Google 表單
 
+見 [三步驟發表文章](https://corbloggers.netlify.com/info/about/#三步驟發表)
 
 ### GitHub 使用者
 
