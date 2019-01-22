@@ -2,7 +2,6 @@
 title: 協作部落格
 subtitle: 三步驟發表文章
 disable_mathjax: true
-disable_highlight: true
 ---
 
 
@@ -20,7 +19,7 @@ disable_highlight: true
 
 1. 在 `content/` 下新增作者資料夾及文章資料夾，每篇文章是各自獨立的一個資料夾：
 
-    ```yml
+    ```yaml
     /
     ├── content/
         ├── <作者資料夾>/
@@ -40,7 +39,7 @@ disable_highlight: true
 
 1. 在 `content/<作者資料夾>/_index.md` 第一行開始新增下列內容：
     
-    ```yml
+    ```yaml
     ---
     title: <標題> # e.g., Yongfu's Blog
     subtitle: <副標題> #e.g.,  R · Learning · Life
