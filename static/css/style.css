@@ -1,7 +1,8 @@
 /* Micro Reset */
 
 html {
-  font-size: 100%;
+  font-size: 17.5px;
+  /* font-size: 100%; */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   box-sizing: border-box;
@@ -78,7 +79,9 @@ pre code {
 }
 
 code {
-  background: #f9f9f9;
+  padding: 0.12rem 0.2rem .12rem .2rem;
+  border-radius: 7px;
+  background: #f1f1f1;
 }
 
 pre code {
