@@ -5,7 +5,7 @@ author: "Yongfu Liao"
 mysite: https://liao961120.github.io
 date: "2019-01-22"
 comment: true
-tags: ['**R Markdown**', 'blogging'] #rblog
+tags: ['R Markdown', 'blogging'] #rblog
 bibliography: ref.bib
 link-citations: false
 toc-title: '目錄' # option for pagedown
