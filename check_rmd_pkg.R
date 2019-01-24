@@ -1,25 +1,26 @@
 library(magrittr)
+## Helper
 str_match <- function(...) stringr::str_match(...)
-
-# Loop over Rmd files to match library(<pkg>)
-rmd_files <- list.files(pattern = '[Rr]md$', recursive = T)
-
-used_pkgs <- vector("list", length(rmd_files))
-for (i in seq_along(rmd_files)) {
-  rscpt_path <- knitr::purl(rmd_files[[i]])
+map <- function(...) purrr::map(...)
+rmd2chr <- function(rmd_path) {
+  rscpt_path <- knitr::purl(rmd_path)
   raw <- readLines(rscpt_path, encoding = 'utf-8')
   file.remove(rscpt_path)
-  
-  libs <- str_match(raw, 'library\\((.+)\\)')[,2] %>%
-    na.omit()
-  
-  if (length(libs) == 0) libs <- NA_character_
-  used_pkgs[[i]] <- libs
+  return(raw)
+}
+check_len <- function(chr) {
+  if (length(chr) == 0) return('no-pkg-detected')
+  else return(chr)
 }
 
-used_pkgs <- unlist(used_pkgs) %>% .[!is.na(.)] %>% 
-  unique()
+## Find out used pkgs from 'library'
+used_pkgs <- list.files(pattern = '[Rr]md$', recursive = T) %>%
+  map(rmd2chr) %>%
+  unlist() %>%
+  str_match('library\\((.+)\\)') %>% .[,2] %>%
+  unique() %>%
+  na.omit() %>%
+  check_len()
 
-need_install <- !(used_pkgs %in% rownames(installed.packages()))
-
-writeLines(used_pkgs[need_install], 'need_install.txt')
+cur_pkgs <- c(rownames(installed.packages()), 'no-pkg-detected')
+writeLines(used_pkgs[!(used_pkgs %in% cur_pkgs)], 'need_install.txt')
