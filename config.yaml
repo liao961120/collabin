@@ -15,6 +15,9 @@ menu:
     - name: "Home\U0001F3E0"
       url: /
       weight: 1
+    - name: "發表\U0001F4C2"
+      url: /info/submit/
+      weight: 2
     - name: About
       url: /info/about/
       weight: 3
@@ -29,11 +32,6 @@ menu:
     - name: Yongfu Liao
       url: /yongfu/
       weight: 100
-    - name: ''
-      weight: 200
-    - name: Submit
-      url: /info/submit/
-      weight: 201
 params:
   customJS:
     - js/fix-toc.js
