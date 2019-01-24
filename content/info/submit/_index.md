@@ -9,6 +9,7 @@ comment: true
 
 ## 兩種文章發表方式
 
+
 ### Google 表單
 
 見 [三步驟發表文章](/info/about/#三步驟發表)。
@@ -19,7 +20,7 @@ comment: true
 
 1. Fork [Rbloggers/coBlogger](https://github.com/Rbloggers/coBlogger)
 
-1. 在 `content/` 下新增作者資料夾及文章資料夾，每篇文章是各自獨立的一個資料夾：
+1. 在 `content/` 下新增作者資料夾及[文章資料夾](https://github.com/Rbloggers/coBlogger/tree/master/content/yongfu/write-in-rmd)，每篇文章是各自獨立的一個資料夾：
 
     ```yaml
     /

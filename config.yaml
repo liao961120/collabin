@@ -17,21 +17,23 @@ menu:
       weight: 1
     - name: About
       url: /info/about/
-      weight: 2
+      weight: 3
     - name: Tags
       url: /tags/
-      weight: 3
-    - name: ''
       weight: 4
+    - name: ' '
+      weight: 10
     - name: "作者\U0001F465"
       url: /info/authors/
-      weight: 5
-    - name: 王小明
-      url: /wang/
-      weight: 10
+      weight: 15
     - name: Yongfu Liao
       url: /yongfu/
-      weight: 10
+      weight: 100
+    - name: ''
+      weight: 200
+    - name: Submit
+      url: /info/submit/
+      weight: 201
 params:
   customJS:
     - js/fix-toc.js
