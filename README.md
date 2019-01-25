@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Rbloggers/coBlogger.svg?branch=master)](https://travis-ci.org/Rbloggers/coBlogger)
+[![Build Status](https://travis-ci.org/Rbloggers/collabin.svg?branch=master)](https://travis-ci.org/Rbloggers/collabin)
 
 
 # 協作閣
