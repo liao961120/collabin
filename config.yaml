@@ -1,7 +1,7 @@
 theme: hugo-ivy
 baseurl: https://corbloggers.netlify.com/
 languageCode: zh-tw
-title: R部落客 · 協作
+title: 協作閣
 ignoreFiles:
   - \.Rmd$
   - _files$
@@ -31,7 +31,7 @@ menu:
       weight: 15
     - name: Yongfu Liao
       url: /yongfu/
-      weight: 100
+      weight: 100 # author weights are all the same
 params:
   customJS:
     - js/fix-toc.js
@@ -44,13 +44,19 @@ params:
     - js/alt-title.js
   description: 開源協作部落格
   disqusURL: 'http://corbloggers.disqus.com'
-  footer: '© [R部落客 · 協作](/) 2019'
+  footer: '© [協作閣](/) 2019'
   githubContentURL: 'https://github.com/rbind/yihui/edit/master/content/'
   highlightjsCDN: //cdn.bootcss.com
   highlightjsLang:
     - r
     - yaml
+    - toml
     - tex
+    - python
+    - bash
+    - javascript
+    - css
+    - html
   highlightjsTheme: github
   highlightjsVersion: 9.12.0
   twitterImage: /images/logo.png

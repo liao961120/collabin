@@ -16,7 +16,7 @@ comment: true
 
 ### GitHub 使用者
 
-**R部落客 • 協作** 託管於 GitHub 上。因此，若熟悉 GitHub，可直接以 Pull Request 的方式新增文章：
+**協作閣** 託管於 GitHub 上。因此，若熟悉 GitHub，可直接以 Pull Request 的方式新增文章：
 
 1. Fork [Rbloggers/coBlogger](https://github.com/Rbloggers/coBlogger)
 
