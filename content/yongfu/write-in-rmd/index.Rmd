@@ -5,6 +5,7 @@ author: "Yongfu Liao"
 mysite: https://liao961120.github.io
 date: "2019-01-22"
 comment: true
+fb_quote: true
 tags: ['R Markdown', 'blogging'] #rblog
 bibliography: ref.bib
 link-citations: false
@@ -64,7 +65,7 @@ knitr::include_graphics('https://bit.ly/2DsQ9Od')
 
 ## Markdown：改善 WYSIWYM {#md-enhance}
 
-面對過於複雜的標記式語言，[John Gruber](https://en.wikipedia.org/wiki/John_Gruber) 發明了 Markdown 以解決撰寫網頁時，過於複雜的 HTML 語法。Markdown 是一種容易學習、極為簡化的標記式語言。事實上，由於原始的 Markdown 語法過於簡單^[Markdown 的語法雖然簡單，但這並不代表其排版能力弱於 HTML，因為 Markdown 語法可與 HTML 混用。]，造成許多衍生「風格」Markdown 的發明以擴充原本不足的語法。這也間接導致今日 Markdown 並非可通行 (portable) 於所有聲稱支援 Markdown 的平台。
+面對過於複雜的標記式語言，[John Gruber](https://en.wikipedia.org/wiki/John_Gruber) 發明了 Markdown 以解決撰寫網頁時過於複雜的 HTML 語法。Markdown 是一種容易學習、極為簡化的標記式語言。事實上，由於原始的 Markdown 語法過於簡單^[Markdown 的語法雖然簡單，但這並不代表其排版能力弱於 HTML，因為 Markdown 語法可與 HTML 混用。]，造成許多衍生「風格」Markdown 的發明以擴充原本不足的語法。這也間接導致今日 Markdown 並非可通行 (portable) 於所有聲稱支援 Markdown 的平台。
 
 ```{r md2html, echo=FALSE, fig.cap='Markdown 轉換成 HTML'}
 knitr::include_graphics('md2html.png')
