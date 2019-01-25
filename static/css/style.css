@@ -74,7 +74,8 @@ pre code {
   border: 1px solid #ddd;
   box-shadow: 5px 5px 5px #eee;
   padding: 1em;
-  overflow-x: auto;
+  white-space:pre !important; /*new */
+  overflow-x:scroll !important; /*auto;*/
   line-height: 1.75;
 }
 
