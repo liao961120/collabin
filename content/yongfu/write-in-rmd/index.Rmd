@@ -155,7 +155,7 @@ ggplot(data = iris) +
 
 以目前資訊科技的發展來看，後者是比較可能的，畢竟網路科技是程式軟體開發的重要焦點，以網頁為媒介的文件只會越來越多；相對來說，$\LaTeX$ 可能只剩學術界在使用，學術界本身更是缺乏人力去做這種吃力不討好的工作 (開發程式將 $\LaTeX$ 轉換成 HTML)。
 
-事實上，目前已有實際的專案在嘗試這件事。例如，網頁的 CSS 可定義 [page media](https://developer.mozilla.org/en-US/docs/Web/CSS/Paged_Media)，能部份控制瀏覽器如何生成 PDF。另一個更有前景的專案是 **R Markdown** 生態圈裡的新套件 -- [pagedown](https://github.com/rstudio/pagedown)。pagedown 旨在直接生成**以印刷為目的**的 HTML 文件，而略過 **R Markdown** 透過 Pandoc 及 $\LaTeX$ 生成 PDF 的歷程^[這是一個困難重重的過程，看見 $\LaTeX$ 噴錯是一件驚心動魄的事。]。你可以在[這裡](https://liao961120.github.io/notes/write-in-rmd/paged.html)看看**本文**以 pagedown 輸出的樣式。我完全不需更動文章內容，只要使用不同的輸出指令，就能從部落格文章瞬間轉換成漂亮的紙本印刷物。
+事實上，目前已有實際的專案在嘗試這件事。例如，網頁的 CSS 可定義 [page media](https://developer.mozilla.org/en-US/docs/Web/CSS/Paged_Media)，能部份控制瀏覽器如何生成 PDF。另一個更有前景的專案是 **R Markdown** 生態圈裡的新套件 -- [pagedown](https://github.com/rstudio/pagedown)。pagedown 旨在直接生成**以印刷為目的**的 HTML 文件，而略過 **R Markdown** 透過 Pandoc 及 $\LaTeX$ 生成 PDF 的歷程^[這是一個困難重重的過程，看見 $\LaTeX$ 噴錯是一件驚心動魄的事。]。你可以在[這裡](https://liao961120.github.io/notes/write-in-rmd/paged.html)看看**本文**以 pagedown 輸出的樣式。我完全不需更動文章內容，只要使用不同的輸出指令，就能從部落格文章瞬間轉換成漂亮的紙本印刷物 (可用 chrome 列印 > 儲存成 PDF)。
 
 ## 小結 {#conclusion}
 
@@ -171,6 +171,8 @@ ggplot(data = iris) +
 
 這篇文章的想法源自下列資源。
 
+<!-- 以下語法用於插入 ref.bib 中所有文獻
+     見 https://pandoc.org/MANUAL.html#citations -->
 ---
 nocite: | 
   @*
