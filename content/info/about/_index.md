@@ -28,7 +28,7 @@ comment: true
 
 ### 三步驟發表
 
-1. 使用 R Markdown 撰寫文章 (可[下載](https://corbloggers.netlify.com/post-template.zip)範例，其輸出為[這篇文章](/yongfu/write-in-rmd/))
+1. 使用 R Markdown 撰寫文章 (可[下載](https://collabin.netlify.com/post-template.zip)範例，其輸出為[這篇文章](/yongfu/write-in-rmd/))
 1. 將 `.Rmd` 檔與相關外部檔案（Rmd 所在之資料夾）壓縮成 `.zip` 檔
 1. 填寫文章上傳表單：<http://bit.ly/coRbloggersForm>
 
