@@ -31,7 +31,7 @@ menu:
       weight: 15
     - name: Yongfu Liao
       url: /yongfu/
-      weight: 100 # author weights are all the same
+      weight: 100   # author weights are always 100
 params:
   customJS:
     - js/fix-toc.js
