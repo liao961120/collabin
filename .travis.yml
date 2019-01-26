@@ -14,14 +14,12 @@ before_install:
 script:
   - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'options(blogdown.new_bundle = TRUE); blogdown::build_site()'
-  - Rscript -e 'blogdown::serve_site()'
-  - Rscript -e 'blogdown::stop_server()'
-  - mv need_install.txt public/
+
 
 deploy:
   provider: pages
   target-branch: web
-  local_dir: public
+#  local_dir: public
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: true
