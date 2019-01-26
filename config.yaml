@@ -52,11 +52,6 @@ params:
     - yaml
     - toml
     - tex
-    - python
-    - bash
-    - javascript
-    - css
-    - html
   highlightjsTheme: github
   highlightjsVersion: 9.12.0
   twitterImage: /images/logo.png
