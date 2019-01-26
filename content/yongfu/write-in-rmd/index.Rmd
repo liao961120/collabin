@@ -32,10 +32,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 這篇文章並非 **R Markdown** 的教學文[^intro-rmd]，而是一篇**企圖說服**讀者採用 **R Markdown** 作為寫作工具的文章。本文以 **R Markdown** 撰寫並使用 **blogdown** 輸出部落格文章。[原始碼](https://github.com/Rbloggers/coBlogger/tree/master/content/yongfu/write-in-rmd)託管於 GitHub。
 
+![](RmdOutputFormats.png){style='width:30%;float: right;padding-left:18px'}
 從第一次接觸 **R Markdown** 至今經過了一年又三個月。而最近六個多月，我都沒有使用過 Microsoft Word 寫東西，因為 **R Markdown** 強大的功能使我得以不用 Word 也能生存 -- 我用 **R Markdown** 寫[作業](https://liao961120.github.io/notes/106-2/multivariate/HW2.html)、[文章](https://github.com/liao961120/ling-rmd/blob/master/main.pdf)、[書](https://liao961120.github.io/MVA)、[論文](https://liao961120.github.io/ntuthesis)和部落格 (本文)，製作[筆記](https://liao961120.github.io/notes/mylinux.html)、[投影片](https://liao961120.github.io/slides/xaringan)、甚至[網頁](https://twlangsurvey.github.io)。事實上，這正是 **R Markdown** 最吸引人的地方：
 
 > 用相同的語法撰寫各式類型的文件。
-
 
 ## 兩種媒介：紙本 vs. 網頁 {#printing-vs-surfing}
 
