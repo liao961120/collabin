@@ -2,12 +2,12 @@
 title: "網路時代下的寫作"
 subtitle: "Why R Markdown?"
 author: "Yongfu Liao"
-mysite: https://liao961120.github.io
+mysite: https://liao961120.github.io  # 作者網站
 date: "2019-01-22"
-comment: true
-FBquote: true
-tags: ['R Markdown', 'blogging'] #rblog
-bibliography: ref.bib
+comment: true  # 文章是否開放留言
+FBquote: true  # 是否使用 FB 引文外掛, 見 bit.ly/2sL31Jt
+tags: ['R Markdown', 'blogging']  # 文章 tag
+bibliography: ref.bib             # 參考文獻資料檔
 link-citations: false
 toc-title: '目錄' # option for pagedown
 lot: false  # option for pagedown
@@ -30,7 +30,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-這篇文章並非 **R Markdown** 的教學文[^intro-rmd]，而是一篇**企圖說服**讀者採用 **R Markdown** 作為寫作工具的文章。本文以 **R Markdown** 撰寫並使用 **blogdown** 輸出部落格文章。[原始碼](https://github.com/Rbloggers/coBlogger/tree/master/content/yongfu/write-in-rmd)託管於 GitHub。
+這篇文章並非 **R Markdown** 的教學文[^intro-rmd]，而是一篇**企圖說服**讀者採用 **R Markdown** 作為寫作工具的文章。本文以 **R Markdown** 撰寫並使用 **blogdown** 輸出部落格文章。[原始碼](https://github.com/Rbloggers/collabin/tree/master/content/yongfu/write-in-rmd)託管於 GitHub。
 
 ![](RmdOutputFormats.png){style='width:30%;float: right;padding-left:18px'}
 從第一次接觸 **R Markdown** 至今經過了一年又三個月。而最近六個多月，我都沒有使用過 Microsoft Word 寫東西，因為 **R Markdown** 強大的功能使我得以不用 Word 也能生存 -- 我用 **R Markdown** 寫[作業](https://liao961120.github.io/notes/106-2/multivariate/HW2.html)、[文章](https://github.com/liao961120/ling-rmd/blob/master/main.pdf)、[書](https://liao961120.github.io/MVA)、[論文](https://liao961120.github.io/ntuthesis)和部落格 (本文)，製作[筆記](https://liao961120.github.io/notes/mylinux.html)、[投影片](https://liao961120.github.io/slides/xaringan)、甚至[網頁](https://twlangsurvey.github.io)。事實上，這正是 **R Markdown** 最吸引人的地方：
