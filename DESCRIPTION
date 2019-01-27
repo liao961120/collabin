@@ -20,5 +20,4 @@ Imports: bookdown,
   knitr,
   devtools,
   available
-Remotes: rstudio/blogdown
 RoxygenNote: 6.1.0
