@@ -13,6 +13,8 @@ script:
   - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'blogdown::build_site(local = F)'
 
+after_success:
+  - ls -d content/* | xargs -n 1 basename > public/invalid_names.txt
 
 deploy:
   provider: pages
