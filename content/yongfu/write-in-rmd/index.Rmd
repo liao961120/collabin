@@ -6,7 +6,7 @@ mysite: https://liao961120.github.io  # 作者網站
 date: "2019-01-22"
 comment: true  # 文章是否開放留言
 FBquote: true  # 是否使用 FB 引文外掛, 見 bit.ly/2sL31Jt
-tags: ['R Markdown', 'blogging']  # 文章 tag
+tags: ['R Markdown', 'blogging', 'rblog']  # 文章 tag
 bibliography: ref.bib             # 參考文獻資料檔
 link-citations: false
 toc-title: '目錄' # option for pagedown
