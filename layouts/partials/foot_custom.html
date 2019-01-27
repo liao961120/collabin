@@ -28,5 +28,8 @@ s.setAttribute('data-timestamp', +new Date());
 {{ end }}
 
 {{ if and (not .Params.disable_mathjax) (or (in (string .Content) "\\") (in (string .Content) "$")) }}
-<script async src="/js/rstudio-MathJax.js"></script>
+<!-- /js/MathJax.js?config=TeX-MML-AM_CHTML -->
+<!-- //mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML -->
+<script type="text/javascript" src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script async src="/js/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
 {{ end }}
