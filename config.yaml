@@ -8,6 +8,7 @@ ignoreFiles:
   - _cache$
 hasCJKLanguage: true
 enableEmoji: true
+googleAnalytics: UA-133306175-1
 rssLimit: 100
 footnotereturnlinkcontents: ↩
 menu:
