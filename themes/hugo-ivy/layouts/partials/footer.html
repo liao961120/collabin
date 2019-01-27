@@ -13,6 +13,14 @@ fjs.parentNode.insertBefore(js, fjs);
 
   <footer>
   {{ partial "foot_custom.html" . }}
+  
+  {{ if and (not .Params.disable_mathjax) (or (in (string .Content) "\\") (in (string .Content) "$")) }}
+  <!-- /js/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML -->
+  <!-- //mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML -->
+  <!-- //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML -->
+  <script async src="/js/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  {{ end }}
+
   {{ partial "footer_highlightjs" . }}
   {{ with .Site.Params.footer }}
   <hr>
