@@ -12,7 +12,7 @@ comment: true
 
 1. 用 R Markdown 寫文章 ([模板](https://collabin.netlify.com/post-template.zip)、[輸出文章](/yongfu/write-in-rmd/))
 1. 將 `.Rmd` 檔與相關外部檔案（Rmd 所在之資料夾）壓縮成 `.zip` 檔
-1. 填寫**文章上傳表單**：<http://bit.ly/coRbloggersForm>
+1. 填寫**文章上傳表單**：<https://goo.gl/forms/p2COrcydN4EYoqWG3>
 
 如果可以的話，我們希望使用者能註冊 [GitHub](https://github.com) 帳號，嘗試學習直接透過 Pull Request 新增文章 (見下)。如此，GitHub 能記錄您發表文章的歷史，而您未來也能學會使用 GitHub 託管網站。
 
