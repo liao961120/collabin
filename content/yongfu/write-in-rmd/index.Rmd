@@ -118,6 +118,12 @@ ggplot(data = iris) +
 
 透過 Pandoc 的加持，**R Markdown** 能輸出成多種格式。此外，也因為 Pandoc Markdown[^pandoc-md] 的語法完整，**R Markdown** 能進行非常精緻的排版 (精緻到能輸出[可直接送印出版的書籍](https://yihui.name/en/2018/08/bookdown-crc/))。但 Pandoc 強大的功能使其與**沒有程式經驗的使用者**絕緣，因為這些使用者不可能會去研究、下載、打開 Command Line 執行 Pandoc。**R Markdown** 將對於新手過於複雜的 Pandoc 隱藏起來，讓使用者透過 GUI 界面就能直覺地使用 Pandoc 的功能。
 
+(ref:rmdflow) **R Markdown** 運作流程。先由 `knitr` 將 `.Rmd` 中的程式碼執行結果插入 `.md` (文件由 `.Rmd` 轉換為 `.md`)，再透過 Pandoc 將 `.md` 轉換成其它輸出格式。
+
+```{r echo=FALSE, fig.cap='(ref:rmdflow)'}
+knitr::include_graphics('rmarkdownflow.png')
+```
+
 
 ### 回到 **R Markdown** {#back-to-rmd}
 
