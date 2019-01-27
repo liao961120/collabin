@@ -13,7 +13,7 @@ before_install:
 
 script:
   - Rscript check_rmd_pkg.R; cat need_install.txt
-  - Rscript -e 'blogdown::build_site(local = T)'
+  - Rscript -e 'blogdown::build_site(local = F)'
 
 
 deploy:
