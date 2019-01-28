@@ -166,6 +166,18 @@ knitr::include_graphics('rmarkdownflow.png')
 
 ## 小結 {#conclusion}
 
+- 因為歷史因素，現存兩種文字承載媒介 -- 紙本和網頁。對多數人來說，必需**在使用紙本發表或使用網頁發表之間抉擇**。
+
+- 排版軟體有兩種設計邏輯 -- WYSIWYG vs. WYSIWYM，各自存在優缺點。WYSIWYG 使用起來直覺，但檔案管理不便；WYSIWYM 則語法複雜，但作出十分精美之排版且檔案管理方便。
+
+- Markdown 結合了過去 WYSIWYG 和 WYSIWYM 的優點，也解決了兩者的缺點。同時，Markdown 也有潛力解決紙本發表與網頁發表之間的矛盾。
+
+- R Markdown 擴充 Markdown 語法使其能撰寫相當複雜的文件 (如期刊文章、書籍、網站等) 並結合程式語言的支持，自動化許多麻煩事，讓使用者能快速上手使用。
+
+- 面對**紙本 vs. 網頁**，未來似乎向著以網頁為文字承載媒介主流的世界前進。而資訊科技的發展，使得紙本印刷之排版困難逐漸能被網頁技術解決。
+
+---
+
 > I have a dream that one day all students and researchers will forget what "formatting a paper" even means. I have a dream that one day journals and grad schools no longer have style guides. I have a dream that one day no missing $ is inserted, and \\hbox is never overfull.
 >
 > --- Yihui Xie^[https://twitter.com/xieyihui/status/1022873179532996609]
