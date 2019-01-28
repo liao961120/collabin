@@ -168,7 +168,7 @@ knitr::include_graphics('rmarkdownflow.png')
 
 - 因為歷史因素，現存兩種文字承載媒介 -- 紙本和網頁。對多數人來說，必需**在使用紙本發表或使用網頁發表之間抉擇**。
 
-- 排版軟體有兩種設計邏輯 -- WYSIWYG vs. WYSIWYM，各自存在優缺點。WYSIWYG 使用起來直覺，但檔案管理不便；WYSIWYM 則語法複雜，但作出十分精美之排版且檔案管理方便。
+- 排版軟體的兩種設計邏輯 -- WYSIWYG vs. WYSIWYM，各自存在優缺點。WYSIWYG 使用起來直覺，但檔案管理不便；WYSIWYM 則語法複雜，但作出十分精美之排版且檔案管理方便。
 
 - Markdown 結合了過去 WYSIWYG 和 WYSIWYM 的優點，也解決了兩者的缺點。同時，Markdown 也有潛力解決紙本發表與網頁發表之間的矛盾。
 
