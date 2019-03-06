@@ -18,7 +18,16 @@ output:
   pagedown::book_crc:
     toc: true
     number_sections: false
-    self_contained: false
+    self_contained: true
+    pandoc_args: "--mathjax"
+    mathjax: NULL
+  bookdown::html_document2:
+    number_sections: false
+    self_contained: true
+    pandoc_args: "--mathjax"
+    mathjax: NULL
+    theme: NULL
+    template: /home/liao/R/x86_64-pc-linux-gnu-library/3.4/rmarkdown/rmd/fragment/default.html
   rmdformats::readthedown:
     use_bookdown: true
     number_sections: false

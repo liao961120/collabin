@@ -6,6 +6,7 @@ cache:
   packages: yes
 
 before_install:
+  - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
   - Rscript -e 'blogdown::install_hugo()'
 
