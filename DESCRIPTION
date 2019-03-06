@@ -19,5 +19,6 @@ Imports: bookdown,
   tidyverse,
   knitr,
   devtools,
-  available
+  available,
+  remotes
 RoxygenNote: 6.1.0
