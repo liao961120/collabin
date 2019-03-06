@@ -18,7 +18,7 @@ VignetteBuilder: knitr
 Imports: bookdown,
   tidyverse,
   knitr,
+  remotes,
   devtools,
-  available,
-  remotes
+  available
 RoxygenNote: 6.1.0
