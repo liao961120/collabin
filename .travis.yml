@@ -12,16 +12,16 @@ cache:
   directories:
     - $HOME/bin
 
-
 script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
   - Rscript -e 'blogdown::install_hugo()'
-  - Rscript check_rmd_pkg.R; cat need_install.txt; mv need_install.txt public/
+  - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'blogdown::build_site()'
 
 after_success:
   - ls -d content/* | xargs -n 1 basename > public/invalid_names.txt
+  - mv need_install.txt public/
 
 deploy:
   provider: pages

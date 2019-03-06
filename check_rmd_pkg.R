@@ -24,3 +24,11 @@ used_pkgs <- list.files(pattern = '[Rr]md$', recursive = T) %>%
 
 cur_pkgs <- c(rownames(installed.packages()), 'no-pkg-detected')
 writeLines(used_pkgs[!(used_pkgs %in% cur_pkgs)], 'need_install.txt')
+
+pkg_lst <- readLines('need_install.txt')
+if (length(pkg_lst) != 0) {
+  cat('Installing packages detected in Rmd ...', 
+      'If errored, check `need_install.txt` for GitHub dep.', 
+      sep = '\n')
+  install.packages(pkg_lst)
+}
