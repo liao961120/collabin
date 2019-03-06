@@ -1,16 +1,24 @@
 language: r
+dist: xenial
+latex: false
 pandoc_version: 2.3.1
-sudo: false
+
+branches:
+  only:
+    - master
 
 cache:
   packages: yes
+  directories:
+    - $HOME/bin
 
-before_install:
+#before_install:
+#  - sudo apt-get install libstdc++6
+
+script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
   - Rscript -e 'blogdown::install_hugo()'
-
-script:
   - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'blogdown::build_site()'
 
