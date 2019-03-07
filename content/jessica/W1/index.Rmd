@@ -5,6 +5,7 @@ author: "Jessica"
 mysite: /jessica/
 date: "2019-03-05"
 tags: ['R Markdown', 'blogging', 'LOPE']
+comment: true
 output: html_document
 ---
 ```{r setup, include=FALSE}
