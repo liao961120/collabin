@@ -2,6 +2,7 @@
 title: "從數字看新書"
 subtitle: "Ｗ1 microblog"
 author: "Jessica"
+mysite: /jessica/
 date: "2019-03-05"
 tags: ['R Markdown', 'blogging', 'LOPE']
 output: html_document
