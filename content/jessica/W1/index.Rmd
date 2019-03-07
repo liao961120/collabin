@@ -4,7 +4,7 @@ subtitle: "Ｗ1 microblog"
 author: "Jessica"
 mysite: /jessica/
 date: "2019-03-05"
-tags: ['R Markdown', 'blogging', 'LOPE']
+tags: ['LOPE']
 comment: true
 output: html_document
 ---
