@@ -598,3 +598,8 @@ img[src$="#border"] {
     padding-left: 10px;
   }
 }
+
+p.caption {
+    color: rgb(75,75,75);
+    font-size: 0.9em;
+}

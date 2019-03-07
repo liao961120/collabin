@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Rbloggers/collabin.svg?branch=master)](https://travis-ci.org/Rbloggers/collabin)
+[![Build Status](https://travis-ci.org/liao961120/collabin.svg?branch=master)](https://travis-ci.org/liao961120/collabin)
 
 
 # 協作閣
@@ -10,5 +10,6 @@
 
 1. If 新作者
     - 新增作者資料夾
-    - 新增[表單](https://docs.google.com/forms/d/12fiuouoT-aogvv-Z2h2S-uROPVS_stebgOtlxpf5uzA/edit)作者 ID
+        - 新增 [`_index.md`](https://github.com/liao961120/collabin/blob/master/content/yongfu/_index.md)
+    - `config.yaml`: 新增作者 ID
 
