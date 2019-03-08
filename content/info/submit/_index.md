@@ -7,7 +7,7 @@ comment: true
 
 ## LOPE
 
-若您是 [LOPE](http://lope.linguistics.ntu.edu.tw/) 成員，請直接填寫[此表單](https://goo.gl/forms/t76C5JNDjMx8DxX42)。其他使用者，詳見下方說明。
+若您是 [LOPE](http://lope.linguistics.ntu.edu.tw/) 成員，請先閱讀 [協作閣 for LOPE](https://bit.ly/LOPE0221) 再填寫[這份表單](https://goo.gl/forms/t76C5JNDjMx8DxX42)。其他使用者，詳見下方說明。
 
 
 ## 兩種文章發表方式
