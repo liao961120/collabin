@@ -5,10 +5,15 @@ date: "2019-03-07"
 mysite: /joychiang/
 comment: true
 output: html_document
+    
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 
@@ -68,7 +73,7 @@ PS: 我還是寫到半夜啊...
 由於 coding 需要複習一下，所以我就先做一個小的練習：讀取文字資料並製作詞頻表，之後會慢慢加入更多東西。  
 
 #### 第一小步：製作詞頻表
-```{r pressure, echo=FALSE}
+```{r pressure}
 comling <- read.csv(file="com_ling.csv", header = T)
 all_com <-as.character(lapply(comling, toString))
 
@@ -79,7 +84,7 @@ seg <- worker()
 all_com_seg <- seg[all_com]
 #詞頻表
 all_com_list <-as.data.frame(sort(table(all_com_seg), decreasing = T))
-all_com_list[1:50,]
+rmarkdown::paged_table(all_com_list[1:50,])
 ```
 
 #### 可以進步的第一小步
