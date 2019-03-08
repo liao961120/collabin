@@ -39,6 +39,9 @@ menu:
     - name: Don
       url: /don/
       weight: 100   # author weights are always 100
+    - name: Joy
+      url: /joychiang/
+      weight: 100   # author weights are always 100
 params:
   customJS:
     - js/fix-toc.js
