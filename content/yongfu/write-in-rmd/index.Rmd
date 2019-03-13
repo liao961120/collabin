@@ -189,7 +189,9 @@ knitr::include_graphics('rmarkdownflow.png')
 
 > I have a dream that one day all students and researchers will forget what "formatting a paper" even means. I have a dream that one day journals and grad schools no longer have style guides. I have a dream that one day no missing $ is inserted, and \\hbox is never overfull.
 >
-> --- Yihui Xie^[https://twitter.com/xieyihui/status/1022873179532996609]
+> --- Yihui Xie[^quote]
+
+[^quote]: https://twitter.com/xieyihui/status/1022873179532996609)
 
 這段文字是 Yihui 的夢想，我想也是 R Markdown 的終極目標：讓文字工作者能**專注在寫作內容**，而將格式與排版等麻煩事交給 R Markdown。
 
@@ -218,4 +220,4 @@ nocite: |
 
 [^pandoc-md]: Pandoc 自行定義的 Markdown 語法，是市面上盛行的其中一種 Markdown「風格」。Pandoc Markdown 的特色在於其**支援功能非常完整**，例如，它除了大幅擴充原本的 Markdown 語法外，甚至還增加了插入文獻引用的功能 (如同 Endnote，自動處理文獻引用格式)。
 
-[^md-variety]: 其中一種解決方法是只用[**最簡化的 Markdown**](https://daringfireball.net/projects/markdown/syntax)。如果還需更複雜的排版，就使用 HTML tag。
+[^md-variety]: 其中一種解決方法是只用**最簡化的 Markdown** (https://daringfireball.net/projects/markdown/syntax)。如果還需更複雜的排版，就使用 HTML tag。
