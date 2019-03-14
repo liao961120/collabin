@@ -1,0 +1,150 @@
+---
+title: "The Speech of Fiction"
+subtitle: "Ｗ2 microblog"
+author: "Jessica"
+date: "2019-03-14"
+tags: ['LOPE']
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(jiebaR)
+library(readxl)
+library(reshape2)
+library(ggplot2)
+```
+
+#國教院分詞系統
+http://120.127.233.228/Segmentor/
+
+Rpubs ggplot2 tutorial
+http://www.rpubs.com/chiahung_tsai/lecture05012018
+http://www.learn-r-the-easy-way.tw/chapters/14
+
+R dataframe manipulate
+http://www.learn-r-the-easy-way.tw/chapters/16
+
+
+# python:nltk,hanlp
+```{r}
+gm.xlsx <- read_excel('dg_fiction.xlsx', 1)
+gmdg=as.data.frame(gm.xlsx)
+gmdg=gmdg[[1]]
+print(gmdg)
+s <- strsplit(gmdg,"")
+(char_num <- length(unlist(s)))
+gml=2242/195
+gml
+```
+
+```{r}
+mt.xlsx <- read_excel('dg_fiction.xlsx',2)
+mtdg=as.data.frame(mt.xlsx)
+mtdg=mtdg[[1]]
+#print(mtdg)
+s <- strsplit(mtdg,"")
+(char_num <- length(unlist(s)))
+mtl=2519/398
+mtl
+```
+
+```{r}
+mh.xlsx <- read_excel('dg_fiction.xlsx',3)
+mhdg=as.data.frame(mh.xlsx)
+mhdg=mhdg[[1]]
+#print(mhdg)
+s <- strsplit(mhdg,"")
+(char_num <- length(unlist(s)))
+mhl=2902/332
+mhl
+```
+```{r}
+ch.xlsx <- read_excel('dg_fiction.xlsx',4)
+chdg=as.data.frame(ch.xlsx)
+chdg=chdg[[1]]
+s <- strsplit(chdg,"")
+(char_num <- length(unlist(s)))
+chl=3836/427
+chl
+```
+
+```{r}
+h.xlsx <- read_excel('dg_fiction.xlsx',5)
+hdg=as.data.frame(h.xlsx)
+hdg=hdg[[1]]
+s <- strsplit(hdg,"")
+(char_num <- length(unlist(s)))
+hl=4019/674
+hl
+```
+```{r}
+r.xlsx <- read_excel('dg_fiction.xlsx',6)
+rdg=as.data.frame(r.xlsx)
+rdg=rdg[[1]]
+s <- strsplit(rdg,"")
+(char_num <- length(unlist(s)))
+rl=3039/358
+rl
+```
+
+#問句前長度
+```{r}
+df=data.frame(top3=c("ghost mansion","mantra","my heart belongs to you","chic","historical","romance"),length=c(11.49744,6.329146,8.740964,8.983607,5.962908,8.488827))
+df
+saveRDS(df,file = "top3_before_dialogue_proportion.rds")
+```
+
+
+
+```{r}
+before_dg_length=ggplot(df, aes(x =df$top3, y=df$length,fill = cat)) +
+  geom_bar(stat="identity",position = "dodge")+
+  theme(text = element_text(family = 'STKaiti'))
+before_dg_length
+```
+#Discourse length and proportion
+```{r}
+df2=data.frame(genre=c("chic","historical","romance"),ds.avg=c(25.68,24.5,23.07),ds.pro=c(0.0700819061801936,0.140769879179544,0.148871874098093))
+df2
+
+```
+
+```{r}
+genre_dg_avg=ggplot(df2, aes(x = df2$genre,y=df2$ds.avg, fill=df2$genre))+geom_bar(stat ="identity")+coord_flip()+theme(text = element_text(family = 'STKaiti'))+ geom_text(data=df2, aes(x=df2$genre, label=df2$ds.avg, y=df2$ds.avg+0.2), size=4)
+genre_dg_avg
+```
+
+
+```{r}
+df3=data.frame(top3=c("Ghost Mansion","Mantra","My heart belongs to you"),ds.avg=c(26.60,23.026,23.466),ds.pro=c(0.058418602608581,0.117760413357897,0.182226999517395))
+df3
+saveRDS(df3,file = "top3_before_dialogue_proportion.rds")
+```
+
+```{r}
+top_dg_avg=ggplot(df3, aes(x = df3$genre,y=df3$ds.avg, fill=df3$genre))+geom_bar(stat ="identity")+coord_flip()+theme(text = element_text(family = 'STKaiti'))+ geom_text(data=df3, aes(x=df3$genre, label=df3$ds.avg, y=df3$ds.avg+0.2), size=4)
+top_dg_avg
+```
+
+```{r}
+tagger1=data.frame(dg=c("笑著說","葉國強搖了搖頭說","小范立刻脫掉西裝強迫自己露出笑容","葉國強打斷她的話","操著孟加拉腔調的司機長篇大論地繼續發表著","矗立著又大又明顯且看起來還很新的告示牌","房間深處傳來一陣空洞的呻吟聲","還大聲地一個字一個字喊出來","我探著頭對著屋內喊","那婦人對著我說"),tag=c("笑(VA) 著(Di) 說(VE)","葉國強(Nb) 搖(VAC) 了(Di) 搖頭(VA) 說(VE)","小(VH) 范(Nb) 立刻(D) 脫掉(VC) 西裝(Na) 強迫(VF) 自己(Nh) 露出(VC) 笑容(Na)","葉國強(Nb) 打斷(VC) 她(Nh) 的(DE) 話(Na)","操(VC) 著(Di) 孟加拉(Nb) 腔調(Na) 的(DE) 司機(Na) 長篇大論(Na) 地(DE) 繼續(VF) 發表(VC) 著(Di)","矗立(VH) 著(Di) 又(D) 大(VH) 又(Caa) 明顯(VH) 且(Caa) 看起來(D) 還(D) 很(Dfa) 新(VH) 的(DE) 告示牌(Na)","房間(Nc) 深處(Nc) 傳來(VC) 一(Neu) 陣(Nf) 空洞(VH) 的(DE) 呻吟聲(Na)","還(D) 大聲(VH) 地(DE) 一(Neu) 個(Nf) 字(Na) 一(Neu) 個(Nf) 字(Na) 喊出來(VE)","我(Nh) 探(VC) 著(Di) 頭(Na) 對(P) 著(Di) 屋(Na) 內(Ncd) 喊(VE)","那(Nep) 婦人(Na) 對(P) 著(Di) 我(Nh) 說(VE)"))
+tagger1
+```
+```{r}
+top3_tagger.xlsx <- read_excel('dg_fiction.xlsx',1)
+tagger1=as.data.frame(top3_tagger.xlsx)
+print(tagger1)
+```
+
+```{r}
+genre_tagger.xlsx <- read_excel('dg_fiction.xlsx',2)
+tagger2=as.data.frame(genre_tagger.xlsx)
+print(tagger2)
+saveRDS(tagger2,file = "tagger2.rds")
+```
+
+
