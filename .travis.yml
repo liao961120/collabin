@@ -12,6 +12,9 @@ cache:
   directories:
     - $HOME/bin
 
+before_install:
+  - sudo apt-get install libstdc++6
+
 script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
