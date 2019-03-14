@@ -9,8 +9,7 @@ branches:
 
 cache:
   packages: yes
-  directories:
-    - $HOME/bin
+
 
 script:
   - Rscript -e 'install.packages("remotes")'
