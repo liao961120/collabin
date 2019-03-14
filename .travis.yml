@@ -14,7 +14,7 @@ cache:
     - $HOME/bin
 
 before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test  --yes
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get dist-upgrade
