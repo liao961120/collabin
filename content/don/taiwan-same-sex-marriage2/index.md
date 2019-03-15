@@ -1,6 +1,6 @@
 ---
 title: "台灣同性婚姻論述分析(II)"
-subtitle: ": 同性戀 vs. 同志"
+subtitle: "同性戀 vs. 同志"
 author: Don
 date: 2019-03-14
 mysite: /don/
