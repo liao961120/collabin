@@ -2,6 +2,7 @@
 title: "How to annotate in Chinese WordNet (CWN)"
 subtitle: "中文詞彙網路標記小實作"
 author: "Yolanda Chen"
+date: "2019-03-15"
 mysite: /yolanda/
 tags: ['cwn', 'annotation', 'lope']
 comment: true
