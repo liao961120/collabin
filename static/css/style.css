@@ -604,7 +604,7 @@ p.caption {
     font-size: 0.9em;
 }
 
-/* Deal with jupyter notebook output long code */
+/* Deal with long output message */
 code.nohighlight {
     height: auto;
     max-height: 350px;

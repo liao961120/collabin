@@ -11,7 +11,8 @@ mysite: /joychiang/
 knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
-	warning = FALSE
+	warning = FALSE,
+	comment = ""
 )
 ```
 
