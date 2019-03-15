@@ -1,21 +1,16 @@
 ---
 title: "The Speech of Fiction"
-subtitle: "The Speech of Fiction"
+subtitle: "Ｗ2 microblog"
 author: "Jessica"
 mysite: /jessica/
 date: "2019-03-14"
-tags: ['lope']
+tags: ['LOPE']
 comment: true
+isRmd: true
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	comment = "#>"
-)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 上週提到了我是一個非常喜歡逛書店、看書的人。上次的blog（從數字看新書）主要是著重在書的「外在環境」：台灣的出版業及不同年齡讀者的喜好上。這週我想要回歸到書本的「內在」，即是書裡面的文字部分。
@@ -48,12 +43,12 @@ knitr::include_graphics("Before dialogue length.png")
 圖表顯示，不管是哪一種類型的小說，對話前的句子都不長，集中在6~12個字中間。但是，*Ghost Mansion鬼魅豪宅*(總點擊排行榜第一名）的作者特別愛用長句來表現對話前的句子，比跟它同是都會小說（chic)的其他作品還要來得高。這表示這位作者特別喜歡在讓角色說話前給予很多描述，比如說：操著孟加拉腔調的司機長篇大論地繼續發表著、小范立刻脫掉西裝強迫自己露出笑容......。
 接下來我們來看看這些「對話前」的句子都長什麼樣吧！
 ```{r table1}
-tagger1 = readRDS('/var/folders/s3/x6bgjnss22ggm9fct3z9mgz00000gn/T//RtmpRJxzVk/file1e838d46acc')
+tagger1 = readRDS('top3_dialogue_tagger.rds')
 knitr::kable(tagger1, caption = "top3_詞性標註")
 ```
 
 ```{r table2}
-tagger2=readRDS("/Users/jl8394/Desktop/Jessica/Microblog/W2/tagger2.rds")
+tagger2=readRDS("tagger2.rds")
 knitr::kable(tagger2, caption = "genre_詞性標註")
 ```
 
@@ -71,12 +66,12 @@ knitr::include_graphics("different genre dialogue avg.png")
 ```
 
 ```{r}
-top3_dg_pro=readRDS("/Users/jl8394/Desktop/Jessica/Microblog/W2/top3_before_dialogue_proportion.rds")
+top3_dg_pro=readRDS("top3_before_dialogue_proportion.rds")
 knitr::kable(top3_dg_pro, caption = "top3 對話比例")
 ```
 
 ```{r}
-genre_dg_pro=readRDS("/Users/jl8394/Desktop/Jessica/Microblog/W2/genre_before_dialogue_proportion.rds")
+genre_dg_pro=readRDS("genre_before_dialogue_proportion.rds")
 knitr::kable(genre_dg_pro, caption = "genre 對話比例")
 ```
 
