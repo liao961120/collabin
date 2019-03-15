@@ -1,19 +1,13 @@
 ---
 title: "LittleLight 2"
 author: "Joy"
-date: "2019-03-14"
+date: "2019/3/14"
 comment: true  # 文章是否開放留言
 tags: ['lope']  # 文章 tag
-mysite: /joychiang/
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	comment = "#>"
-)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## 前情提要
@@ -45,6 +39,7 @@ comling <- read.csv(file = 'com_ling.csv')
 
 #認識原始資料結構
 str(comling)
+
 
 ```
 
@@ -91,10 +86,13 @@ rmarkdown::paged_table(comling_nostop[1:120,])
 **因此～更應該要寫筆記、常練習啊！！！！！！！**  
 以下紀錄一下自己發現的不懂的地方與理解或發現，希望以後還是會記得： 
 
-1. 在處理停用字表的時候發現，即使檔案命名為 .txt ，還是有無法運作的狀況。我想到之前在 Lope 的 python 的讀書會中有提過這樣的情況，後來我打開編輯器重新當上一次停用字表內容並存檔，就解決了這個問題。    
+1. 在處理停用字表的時候發現，即使檔案命名為 .txt ，還是有無法運作的狀況。我想到之前在 Lope 的 python 的讀書會中有提過這樣的情況，後來我打開編輯器重新貼上停用字表內容並另存新檔，就解決了這個問題。    
 
-2. 因為讀檔後的資料無法進行斷詞，所以回頭去挖它的 mode() ，後來就發現了 str() 這個函數，可以直接去看物件的結構組成，覺得很方便。  
+2. 因為讀檔後的資料無法進行斷詞，直覺地使用了 str() ，但發現 Ｒ 跟 Python 不一樣之處： str() 這個函數，可以直接去看物件的結構組成。（覺得很方便）因此使用了 mode() 去挖它的資料型態。  
 
-3. 在斷詞的時候，發現了原來 string 和 character 是不一樣的東西！character 是基本資料型態之一， string 則是一個由 character 構成的 vector 。因此，有一個函數名為 toString() ，功能有點像 as.character() + paste() 結合，可以將各種向量轉為 string 。  
+3. 在斷詞的時候，發現了原來 string 和 character 是不一樣的東西！character 是基本資料型態之一， string 則是一個由 character 構成的 vector 。因此，有一個函數名為 toString() ，功能有點像 as.character() + paste() 結合，可以將各種向量轉為 string 。     
+
+
+
 
 
