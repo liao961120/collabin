@@ -6413,8 +6413,3 @@ genre_series.plot(kind='bar', figsize=(15, 5))
 
 ![png](index_17_1.png)
 
-
-
-```python
-
-```
