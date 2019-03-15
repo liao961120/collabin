@@ -19,7 +19,7 @@ script:
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
   - Rscript -e 'blogdown::install_hugo(version = "v0.52")'
   - Rscript check_rmd_pkg.R; cat need_install.txt
-  - Rscript -e 'blogdown::build_site()'
+  - Rscript -e 'blogdown::build_site(run_hugo = FALSE)'
 
 after_success:
   - ls -d content/* | xargs -n 1 basename > public/invalid_names.txt
@@ -33,4 +33,4 @@ deploy:
   keep-history: false
   on:
     branch: master
-  local_dir: public
+#  local_dir: public
