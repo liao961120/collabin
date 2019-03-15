@@ -6410,7 +6410,7 @@ genre_series.plot(kind='bar', figsize=(15, 5))
 
 
 
-![png](index_files/index_17_1.png)
+![png](index_17_1.png)
 
 
 
