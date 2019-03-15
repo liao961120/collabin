@@ -1,6 +1,7 @@
 ---
 title: "Spotify's Most Popular Genres"
 author: "Richard Lian"
+mysite: /richl/
 date: "2019-03-15"
 tags: ['python', 'lope']
 comment: true

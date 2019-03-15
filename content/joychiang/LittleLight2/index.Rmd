@@ -4,6 +4,7 @@ author: "Joy"
 date: "2019-03-14"
 comment: true  # 文章是否開放留言
 tags: ['lope']  # 文章 tag
+mysite: /joychiang/
 ---
 
 ```{r setup, include=FALSE}

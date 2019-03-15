@@ -2,6 +2,7 @@
 title: "The Speech of Fiction"
 subtitle: "Ｗ2 microblog"
 author: "Jessica"
+mysite: /jessica/
 date: "2019-03-14"
 tags: ['LOPE']
 ---
