@@ -17,7 +17,7 @@ cache:
 script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
-  - Rscript -e 'blogdown::install_hugo(version = "v0.52")'
+#  - Rscript -e 'blogdown::install_hugo(version = "v0.52")'
   - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'blogdown::build_site(run_hugo = FALSE)'
 
