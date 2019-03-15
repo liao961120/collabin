@@ -4,7 +4,6 @@ languageCode: zh-tw
 title: 協作閣
 ignoreFiles:
   - \.Rmd$
-  - _files$
   - _cache$
 hasCJKLanguage: true
 enableEmoji: true
@@ -71,4 +70,4 @@ params:
   highlightjsTheme: github
   highlightjsVersion: 9.12.0
   twitterImage: /images/logo.png
-
+  github: https://github.com/liao961120/collabin/ #need trailing slash #https://github.com/liao961120/collabin/blob/master/content

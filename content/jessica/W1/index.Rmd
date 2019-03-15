@@ -3,6 +3,7 @@ title: "從數字看新書"
 subtitle: "Ｗ1 microblog"
 author: "Jessica"
 mysite: /jessica/
+isRmd: true
 date: "2019-03-05"
 tags: ['LOPE']
 comment: true

@@ -3,6 +3,7 @@ title: "LittleLight 1"
 date: "2019-03-07"
 author: "Joy"
 mysite: /joychiang/
+isRmd: true
 tags: ['lope']
 comment: true
 output: html_document
