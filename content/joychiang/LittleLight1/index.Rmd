@@ -1,11 +1,11 @@
 ---
 title: "LittleLight 1"
-author: "Joy"
 date: "2019-03-07"
+author: "Joy"
 mysite: /joychiang/
+tags: ['lope']
 comment: true
 output: html_document
-    
 ---
 
 ```{r setup, include=FALSE}
