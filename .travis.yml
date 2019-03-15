@@ -13,16 +13,11 @@ cache:
   directories:
     - $HOME/bin
 
-before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
-  - sudo apt-get update
-  - sudo apt-get --allow-unauthenticated upgrade
-  - sudo apt-get dist-upgrade
 
 script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
-  - Rscript -e 'blogdown::install_hugo()'
+  - Rscript -e 'blogdown::install_hugo(version = "v0.52")'
   - Rscript check_rmd_pkg.R; cat need_install.txt
   - Rscript -e 'blogdown::build_site()'
 
