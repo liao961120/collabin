@@ -4,6 +4,14 @@ subtitle: Hello World!
 disable_highlight: true
 ---
 
+## Richard Lian
+
+Just want to be the best programmer I can be.
+
+
+---
+
+
 ## Yongfu Liao
 
 <img src="https://liao961120.github.io/assets/images/me-about.png" style="width:18%;float:right;padding-left:12px">
