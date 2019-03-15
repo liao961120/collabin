@@ -603,3 +603,10 @@ p.caption {
     color: rgb(75,75,75);
     font-size: 0.9em;
 }
+
+/* Deal with jupyter notebook output long code */
+code.nohighlight {
+    height: auto;
+    max-height: 350px;
+    overflow: auto;
+}
