@@ -45,7 +45,7 @@ menu:
       url: /richl/
       weight: 100   # author weights are always 100
     - name: Yolanda Chen
-      url: /yolanda/
+      url: /yolanda_chen/
       weight: 100   # author weights are always 100
 params:
   customJS:
