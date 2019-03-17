@@ -5,6 +5,7 @@ title: 協作閣
 ignoreFiles:
   - \.Rmd$
   - _cache$
+  - author_info
 hasCJKLanguage: true
 enableEmoji: true
 googleAnalytics: UA-133306175-1
