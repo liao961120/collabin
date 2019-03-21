@@ -1,7 +1,7 @@
 ---
 title: "LittleLight 3"
 author: "Joy"
-date: "2019-3-18" #格式使用'-'
+date: "2019-03-18" #格式使用'-'
 comment: true #開放留言
 tags: ['lope'] #文章 tag
 mysite: /joy/ #Joy 連結
