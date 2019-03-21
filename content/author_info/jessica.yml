@@ -1,0 +1,8 @@
+author: "Jessica"
+id: jessica
+mysite: /jessica/
+comment: true
+pageTitle: "Jessica's Blog"     # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""
