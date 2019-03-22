@@ -105,7 +105,7 @@ lovefamily_tongzhi_df
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -7986,7 +7986,7 @@ lgbtfamily_tongzhi_df
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -11474,7 +11474,7 @@ lovefamily_tongzhi_bigram_freq_right_context
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -13291,7 +13291,7 @@ lgbtfamily_tongzhi_bigram_freq_right_context
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -14573,7 +14573,7 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('圈
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -14904,7 +14904,7 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('都
 
 
 
-<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
