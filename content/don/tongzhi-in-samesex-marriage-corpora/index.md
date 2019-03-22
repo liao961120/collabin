@@ -14,7 +14,7 @@ comment: yes
 ## 前情提要
 在上一篇的文章中，我發現下福盟和伴侶盟兩個語料中，「同志」和「同性戀」兩個詞使用頻率有明顯的不同情形，在下福盟中，兩個詞出現的頻率幾乎相同，「同性戀」出現1393次，「同志」出現1305次；而在伴侶盟的語料中，「同性戀」出現569次，而「同志」則出現153次，前者出現的次數是後者出現的 3.7 倍。（見下圖圖表）
 
-![title](同性戀和同志頻率分布2.svg)
+![title](index_files/s.svg)
 
 ## 所以...
 我很好奇到底這兩個詞在兩個語料中是如何使用的？以及為什麼在伴侶盟這兩個詞出現的次數差距很大，但在下福盟語料裡卻次數差不多。我將利用 concordance 工具，來看語料中這兩個詞出現的脈絡究竟是什麼，觀察前面接什麼樣的動詞，後面接什麼樣的名詞...等。透過觀察一個詞出現的脈絡，也許可以看出一些端倪。
@@ -104,7 +104,8 @@ lovefamily_tongzhi_df
 
 
 
-<div>
+
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -116,6 +117,9 @@ lovefamily_tongzhi_df
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">
@@ -7982,7 +7986,7 @@ lgbtfamily_tongzhi_df
 
 
 
-<div>
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -7994,6 +7998,9 @@ lgbtfamily_tongzhi_df
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">
@@ -11467,8 +11474,7 @@ lovefamily_tongzhi_bigram_freq_right_context
 
 
 
-
-<div>
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -11480,6 +11486,9 @@ lovefamily_tongzhi_bigram_freq_right_context
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">
@@ -13282,7 +13291,7 @@ lgbtfamily_tongzhi_bigram_freq_right_context
 
 
 
-<div>
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -13294,6 +13303,9 @@ lgbtfamily_tongzhi_bigram_freq_right_context
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">
@@ -14561,8 +14573,7 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('圈
 
 
 
-
-<div>
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -14574,6 +14585,9 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('圈
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">
@@ -14890,7 +14904,7 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('都
 
 
 
-<div>
+<div style="max-height: 350px; overflow: auto; padding: 1em; box-shadow: 5px 5px 5px #eee; border: 1px solid #ddd">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -14902,6 +14916,9 @@ lovefamily_tongzhi_df[lovefamily_tongzhi_df['right_context'].str.startswith('都
 
     .dataframe thead th {
         text-align: right;
+    }
+    .dataframe {
+        border-collapse: collapse;
     }
 </style>
 <table border="1" class="dataframe">

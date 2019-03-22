@@ -10,7 +10,7 @@ isRmd: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>", rownames.print = FALSE, cols.min.print = 3)
 ```
 
 # <b>貓版文章分析</b>
