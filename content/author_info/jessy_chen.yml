@@ -1,0 +1,8 @@
+author: "Jessy Chen"        # article info
+mysite: /jessy_chen/  # article info
+comment: true        # article info
+id: jessy_chen                   # site info (on /<id>)
+pageTitle: ""     # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""
