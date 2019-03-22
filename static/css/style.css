@@ -604,11 +604,25 @@ p.caption {
     font-size: 0.9em;
 }
 
-/* Deal with long output message */
+
+
+/******** Jupyter Notebook Styles *********/
+
+/*Deal with long output message */
 code.nohighlight {
     height: auto;
     max-height: 350px;
     overflow: auto;
     font-size: 0.85em;
     white-space: pre-wrap;
+}
+
+/*Deal with long output table */
+div > table.dataframe {
+  display: block;
+  max-height: 450px; 
+  overflow: auto; 
+  padding: 1em; 
+  box-shadow: 5px 5px 5px #eee; 
+  border: 1px solid #ddd;
 }
