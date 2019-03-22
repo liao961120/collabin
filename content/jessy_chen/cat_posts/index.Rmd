@@ -42,7 +42,7 @@ library(DT)
 </br></br>先以最近兩年（2017-01-01至2018-12-31）的資料作分析。
 ```{r}
 data <- fromJSON("cat-3500-4000.json")$articles
-datatable(data[1:20,])
+rmarkdown::paged_table(data[1:20,])
 ```
 
 </br></br>若有機會分析更多年的資料，可以用下面的 code 來一次讀取多個檔案。
