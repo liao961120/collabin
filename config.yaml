@@ -48,6 +48,15 @@ menu:
     - name: Yolanda Chen
       url: /yolanda_chen/
       weight: 100   # author weights are always 100
+    - name: Jessy Chen
+      url: /jessy_chen/
+      weight: 100   # author weights are always 100
+    - name: Bénjī
+      url: /ka-sîng/
+      weight: 100   # author weights are always 100
+    - name: Freya
+      url: /yichen/
+      weight: 100   # author weights are always 100
 params:
   customJS:
     - js/fix-toc.js
