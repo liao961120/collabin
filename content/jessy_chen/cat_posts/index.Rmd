@@ -11,6 +11,7 @@ isRmd: yes
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+option(rownames.print = FALSE)
 ```
 
 # <b>貓版文章分析</b>
