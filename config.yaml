@@ -57,6 +57,9 @@ menu:
     - name: Freya
       url: /yichen/
       weight: 100   # author weights are always 100
+    - name: Sean Tseng
+      url: /seantyh/
+      weight: 100
 params:
   customJS:
     - js/fix-toc.js
