@@ -13,6 +13,8 @@ cache:
   directories:
     - $HOME/bin
 
+before_install:
+  - sudo apt-get install cargo
 
 script:
   - Rscript -e 'install.packages("remotes")'
