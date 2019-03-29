@@ -112,7 +112,7 @@ df <- df %>%
 # plotting 2
 df2 <- df1 %>% filter(date_full>"2017-01-01"&date_full<="2017-12-31")
 
-ggplot(df2, aes(date_d, number_of_articles, group=date_m_f, color=date_m_f)) + 
+pl <- ggplot(df2, aes(date_d, number_of_articles, group=date_m_f, color=date_m_f)) + 
   geom_line() + 
   geom_segment(aes(xend = 31, yend = number_of_articles), linetype = 2, colour = 'grey') + 
   geom_point(size = 2) + 
@@ -125,6 +125,7 @@ ggplot(df2, aes(date_d, number_of_articles, group=date_m_f, color=date_m_f)) +
   theme_minimal() + 
   theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
 
+gganimate::animate(pl)
 # reference: Temperature time series
 # https://github.com/thomasp85/gganimate/wiki/Temperature-time-series
 ```
