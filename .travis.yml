@@ -15,6 +15,7 @@ cache:
 
 before_install:
   - sudo apt-get install cargo
+  - sudo apt-get install libmagick++-dev # install magick R package dependency
 
 script:
   - Rscript -e 'install.packages("remotes")'
