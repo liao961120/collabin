@@ -5,6 +5,7 @@ date: "2019-03-18" #格式使用'-'
 comment: true #開放留言
 tags: ['lope'] #文章 tag
 mysite: /joy/ #Joy 連結
+isRmd: true
 ---
 
 ```{r setup, include=FALSE}
