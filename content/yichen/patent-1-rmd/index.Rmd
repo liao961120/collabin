@@ -1,0 +1,74 @@
+---
+title: Patent document 1
+subtitle: pizza
+tags: ["Patent document", "R", LOPE]
+date: '2019-03-29'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+```
+
+
+
+```{r}
+#install.packages("readr")
+#install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("ggthemes")
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r}
+# This pizza dataset is the patent documents from the WIPO Patentscope database. 
+```
+
+```{r}
+library(readr)
+library(dplyr)
+pizza =  read_csv("pizza.csv") %>% 
+    select(-applicants_cleaned, -applicants_cleaned_type, -applicants_original, -inventors_cleaned, 
+        -inventors_original)  
+head(pizza)
+```
+
+```{r}
+head(pizza)
+```
+
+
+```{r}
+library(dplyr)
+pizza =  mutate(pizza, record_count = sum(publication_number = 1))
+```
+
+```{r}
+pizza =  rename(pizza, pubcountry = publication_country_name, pubcode = publication_country_code, 
+    pubyear = publication_year)
+head(pizza)
+```
+
+```{r}
+p1 =  pizza %>% select(., pubcountry, pubcode, pubyear, record_count)
+head(p1)
+```
+
+```{r}
+pt =  count(p1, pubyear, wt = record_count)
+head(pt)
+```
+
+```{r}
+#install.packages("xquartz")
+qplot(x = pubyear, y = n, data = pt, geom = "line")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
