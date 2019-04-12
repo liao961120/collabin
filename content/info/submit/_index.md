@@ -32,7 +32,7 @@ comment: true
 
 <img src='/images/edit.png' style='width:40%'>
 
-這將會開啟 GitHub 上的編輯網頁頁面。第一次編輯時，GitHub 會請您 fork repo，請點擊確定。編輯的過程可完全透過網頁進行，別擔心會因為按錯什麼而毀損檔案。
+這將會開啟 GitHub 上的編輯頁面。第一次編輯時，GitHub 會請您 fork repo，請點擊確定。編輯的過程可完全透過網頁進行，別擔心會因為按錯什麼而毀損檔案。
 
 ### Jupyter Notebook
 
