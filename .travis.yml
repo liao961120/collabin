@@ -25,8 +25,8 @@ script:
   - Rscript -e 'blogdown::build_site(run_hugo = FALSE)'
 
 after_success:
-  - ls -d content/* | xargs -n 1 basename > public/invalid_names.txt
-  - mv need_install.txt public/
+  - ls -d content/* | xargs -n 1 basename > static/invalid_names.txt
+  - mv need_install.txt static/
 
 deploy:
   provider: pages
