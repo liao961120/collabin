@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #install.packages('readxl')
 library(readxl)
-rawdata = readxl::read_excel("/Users/yichen/Desktop/MGR_patent control.xlsx", sheet = 5)
+rawdata = readxl::read_excel("MGR_patent control.xlsx", sheet = 5)
 ```
 
 
