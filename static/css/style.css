@@ -182,7 +182,7 @@ body {
   text-align: right;
   font-size: 81px;    /* custom font size*/
   line-height: 58px;
-  font-family: title; /* custom font*/
+  font-family: 'titleFont'; /* custom font*/
 }
 
 .masthead h1 a {
@@ -191,7 +191,7 @@ body {
 
 .masthead .tagline {
   font-style: normal;      /* italic*/
-  font-family: subtitle;  /* custom font*/
+  font-family: 'subtitleFont';  /* custom font*/
   text-align: right;
 }
 

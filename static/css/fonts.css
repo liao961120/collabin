@@ -1,9 +1,9 @@
 @font-face {
-  font-family: title;
+  font-family: 'titleFont';
   src: url(/css/title_font.woff) format('woff');
 }
 @font-face {
-  font-family: subtitle;
+  font-family: 'subtitleFont';
   src: url(/css/subtitle_font.woff) format('woff');
 }
 
