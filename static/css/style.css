@@ -629,6 +629,6 @@ div > table.dataframe {
   border: 1px solid #ddd;
 }
 
-.sourceCode {
-    overflow: auto;
+code.sourceCode {
+    overflow: auto !important;
 }
