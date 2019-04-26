@@ -628,3 +628,7 @@ div > table.dataframe {
   box-shadow: 5px 5px 5px #eee; 
   border: 1px solid #ddd;
 }
+
+.sourceCode {
+    overflow: auto;
+}
