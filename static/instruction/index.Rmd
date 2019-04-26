@@ -42,6 +42,7 @@ class: inverse, center, middle
 # 文章撰寫
 
 ---
+name: relative-path
 
 ## 文章撰寫
 
@@ -85,7 +86,7 @@ class: inverse, center, middle
 
 1. 撰寫：**`index.Rmd`** + dependencies (figures, `.R`)
 
-1. 確認：使用[相對路徑](#4)、可 knit 成 HTML
+1. 確認：使用[相對路徑](#relative-path)、可 knit 成 HTML
 
 1. 壓縮：`index.Rmd` + dependencies → **`.zip`**
 
@@ -106,7 +107,7 @@ class: inverse, center, middle
 
 1. 撰寫：**`index.md`** + dependencies (figures)
 
-1. 確認：使用[相對路徑](#4)
+1. 確認：使用[相對路徑](#relative-path)
 
 1. 壓縮：`index.md` + dependencies → **`.zip`**
 
