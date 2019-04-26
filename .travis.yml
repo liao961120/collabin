@@ -13,9 +13,17 @@ cache:
   directories:
     - $HOME/bin
 
+#r_packages:
+#  - sf
+
 before_install:
   - sudo apt-get install cargo
   - sudo apt-get install libmagick++-dev # install magick R package dependency
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+  - sudo add-apt-repository ppa:opencpu/jq --yes
+  - sudo apt-get --yes --force-yes update -qq
+  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev libv8-dev
+  - sudo apt-get install --yes libjq-dev libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-ncdf4
 
 script:
   - Rscript -e 'install.packages("remotes")'
