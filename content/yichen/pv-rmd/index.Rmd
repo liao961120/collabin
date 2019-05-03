@@ -1,0 +1,147 @@
+---
+title: Introducing PatentsView
+subtitle: USPTO
+tags: ["Patent API", "USPTO", "PatentsView", LOPE]
+date: '2019-05-02'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+
+```{r}
+#install.packages("patentsview")
+library(patentsview)
+```
+
+PatentsView query language http://www.patentsview.org/api/query-language.html
+
+```{r}
+qry_1 <- '{"_gt":{"patent_year":2009}}'
+search_pv(query = qry_1, fields = NULL) # This will retrieve a default set of fields
+```
+
+```{r}
+qry_2 <- qry_funs$gt(patent_year = 2009) # All DSL functions are in the qry_funs list
+qry_2 # qry_2 is the same as qry_1
+```
+```{r}
+search_pv(query = qry_2)
+```
+
+```{r}
+search_pv(
+  query = qry_funs$gt(patent_year = 2009),
+  fields = c("patent_abstract", "patent_average_processing_time",
+             "inventor_first_name", "inventor_total_num_patents")
+)
+```
+
+
+```{r}
+search_pv(
+  query = qry_funs$gt(patent_year = 2009),
+  fields = get_fields(endpoint = "patents", groups = c("patents", "inventors"))
+)
+```
+
+Examples of  H04L63/00 CPC code
+
+```{r}
+query <- with_qfuns( 
+  and(
+    begins(cpc_subgroup_id = 'H04L63/02'),
+    gte(patent_year = 2009)
+  )
+)
+
+```
+
+```{r}
+fields <- c(
+  c("patent_number", "patent_year"),
+  get_fields(endpoint = "patents", groups = c("assignees", "cpcs"))
+)
+
+```
+
+```{r}
+pv_res <- search_pv(query = query, fields = fields, all_pages = TRUE)
+```
+
+```{r}
+library(leaflet)
+library(htmltools)
+library(dplyr)
+library(tidyr)
+
+data <-
+  pv_res$data$patents %>%
+    unnest(assignees) %>%
+    select(assignee_id, assignee_organization, patent_number,
+           assignee_longitude, assignee_latitude) %>%
+    group_by_at(vars(-matches("pat"))) %>%
+    mutate(num_pats = n()) %>%
+    ungroup() %>%
+    select(-patent_number) %>%
+    distinct() %>%
+    mutate(popup = paste0("<font color='Grey'>",
+                          htmlEscape(assignee_organization), "<br><br>Patents:",
+                          num_pats, "</font>")) %>%
+    mutate_at(vars(matches("_l")), as.numeric) %>%
+    filter(!is.na(assignee_id))
+
+leaflet(data) %>%
+  addProviderTiles(providers$CartoDB.DarkMatterNoLabels) %>%
+  addCircleMarkers(lng = ~assignee_longitude, lat = ~assignee_latitude,
+                   popup = ~popup, ~sqrt(num_pats), color = "red")
+```
+
+```{r}
+library(ggplot2)
+library(RColorBrewer)
+
+data <-
+  pv_res$data$patents %>%
+    unnest(cpcs) %>%
+    filter(cpc_subgroup_id != "H04L63/02") %>% 
+    mutate(
+      title = case_when(
+        grepl("filtering", .$cpc_subgroup_title, ignore.case = T) ~
+          "Filtering policies",
+        .$cpc_subgroup_id %in% c("H04L63/0209", "H04L63/0218") ~
+          "Architectural arrangements",
+        grepl("Firewall traversal", .$cpc_subgroup_title, ignore.case = T) ~
+          "Firewall traversal",
+        TRUE ~
+          .$cpc_subgroup_title
+      )
+    ) %>%
+    mutate(title = gsub(".*(?=-)-", "", title, perl = TRUE)) %>%
+    group_by(title, patent_year) %>%
+    count() %>%
+    ungroup() %>%
+    mutate(patent_year = as.numeric(patent_year))
+
+ggplot(data = data) +
+  geom_smooth(aes(x = patent_year, y = n, colour = title), se = FALSE) +
+  scale_x_continuous("\nPublication year", limits = c(2009, 2018),
+                     breaks = 2009:2018) +
+  scale_y_continuous("Patents\n", limits = c(0, 700)) +
+  scale_colour_manual("", values = brewer.pal(5, "Set2")) +
+  theme_bw() + # theme inspired by https://hrbrmstr.github.io/hrbrthemes/
+  theme(panel.border = element_blank(), axis.ticks = element_blank())
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
