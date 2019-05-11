@@ -5,11 +5,11 @@ author: "Yongfu Liao"
 mysite: /yongfu/
 date: "2019-05-11 00:00:00 +0800"
 description: "Create a book from multiple Jupyter notebooks with Jupyter Book"
-tags: ['Jupyter','中文']
+tags: ['notetaking', 'Jupyter Notebook']
 comment: yes
 ---
 
-從學期初修 Python[^credits] 就一直在吃老本，直到最近學到物件導向[^oop]才開始認真思索寫筆記這件事。就寫筆記而言，我最熟悉的工具當然是 R Markdown，而 RStudio 目前[對 Python 也有不錯的支援](https://rstudio.github.io/reticulate)。但我平常把 [JupyterLab](https://github.com/jupyterlab/jupyterlab) 當成 Python 的 IDE 在使用，自然比較習慣這個環境，因此就決定使用 Jupyter Notebook 來寫筆記。我第一個想到的問題就是：R Markdown 的世界裡有 [bookdown](https://bookdown.org/yihui/bookdown) 將多個 `.Rmd` 變成一本書 (網頁)，但 Jupyter Notebook 似乎沒有這麼方便的工具[^nbconvert]。**我錯了**。好概念傳播的很快，受到 bookdown 的啟發，Jupyter 的世界裡也出現了一套類似的工具 --- [Jupyter Book](https://jupyter.org/jupyter-book/intro.html)。
+從學期初修 Python[^credits] 就一直在吃老本，直到最近學到物件導向[^oop]才開始認真思索寫筆記這件事。就寫筆記而言，我最熟悉的工具[^tool]當然是 R Markdown，而 RStudio 目前[對 Python 也有不錯的支援](https://rstudio.github.io/reticulate)。但我平常把 [JupyterLab](https://github.com/jupyterlab/jupyterlab) 當成 Python 的 IDE 在使用，自然比較習慣這個環境，因此就決定使用 Jupyter Notebook 來寫筆記。我第一個想到的問題就是：R Markdown 的世界裡有 [bookdown](https://bookdown.org/yihui/bookdown) 將多個 `.Rmd` 變成一本書 (網頁)，但 Jupyter Notebook 似乎沒有這麼方便的工具[^nbconvert]。**我錯了**。好概念傳播的很快，受到 bookdown 的啟發，Jupyter 的世界裡也出現了一套類似的工具 --- [Jupyter Book](https://jupyter.org/jupyter-book/intro.html)。
 
 
 ## What is Jupyter Book?
@@ -65,7 +65,7 @@ jupyter-book create mybookname
     
     - **`content/`**
     
-      存放 Jupyter Notebook 的地方，可依照自己喜好使用任意結構與組織檔案與資料夾 (e.g. `content/01/` 裡面放多個 notebook，如 `content/01/intro.ipynb`, `content/01/hello-world.ipynb`；或是直接將 notebook 丟在 `content/` 之下)。
+      存放 Jupyter Notebook 的地方，可依照自己喜好使用任意檔案結構 (e.g. `content/01/` 裡面放多個 notebook，如 `content/01/intro.ipynb`, `content/01/hello-world.ipynb`；或是直接將 notebook 丟在 `content/` 之下)。
     
     - **`_data/toc.yml`**
     
@@ -75,7 +75,7 @@ jupyter-book create mybookname
       - title: Introduction
         url: /01/intro
         not_numbered: false
-        expand_sections: true
+        expand_sections: false
       ```
 
     - **`_config.yml`**
@@ -105,6 +105,14 @@ jupyter-book build ./    # 從 `contents/` 產生 Jekyll 能處理的檔案
 [^credits]: 本來沒預計要修，沒想到選上了又加上學分不足，想趁這個機會逼自己熟悉一下 Python。
 
 [^oop]: 去年七月的時候，開始栽入 R 套件開發的世界。這讓我比較深入的接觸 R 語言，同時也讓我更深刻體驗到「(一段時間後) 看不懂自己程式碼」的感覺。一方面，我覺得 R 向量式的思維習慣，讓我在學 Python (不使用 numpy, pandas 等套件) 的過程中有點卡；另一方面，我過去一直不太能掌握的物件導向的概念，但最近[聽完課](https://www.coursera.org/learn/pbc3/home/week/1)後竟然有頓悟的感覺。我猜原因不是因為老師講得特別好，單純是因為**自己寫過太多 buggy 的程式**，所以現在開始比較能體會 OOP 的思維方式如何減輕程式開發時的認知負擔。以前程式還寫得不夠多的時候，OOP 對我而言只是一堆生澀的術語和概念，反而造成學習上的困難。
+
+[^tool]: 我認為一個**好的筆記**需要具備這些特徵：
+
+    1. 能長存 (i.e. 不會被資源回收掉、不小心殺掉或遺忘在電腦與雲端硬碟的某個資料夾裡)
+    2. 方便瀏覽，包含能快速找到筆記的位置 (我放在哪裡) 以及特定內容 (OO 概念寫在哪裡？)
+    
+    換言之，好的筆記意味著**好的檔案管理與搜尋方式**。在這個時代下，(靜態) 網頁正是管理筆記的好工具：它能長存且方便瀏覽 (i.e. 能輕易的在頁面間切換、在頁面內搜尋文字，找到所需資訊)。
+
 
 [^nbconvert]: 當下的直覺想法是使用 [nbconvert](https://github.com/jupyter/nbconvert) 將 `.ipynb` 轉換成 `.md`，把這些 `.md` 丟到一個網頁模板，再用靜態網頁產生器 (Jekyll 或 Hugo) 生成網頁。於是我開始這樣做，但試了一陣子之後就發現這些**網頁模板都太複雜了**，光是要研究它們就要花上不少時間。另外，使用這些模板還有一個缺點 --- 人們喜歡熟悉的東西，換言之，常用 Jupyter Notebook 的人會習慣它的界面 (白、橘色)，但使用網頁模板會破壞這個習慣，讓使用者產生不適感。
 
