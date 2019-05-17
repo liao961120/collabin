@@ -9,6 +9,11 @@ comment: yes
 isRmd: yes
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
 # Remembering (hopefully) better with the help of Levenshtein Distance
 
 #### When we try to memorize the spelling of a word, we might be confused by other similarly-spelled words that we know, and this is a challenge for high school students facing the College Entrance Exam. For this week, I tried to create a list of similarly-spelled words by using Levenshtein Distance.
@@ -19,7 +24,7 @@ isRmd: yes
 
 #### If we randomly select a word in a dictionary, look for the word most similar to it, and see what comes next, we will end up with a long, orderly list of words. There is a Levenshtein dictionary online that visualizes this idea: http://blueribbonfarmsaz.com/dictionary/?fbclid=IwAR0pvuIslOuqReYQlsbn9TRcM-P5XAahz2Du1rnwxPGu1EoDG8BwLD8sHDY.
 
-```{r}
+```{r eval=FALSE}
 library(RecordLinkage)
 library(readr)
 library(tidyverse)
@@ -27,11 +32,15 @@ library(tidyverse)
 
 ## The word list comes from http://www.taiwantestcentral.com/Default.aspx
 
-```{r}
+
+```{r eval=FALSE}
 voc_path <- "data\\voc.csv"
 df <- read_csv(voc_path, locale=locale(encoding="BIG-5"))
 df
+```
 
+
+```{r eval=FALSE}
 find_sim <- function(i){
   
   #print(i)
@@ -47,8 +56,13 @@ find_sim_lst <- lapply(df$English, find_sim)
 df <- df %>% mutate(sim=find_sim_lst)
 ```
 
-```{r}
+```{r eval=FALSE}
 df <- df %>% mutate(sim=unlist(sim))
+rmarkdown::paged_table(df[1:200,])
+```
+
+```{r echo=FALSE}
+df <- readRDS("voc_sim.rds")
 rmarkdown::paged_table(df[1:200,])
 ```
 
