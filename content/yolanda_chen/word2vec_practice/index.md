@@ -1,7 +1,7 @@
 ---
 title: 練習以gensim訓練詞向量
 subtitle: 利用wiki data來建立word2vec向量模型
-tags: [#gensim #word #vector #wiki, LOPE]
+tags: [gensim, word, vector, wiki, LOPE]
 date: '2019-05-23'
 author: Yolanda Chen
 mysite: /yolanda_chen/

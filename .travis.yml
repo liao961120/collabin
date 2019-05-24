@@ -40,9 +40,6 @@ after_success:
   - ls -d content/* | xargs -n 1 basename > static/invalid_names.txt
   - mv need_install.txt static/
 
-before_deploy:
-  - rm -r static/richl
-
 deploy:
   provider: pages
   target-branch: web
