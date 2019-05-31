@@ -26,6 +26,12 @@ before_install:
   - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev libv8-dev
   - sudo apt-get install --yes libjq-dev libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-ncdf4
   - sudo timedatectl set-timezone Asia/Taipei  # Set timezone
+  - sudo apt-get install language-pack-zh*                              # install Chinese lang support
+  - sudo apt-get install chinese*                                       # install Chinese lang support
+  - sudo mkdir /usr/share/fonts/truetype/noto                           # install Chinese font NotoSansCJK TC
+  - sudo cp ./NotoSansCJKtc.otf /usr/share/fonts/truetype/noto          # install Chinese font NotoSansCJK TC
+  - sudo chmod 755 /usr/share/fonts/truetype/noto/NotoSansCJKtc.otf     # install Chinese font NotoSansCJK TC
+  - fc-cache    
 
 script:
   - Rscript -e 'install.packages("remotes")'
