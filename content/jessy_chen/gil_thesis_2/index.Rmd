@@ -9,6 +9,14 @@ comment: yes
 isRmd: yes
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      dev='png', 
+                      dpi=300)
+```
+
+
 ```{r}
 library(readr)
 library(jiebaR)
