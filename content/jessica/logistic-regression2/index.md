@@ -1,6 +1,5 @@
 ---
-title: Applying logistic regression for classifying human-machine dialogue and human-human
-  dialogue (Part II)
+title: Applying logistic regression for classifying human-machine dialogue and human-human dialogue (Part II)
 subtitle: ''
 tags: [lope]
 date: '2019-05-16'
@@ -9,9 +8,6 @@ mysite: /jessica/
 comment: yes
 ---
 
-
-# W10 Microblog
-# Applying logistic regression for classifying human-machine dialogue and human-human dialogue (Part II)
 
 上上週用24個連續變數(continuous variables) (像是Different Words, Sentence Length Average,Function Word proportion...etc) 來分類人人對話及人機對話。這禮拜則嘗試看看用類別變數(categorical variables) 來分類。首先，必須將這些類別變數轉變為dummy variables(虛擬變數)。
 
