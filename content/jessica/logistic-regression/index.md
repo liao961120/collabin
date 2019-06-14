@@ -9,10 +9,6 @@ mysite: /jessica/
 comment: yes
 ---
 
-
-# W8 Microblog
-# Applying logistic regression for classifying human-machine dialogue and human-human dialogue
-
 Logistic Regression雖然名為迴歸，但常⽤於分類（⼆元或多類別）
 
 人與對話機器人的對話取自[chatterbot訓練資料集](https://github.com/gunthercox/chatterbot-corpus)，人與人之間的對話取自[騰訊AI Lab 對話資料集](http://ai.tencent.com/ailab/upload/PapersUploads/A_Manually_Annotated_Chinese_Corpus_for_Non-task-oriented_Dialogue_System)，可參考[這篇](https://arxiv.org/pdf/1805.05542.pdf)論文。從兩資料集各隨機取出50 組單輪對話(均沒有特定主題)。接下來擷取兩組對話的量化特徵(詞彙豐富度、對話長度、句子平均長度、虛詞使用比率、各詞類使用頻率等等)共24個，將這些特徵視為X, 是否為人機對話為Y (是：1, 否：0)，藉此分類人人對話與人機對話。
