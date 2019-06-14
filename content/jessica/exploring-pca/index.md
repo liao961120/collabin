@@ -8,10 +8,6 @@ mysite: /jessica/
 comment: yes
 ---
 
-
-# W7 Microblog
-## Exploring PCA
-
 最近在讀這學期修的言談分析(Discourse Analysis)paper時，看到有一篇在寫怎麼用Factor Analysis(因素分析)來判別網路文本(比如說twitter, FB, online messages......etc)之間共通淺在的語言特徵。我覺得很有趣，於是上網查了一下發現主成分分析(Principal Component Analysis, PCA)跟因素分析(Factor Analysis)是同一個家族的概念。這週的microblog就是想整理一下我的讀書筆記，並利用現成的機器學習資料集實作一下PCA。
 
 ### 讀書筆記 
