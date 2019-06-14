@@ -9,8 +9,6 @@ comment: yes
 ---
 
 
-# Crawling TED talks
-
 After gathering subtitles from the OpenSubtitles parallel corpora, I've set my sights on the translations that are available for most TED talks. According to the [official website](https://ted.com), TED is a nonprofit organization devoted to spreading ideas.
 
 The transcriptions are ideal for a parallel corpus because the translation process is supervised and quality is ensured through the use of a style guide and reviewers who are experienced and check on the quality of a translation. 
