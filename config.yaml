@@ -65,6 +65,9 @@ menu:
     - name: Debby
       url: /debby/
       weight: 100
+    - name: Yulin
+      url: /yu-lin/
+      weight: 100
 params:
   customJS:
     - js/fix-toc.js
