@@ -9,9 +9,6 @@ comment: yes
 ---
 
 
-# 練習以gensim訓練詞向量：
-## 利用wiki data，以skip-gram model來建立word2vec向量模型。
-
 ### Modules
 
 
