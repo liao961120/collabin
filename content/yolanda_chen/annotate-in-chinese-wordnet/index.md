@@ -8,9 +8,8 @@ tags: ['cwn', 'annotation', 'lope']
 comment: true
 ---
 
-# How to annotate in Chinese WordNet (CWN)
-
 ## 在cwn.lite計畫中，如何標記新的lemma以及相關features是重要的。
+
 ## 在此，我們利用cwn的資料以及Sean大神的程式碼來做一點cwn標記的小實作，共分為基本graph query以及annotation兩大部分。
 
 ## I. Cwn Graph Query

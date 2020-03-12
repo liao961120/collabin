@@ -9,9 +9,6 @@ comment: yes
 ---
 
 
-# W6 Microblog
-## Revisiting Yibo (一波)
-
 上(上?)週的meeting老師提到使用語料庫的事情，說希望大家多多利用我們“自產自銷”的[PTT語料庫](http://lopen.linguistics.ntu.edu.tw/pttcorp/)，也許能在過程中提供可以修改、改進的地方。這讓我想到我上一次使用PTT語料庫已經是約莫一年前，在“語言與文化”課上的期末報告，主題是Ｖ+一波 (e.g., 怒吃一波、爽買一波)的這個網路上新興的用法。我發現Ｖ+一波前的動詞幾乎都是特定某幾種動詞：像是**activity verb(活動動詞)**、 **semelfactive verb(瞬時動詞)** 、偶爾也跟 **stative verb (靜態動詞)** 在一起。 
 這裡為大家科普複習一下這些動詞的特性：
 * activity verb(活動動詞) : 沒有「終結性」和「瞬時性」的非靜態動詞，表達持續進行的活動，例如「吃」。
