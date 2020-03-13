@@ -86,7 +86,7 @@ if (new_post$format == '.md')
     if (file_info$isZip) {
       temp <- tempfile()
       extr_fps <- unzip(file_info$fpath, exdir = temp)
-      copied_fpath <- collabin:::copy_file_inzip(extr_fps, "^[a-zA-Z0-9_ -]+\\.md$", postdir, grep = TRUE)
+      copied_fpath <- collabin:::copy_file_inzip(extr_fps[1], ".+\\.md$", postdir, grep = TRUE)
     } else {
       file.copy(file_info$fpath, index_fp)
     }
