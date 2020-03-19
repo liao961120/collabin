@@ -1,13 +1,12 @@
 ---
-title: CWB解讀：位置屬性編碼 (positional attribute encoding)
+title: CWB解讀：結構屬性編碼 (structural attribute encoding)
 subtitle: ''
 tags: [CWB, LOPE]
-date: '2020-03-13'
+date: '2020-03-19'
 author: Don
 mysite: /don/
 comment: yes
 ---
-
 
 
 上次看了CWB關於p-attribute encoding的實現，現在來看的是CWB如何編碼.vrt檔中像是XML tag的資訊。

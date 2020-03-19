@@ -8,6 +8,11 @@ new_post <- df[nrow(df),]
 new_post
 
 print(paste0('Format: ', new_post$format))
+
+if (sum(df$shorturl == new_post$shorturl, na.rm=T) > 1) {
+  new_post$shorturl <- paste0(new_post$shorturl, '-', sum(df$shorturl == new_post$shorturl, na.rm=T))
+}
+
 ##################### Jupyter Notebook ###########################
 if (new_post$format == '.ipynb') 
 {
