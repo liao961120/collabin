@@ -68,6 +68,9 @@ menu:
     - name: Yulin
       url: /yu-lin/
       weight: 100
+    - name: Derek Liao
+      url: /derek/
+      weight: 100
 params:
   customJS:
     - js/fix-toc.js
@@ -80,7 +83,7 @@ params:
     - js/alt-title.js
   description: 開源協作部落格
   disqusURL: 'http://corbloggers.disqus.com'
-  footer: '© [協作閣](/) 2019'
+  footer: '© [協作閣](/) 2019-2020'
   githubContentURL: 'https://github.com/rbind/yihui/edit/master/content/'
   highlightjsCDN: //cdn.bootcss.com
   highlightjsLang:

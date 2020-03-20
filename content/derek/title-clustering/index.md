@@ -170,7 +170,7 @@ print(X) #印出每個標題的vector
 
 ```
 
-![word_embeddings](word_embeddings.png)  
+![word_embeddings](word_embeddings.png)
 (以下省略）
 
 ## 2.4 使用k-mean群集分析法
