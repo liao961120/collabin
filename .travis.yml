@@ -33,6 +33,9 @@ before_install:
   - sudo chmod 755 /usr/share/fonts/truetype/noto/NotoSansCJKtc.otf     # install Chinese font NotoSansCJK TC
   - fc-cache    
 
+before_script:
+  - export TZ=Asia/Taipei
+
 script:
   - Rscript -e 'install.packages("remotes")'
   - Rscript -e 'remotes::install_github("rstudio/blogdown")'
