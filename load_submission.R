@@ -3,8 +3,8 @@ df <- collabin::read_gs("https://docs.google.com/spreadsheets/d/1LeDRR3iXflUDgDD
 df <- df %>% mutate(id = if_else(id %in% c('lichen'), 'yichen', id))
 
 
-View(df)
-new_post <- df[nrow(df)-2, ]
+#View(df)
+new_post <- df[nrow(df), ]
 new_post
 
 print(paste0('Format: ', new_post$format))
