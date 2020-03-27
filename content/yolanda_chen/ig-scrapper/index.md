@@ -117,10 +117,6 @@ $ pip install instagram-scraper --upgrade
 
 
 
-```python
-
-```
-
 
 ```python
 # Reference: IG Scrapper (https://github.com/rarcega/instagram-scraper)

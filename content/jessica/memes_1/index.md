@@ -64,8 +64,3 @@ $ pip install instagram-scraper
 爬好的檔案最後會出現在你工作路徑下，便大功告成！
 
     <current working directory>/<username>
-
-
-```python
-
-```
