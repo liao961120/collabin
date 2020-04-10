@@ -1,0 +1,8 @@
+author: "Mao-Chang Ku"        # article info
+mysite: /mao-chang/  # article info
+comment: true        # article info
+id: mao-chang                   # site info (on /<id>)
+pageTitle: "Mao-Chang Ku"     # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""
