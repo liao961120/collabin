@@ -20,5 +20,10 @@ Imports: bookdown,
   knitr,
   remotes,
   devtools,
-  available
+  available,
+  data.table,
+  rtweet,
+  RColorBrewer,
+  wordcloud,
+  maps
 RoxygenNote: 6.1.0
