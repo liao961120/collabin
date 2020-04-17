@@ -4,7 +4,7 @@ df <- df %>% mutate(id = if_else(id %in% c('lichen'), 'yichen', id))
 
 
 #View(df)
-new_post <- df[nrow(df), ]
+new_post <- df[nrow(df) - 1, ]
 new_post
 
 print(paste0('Format: ', new_post$format))
@@ -91,7 +91,7 @@ if (new_post$format == '.md')
     if (file_info$isZip) {
       temp <- tempfile()
       extr_fps <- unzip(file_info$fpath, exdir = temp)
-      copied_fpath <- collabin:::copy_file_inzip(extr_fps[1], ".+\\.md$", postdir, grep = TRUE)
+      copied_fpath <- collabin:::copy_file_inzip(extr_fps, ".+\\.md$", postdir, grep = TRUE)
     } else {
       file.copy(file_info$fpath, index_fp)
     }
