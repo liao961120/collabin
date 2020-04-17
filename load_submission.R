@@ -4,7 +4,7 @@ df <- df %>% mutate(id = if_else(id %in% c('lichen'), 'yichen', id))
 
 
 #View(df)
-new_post <- df[nrow(df) - 1, ]
+new_post <- df[nrow(df), ]
 new_post
 
 print(paste0('Format: ', new_post$format))
