@@ -9,4 +9,4 @@ comment: yes
 ---
 
 
-Visit <https://yongfu.name/2020/04/23/gloss-search.html>.
+Visit <https://yongfu.name/2020/04/23/gloss-search>.

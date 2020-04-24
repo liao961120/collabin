@@ -9,4 +9,4 @@ comment: yes
 ---
 
 
-Visit <https://yongfu.name/2020/03/20/building-concordancer.html>.
+Visit <https://yongfu.name/2020/03/20/building-concordancer>.
