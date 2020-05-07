@@ -1,5 +1,5 @@
 ---
-title: "南島語料搜尋「中」工具"
+title: "南島語料搜尋小工具 (II)"
 subtitle: "Searching Interlinear Glosses Written in Word Documents"
 author: "Yongfu Liao"
 mysite: /yongfu/
