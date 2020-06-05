@@ -124,25 +124,25 @@ polarity。特別的是，`geek` 在 21 世紀時被使用於 positive polarity
     ##  Eval=Positive -1.5084 0.2375 -6.35  <0.0001 
     ## 
 
-#### 3.1 `Model Likelihood Ratio Test`
+#### 3.1 Model Likelihood Ratio Test
 
 從 `Model Likelihood Ratio Test` 的欄位中，可以得知 *p*-value 小於
 0.05，代表這個 model 的顯著。
 
-#### 3.2 `Discrimination Indexes`
+#### 3.2 Discrimination Indexes
 
 在 `Discrimination Indexes` 欄中可以看到 R2 值。R2 值介於 0 和 1
 之間，這個 model 的 R2 值為 0.171，代表預測能力低。但書中提到 logistic
 regression 的 R2 值通常會比 linear regression models
 的來得低，因此並不建議採用 R2 值作為評斷。
 
-#### 3.3 `Rank Discrim. Indexes`
+#### 3.3 Rank Discrim. Indexes
 
 在 `Rank Discrim. Indexes` 欄中，*C* 代表 [concordance index
 (一致性指數)](https://www.itread01.com/content/1541051301.html)，說明
 model 的預測能力。表中可見 *C* = 0.687，預測能力普通。
 
-#### 3.4 `Coef`
+#### 3.4 Coef
 
 接著來到 `Coef` 欄。以變數 `Register` 為例，`ACAD` 是 reference
 level，因此不在表上。與 `ACAD` 差異最大的是 `MAG`（Coef =
