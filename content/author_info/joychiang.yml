@@ -1,0 +1,9 @@
+author: "Joy"        # article info
+mysite: /joychiang/  # article info
+comment: true        # article info
+id: joychiang                   # site info (on /<id>)
+pageTitle: "Someone's Blog"     # site info (on /<id>)
+pageSubtitle: "yayaya"          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: |
+  Write your self intro here. No need to worry about escaping characters.

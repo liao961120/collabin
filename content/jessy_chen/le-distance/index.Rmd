@@ -1,0 +1,73 @@
+---
+title: Remember (hopefully) better with the help of Liechtenstein Distance
+subtitle: ''
+tags: [lope]
+date: '2019-05-17'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+# Remembering (hopefully) better with the help of Levenshtein Distance
+
+#### When we try to memorize the spelling of a word, we might be confused by other similarly-spelled words that we know, and this is a challenge for high school students facing the College Entrance Exam. For this week, I tried to create a list of similarly-spelled words by using Levenshtein Distance.
+
+#### Levenshtein Distance is also called Edit Distance, and can help us understand how similar two sequences, such as strings, are by means of addition, deletion, and substituion. However, it is based on the spelling of the sequences only, so words with distinctively different pronunciations are likely to be considered similar using Levenshtein Distance. (There are other ways to define similarity as well, and this article includes a detailed explanation: https://stackabuse.com/levenshtein-distance-and-text-similarity-in-python/?fbclid=IwAR2O1Oo0Glu13FpmkGJR6Fbg7Q46iQh8WWw-dZuqSV15n2qi7ohIs2uaClI)
+
+#### In addition to helping us remember words better, Levenshtein Distance is also used for people with dyslexia. A research group even created a game to help children with dyslexia with word memorization. (https://core.ac.uk/download/pdf/82355820.pdf?fbclid=IwAR0ea-1zQx2dDl7a9zphtVWJb9bf2DWyU8AU9J6OfNRL8ebQ3Llqldwdrd0)
+
+#### If we randomly select a word in a dictionary, look for the word most similar to it, and see what comes next, we will end up with a long, orderly list of words. There is a Levenshtein dictionary online that visualizes this idea: http://blueribbonfarmsaz.com/dictionary/?fbclid=IwAR0pvuIslOuqReYQlsbn9TRcM-P5XAahz2Du1rnwxPGu1EoDG8BwLD8sHDY.
+
+```{r eval=FALSE}
+library(RecordLinkage)
+library(readr)
+library(tidyverse)
+```
+
+## The word list comes from http://www.taiwantestcentral.com/Default.aspx
+
+
+```{r eval=FALSE}
+voc_path <- "data\\voc.csv"
+df <- read_csv(voc_path, locale=locale(encoding="BIG-5"))
+df
+```
+
+
+```{r eval=FALSE}
+find_sim <- function(i){
+  
+  #print(i)
+  
+  sim <- levenshteinDist(i, df$English)
+  
+  s_min <- min(sim[sim!=min(sim)])
+  i_min <- which(sim == s_min)
+  
+  return(paste(unique(unlist(df$English[i_min])), collapse=","))}
+
+find_sim_lst <- lapply(df$English, find_sim)
+df <- df %>% mutate(sim=find_sim_lst)
+```
+
+```{r eval=FALSE}
+df <- df %>% mutate(sim=unlist(sim))
+rmarkdown::paged_table(df[1:200,])
+```
+
+```{r echo=FALSE}
+df <- readRDS("voc_sim.rds")
+rmarkdown::paged_table(df[1:200,])
+```
+
+```
+saveRDS(df, "voc_sim.rds")
+```
+
+#### Although this list includes many similar words, some of them might not be confusing to humans. What can be done next is to consider some particularly confusing letters (like m/n) and how frequently those words are used in our daily life. COCA provides a list of words based on word frequency (https://www.wordfrequency.info/free.asp?s=y&fbclid=IwAR0tKQfgu6Dp1UkDJYMdohICm9mzGRawh6Hk94gXtvaeHy0r4pLMXHTxwY4), and it might be helpful to find out what kind of word pairs are really confusing to us.

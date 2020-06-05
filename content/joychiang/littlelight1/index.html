@@ -1,0 +1,159 @@
+---
+title: "LittleLight 1"
+date: "2019-03-07"
+author: "Joy"
+mysite: /joychiang/
+isRmd: true
+tags: ['lope']
+comment: true
+output: html_document
+---
+
+<link href="/rmarkdown-libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/pagedtable/js/pagedtable.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<p>為什麼夜深了還不回家？</p>
+<p>雨下得唏哩嘩啦，風吹得窗戶哐哐響，屋頂上不斷地大珠小珠落玉盤…這種時刻~~城市裡的每一位路人都想快點回家。<br />
+路人把自己塞進被窩裡，取暖；閒得發慌就開始每分無聊時刻的日常，滑滑手機、追追劇；餓了可以勉強抱著一團溫暖煮泡麵去，在迷濛的香氣與蒸氣中祭一下五臟廟；累了就乖乖閉眼睡去，睜眼又是嶄新的一天！<br />
+像這樣直接啟動休假模式，人生快意得很～ 不過…</p>
+<p><strong>這路人不走在一般道路上，正坐在一處聽風聽雨的小地方，思考著資料科學的問題。 </strong><br />
+<strong>這路人不是往家裡鑽，走上一條從來沒有想過的嘗試，問了自己一個關於怎麼寫一個資料科學的小品文章的問題。</strong></p>
+<p>於是乎，這路人深夜了還不回家。<br />
+他心裏暗暗下了一句：「今天不寫出來，明天根本寫不出來。」 恰恰與我(們)一模模一樣樣。</p>
+<p>PS: 我還是寫到半夜啊…</p>
+<div id="下筆之前先做功課" class="section level4">
+<h4>下筆之前先做功課</h4>
+<p>從各種端不上檯面的人生經驗與教訓來看，可以的話「先做功課」會是很好的。</p>
+<p>由於不知道究竟要寫什麼，下筆下得很痛苦，有一個大的概念還是覺得自己的點子弱爆，更下不了筆、動不了手、寫不出code。如果蟹老闆說的是真的，那…至少我還可能可以寫文章，小品的那種。那麼小品文到底是什麼？ （下文引自維基百科）</p>
+<blockquote>
+<p><em>小品文是種散文的流派，其內容經常是在生活中，作者經過深思而傳達給讀者的訊息，內容題材不限，所傳達的道理或想法也沒有限制。其特色是以深入淺出、簡明生動的筆法，描述或議論一些事理。 </em></p>
+</blockquote>
+<p>讀完立刻覺得這不適合我。</p>
+<blockquote>
+<p><em>特點主要是通過事實和藝術形象來表現思想內容，議論較少，敘述、描寫或抒情成分較多，以幽默的方式和喜劇性的情節，活潑、輕鬆的語言，給人一種揭露性的笑，並使人在笑過之後，看到問題的實質，發人深思。</em></p>
+</blockquote>
+<p>但是，少議論、描述或抒情成分較多、輕鬆、活潑、笑，這些倒是我可以辦到的。</p>
+</div>
+<div id="開一小道" class="section level2">
+<h2>開一小道 *</h2>
+<p>想了老半天，想了一長串，不如就動手試試看。每次踩一小步，就算很醜，一點一滴就會變成小小的一大步！<br />
+大當家跟掌櫃的都沒有給跑堂的設大限了，只要跟資料科學、語言學相關而且有寫到 code 就可以是嗎？<br />
+那我可要寫好玩的，會看到自己進步與努力的東西，自己開一條小道去未來。<br />
+同時我也很期待大家會開出什麼 ：）</p>
+<hr />
+<p>在我生命中，現在的大環境有著比過去二十年更多的資料，資料也相對更容易取得與分析。我覺得 Sean 上一堂的導論分享很有道理，得到很多資料確實有很多可以玩的，但是也很容易沉到資料的大海底、落到資料分析的大缽中。</p>
+<p><strong><em>要去哪裡呢？</em></strong></p>
+<p>雖然統計可能無法完美解決一切疑問，但作為一門發展長久且關心由樣本資料合宜推估到完美(假想)母群的一門學科，它的思維與作法是值得瞭解與實際嘗試的。或許我們能有的資料總有分析、詮釋的侷限，但我們解決疑問的方法、思考的問題與好奇的想像可以是無限的！（我覺得人總是有辦法去觸類旁通點什麼的）</p>
+</div>
+<div id="觀察擁有的資源與目標" class="section level2">
+<h2>觀察擁有的資源與目標</h2>
+<p>放眼可觸及的資源與資料中，我覺得最能引起我興趣的是跟語奧有關的資料。因為兼差工作的關係，加上國際教育背景的影響，這類的資料總是能吸引我。來到語言所，在學習 R 與 Python 等相關知識與技能之後，我深深覺得掌握資料可以掌握很多事情。而且不只文字資料，連以前只想離得遠遠的數據資料也越來越有魔力了。因此，我這第一篇文章就這麼跟語奧掛勾啦！</p>
+</div>
+<div id="提出覺得有趣的關心的問題" class="section level2">
+<h2>提出覺得有趣的、關心的問題</h2>
+<p>今年語奧的報名人數有了翻倍的提升，2016 年最剛開始的時候已有 86 人到考，但我從沒想過到考人數會突破 200 。當年那個很少人知道的競賽，現在是不是有越來越多人知道了呢？還是只是在語言學自己的領域與同溫層中發酵著？真的有更多人對語言學感興趣嗎？能夠再做些什麼來提供更多人、更多的接觸機會嗎？這一切是怎麼發生的？…問題好像可以一直不斷地冒出來。在這麼多的問題中，我最想知道： <strong>這些年來大家是否對語言學的了解多更多了呢？</strong></p>
+</div>
+<div id="解決提問的方法之一" class="section level2">
+<h2>解決提問的方法之一</h2>
+<p>扣著這個問題，配上手邊可以找到的資料，我覺得可以由「對語言學的瞭解分享」看語言學被理解的樣貌。<br />
+由於 coding 需要複習一下，所以我就先做一個小的練習：讀取文字資料並製作詞頻表，之後會慢慢加入更多東西。</p>
+<div id="第一小步製作詞頻表" class="section level4">
+<h4>第一小步：製作詞頻表</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">comling &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;com_ling.csv&quot;</span>, <span class="dt">header =</span> T)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">all_com &lt;-<span class="kw">as.character</span>(<span class="kw">lapply</span>(comling, toString))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(jiebaR)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#定義分詞引擎</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">seg &lt;-<span class="st"> </span><span class="kw">worker</span>()</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#斷詞</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">all_com_seg &lt;-<span class="st"> </span>seg[all_com]</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#詞頻表</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">all_com_list &lt;-<span class="kw">as.data.frame</span>(<span class="kw">sort</span>(<span class="kw">table</span>(all_com_seg), <span class="dt">decreasing =</span> T))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(all_com_list[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["all_com_seg"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Freq"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"的","2":"1071","_rn_":"1"},{"1":"語言","2":"638","_rn_":"2"},{"1":"是","2":"269","_rn_":"3"},{"1":"語言學","2":"233","_rn_":"4"},{"1":"研究","2":"194","_rn_":"5"},{"1":"與","2":"154","_rn_":"6"},{"1":"邏輯","2":"126","_rn_":"7"},{"1":"人類","2":"124","_rn_":"8"},{"1":"我","2":"117","_rn_":"9"},{"1":"有","2":"116","_rn_":"10"},{"1":"和","2":"115","_rn_":"11"},{"1":"文化","2":"105","_rn_":"12"},{"1":"不同","2":"102","_rn_":"13"},{"1":"溝通","2":"93","_rn_":"14"},{"1":"在","2":"92","_rn_":"15"},{"1":"了解","2":"89","_rn_":"16"},{"1":"也","2":"79","_rn_":"17"},{"1":"結構","2":"78","_rn_":"18"},{"1":"很","2":"76","_rn_":"19"},{"1":"可以","2":"75","_rn_":"20"},{"1":"一種","2":"71","_rn_":"21"},{"1":"人","2":"71","_rn_":"22"},{"1":"一門","2":"66","_rn_":"23"},{"1":"學問","2":"64","_rn_":"24"},{"1":"科學","2":"62","_rn_":"25"},{"1":"對","2":"61","_rn_":"26"},{"1":"分析","2":"59","_rn_":"27"},{"1":"中","2":"49","_rn_":"28"},{"1":"不","2":"48","_rn_":"29"},{"1":"了","2":"48","_rn_":"30"},{"1":"文法","2":"48","_rn_":"31"},{"1":"透過","2":"47","_rn_":"32"},{"1":"思考","2":"46","_rn_":"33"},{"1":"方式","2":"46","_rn_":"34"},{"1":"等","2":"46","_rn_":"35"},{"1":"一個","2":"44","_rn_":"36"},{"1":"我們","2":"43","_rn_":"37"},{"1":"文字","2":"43","_rn_":"38"},{"1":"有趣","2":"43","_rn_":"39"},{"1":"及","2":"42","_rn_":"40"},{"1":"學習","2":"42","_rn_":"41"},{"1":"發展","2":"42","_rn_":"42"},{"1":"以及","2":"41","_rn_":"43"},{"1":"去","2":"39","_rn_":"44"},{"1":"各種","2":"39","_rn_":"45"},{"1":"但","2":"35","_rn_":"46"},{"1":"而","2":"35","_rn_":"47"},{"1":"使用","2":"34","_rn_":"48"},{"1":"語法","2":"34","_rn_":"49"},{"1":"以","2":"33","_rn_":"50"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="可以進步的第一小步" class="section level4">
+<h4>可以進步的第一小步</h4>
+<p>首先，恭喜我自己終於放下心防使用了 lapply ！感覺到可以寫出簡潔的 code 是非常舒服的一件事情！值得努力。接下來是自己覺得可以進步的地方：</p>
+<ol style="list-style-type: decimal">
+<li>可以把詞頻表再清一下<br />
+</li>
+<li>可以分年呈現</li>
+</ol>
+<p>第二小步就是試圖對這些結果做比較，看看個年度的分享內容差異等。或許可以有些自己想的假說，再用資料做驗證。</p>
+</div>
+</div>
+<div id="花開有其時" class="section level2">
+<h2>花開有其時</h2>
+<p>其實從構思主題到實作而後書寫真的很磨人，真的是一個好的鍛鍊。過程中的思考、認識自己的脾性、放下完美的堅持與維持興趣、用三腳貓功夫去實作、拆解每一個過程與步驟、練習搭建合理的推論與架構…等，好多挫折、好多收穫、好多成就。<br />
+沒有很難，只是有點挑戰。一定不會很容易，但是依然可以去努力。<br />
+在環境存在支持足夠的時候，花開有其時，碩果必可期。</p>
+</div>

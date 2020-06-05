@@ -1,0 +1,81 @@
+---
+title: Some notes and murmurs on codes and coding
+subtitle: ''
+tags: [lope]
+date: '2020-03-20'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+
+
+<p>這週想分享的是在寫 code 的時候曾經遇到的問題，雖然不是很有組織架構，但有些自己覺得實用的功能想分享與紀錄。</p>
+<div id="讀取檔案" class="section level3">
+<h3>讀取檔案</h3>
+<ol style="list-style-type: decimal">
+<li>XML：</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li>很多語料庫的原始資料是以 XML 檔案儲存的，Python 內建有 ElementTree 的功能，無須安裝，但要 <code>import xml.etree.ElementTree as ET</code>。</li>
+<li>整個過程和 requests 以及美麗湯的感覺很像，先以 <code>tree = ET.parse(&lt;file_path&gt;)</code> 和 <code>root = tree.getroot()</code> 剖析檔案，接著再用 <code>&lt;element&gt;.tag</code>、<code>&lt;element&gt;.text</code>、<code>&lt;element&gt;.attrib</code> 等功能取出更細的資料。</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>CSV：</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li>import csv
+<code>import csv</code></li>
+<li>一行一行讀取 csv 檔案，並存到 lst 變數裡。在這個過程中，也可以用 <code>for k, v in row.items():</code> 的方式將 csv 的 headers（k）和資料（v）做處理。</li>
+</ol>
+<pre><code>with open(f&quot;{filename}.csv&quot;, newline=&quot;&quot;) as csvfile:
+           rows = csv.DictReader(csvfile)
+      
+           lst = []
+           for row in rows:
+               # do something here
+               lst.append(dic)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>一開始會覺得這樣的方法把 csv 檔案切得好細，從讀取檔案時就要稍微對檔案結構有點想法，相較於 R 可以使用 <code>read_csv</code> 建立一個完整的 data.frame，覺得有點不習慣～但其實這樣的方法也賦予檔案讀取階段很大的彈性，可以把細部資料一個一個調整好。</li>
+</ol>
+</div>
+<div id="進度紀錄" class="section level3">
+<h3>進度紀錄</h3>
+<ol style="list-style-type: decimal">
+<li><code>print</code> 可以印出各種程式執行的結果，但有時候想要印的東西太多（有時候是太心急？），或想有更詳細的紀錄，在某次 meeting 聽到 Sean 分享 <code>logging</code> 的功能，覺得很實用！</li>
+<li>在使用 logging 的各個功能之前，要先 <code>import logging</code>，但它是 Python 內建的功能，不需要安裝 pip install。</li>
+<li>logging 的紀錄可以直接印在螢幕上，或是存在檔案中，如果是前者就不需要指定 filename 這個參數。
+<code>logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO, filename=&quot;log.txt&quot;)</code></li>
+<li>logging 還提供紀錄分級的服務！上面的 <code>logging.INFO</code> 表示只有 INFO 等級以上的訊息才會被記錄下來，其他等級依序為：critical &gt; error &gt; warning &gt; info &gt; debug。</li>
+<li>完成以上的 import 和 basicConfig 後，用 <code>logging.info(&quot;&lt;info_message&gt;&quot;)</code> 就可以留下進度紀錄了～</li>
+<li>對我而言，在寫 code 的時候其實比較像是步驟反過來的感覺，一開始先用 <code>print</code> 紀錄一些訊息，當需要使用 logging 的時候才用 find replace 把所有的 print 改成 <code>logging.INFO</code>。</li>
+</ol>
+</div>
+<div id="selenium" class="section level3">
+<h3>Selenium</h3>
+<ol style="list-style-type: decimal">
+<li>等待時間延遲</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li><code>time.sleep(1)</code>：無論如何，等待 1 秒。</li>
+<li><code>driver.implicitly_wait(30)</code>：等待到某個命令完成，最多等待 30 秒，例如：應用在輸入帳號和密碼的話，可以省去不少 coding 時間… XD</li>
+<li><code>WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, &lt;xpath&gt;)))</code>：在時間內檢查 until 的條件是否滿足，如不滿足則拋錯，但通常是因為有些元素還沒跑出來，需要等待一下。</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>有些元素無法直接對他進行動作，像是 click 某個元素或以 send_keys 輸入某個內容，這時候會需要 <code>ActionChains</code> 的幫忙，例如：</li>
+</ol>
+<pre><code>actions = ActionChains(driver)
+actions.move_to_element(&lt;elem&gt;)
+actions.click(&lt;elem&gt;)
+actions.perform()</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>有的時候瀏覽器有 auto complete 的功能，使用 <code>clear</code> 清除某元素內的內容不一定有效，會回復為原本的內容，模擬按鍵的「全選 + 刪除」可能也是一種方法（<code>.send_keys(Keys.COMMAND, 'a')</code>、<code>.send_keys(Keys.BACKSPACE)</code></p></li>
+<li><p>基於資安的考量，selenium 似乎無法直接選取電腦上的檔案。</p></li>
+</ol>
+<p>###版本控制</p>
+<ol style="list-style-type: decimal">
+<li>下 <code>git status</code> 指令後，如果是更動檔名，在 untracked/unstaged 階段，也就是還沒有被 git add 前，顯示的是 <code>delete</code> 和 <code>untracked files</code> 這兩個訊息。被 <code>git add</code> 之後，就是被 tracked 了，就會顯示 <code>renamed</code>。
+在合併分支時，<code>git merge</code> 和 <code>git rebase</code> 的結果應該是相同的，但在 git log 樹狀圖上卻會不一樣，因為 git rebase 將 commit 接到合併的 master 或分支上，因此樹狀圖會比較乾淨，<code>git log --graph</code> 可能會看不到原本的 commit，這時候可以借助 <code>git reflog</code> 來查看該 commit 的 reference ID 是什麼。但是，git rebase 常常會發生合併衝突，所以也是件需要提起勇氣的事…XD</li>
+</ol>
+</div>

@@ -1,0 +1,24 @@
+Package: fakepkg
+Title: fakepkg
+Version: 1.0.0
+Authors@R: 
+    person(given = "Yongfu", 
+           family = "Liao",
+           email = "liao961120@gmail.com", 
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-1814-2993"))
+URL: https://github.com/liao961120/
+BugReports: https://github.com/liao961120/
+Description: fakepkg
+Depends: R (>= 3.4.4)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+Imports: bookdown,
+  tidyverse,
+  knitr,
+  remotes,
+  devtools,
+  available
+RoxygenNote: 6.1.0

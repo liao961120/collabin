@@ -1,0 +1,8 @@
+author: "Yulin"        # article info
+mysite: /yu-lin/  # article info
+comment: true        # article info
+id: yu-lin                   # site info (on /<id>)
+pageTitle: "Yola's vibe"     # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""

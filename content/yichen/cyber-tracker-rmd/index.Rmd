@@ -1,0 +1,156 @@
+---
+title: Cyber Tracker Sponsors
+subtitle: car
+tags: ["Cyber", "R", LOPE]
+date: '2019-04-25'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+```
+
+
+
+```{r}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(tidyr)
+library(DT)
+#install.packages('anytime')
+library(anytime)
+#install.packages('gghighlight')
+library(gghighlight)
+#install.packages('sf')
+library(sf)
+#install.packages('rnaturalearth')
+library(rnaturalearth)
+#install.packages('leaflet')
+library(leaflet)
+```
+
+Cyber Operations Tracker https://www.cfr.org/interactive/cyber-operations
+CFR database (Council of Foreign Relations)
+
+```{r}
+Cyber = read.csv("cyber-operations-incidents.csv", stringsAsFactors = F)
+```
+
+World Map Data
+
+```{r}
+world <- st_as_sf(countries110) %>% 
+  filter(sovereignt!="Antarctica") %>% 
+  filter(type != "Dependency")  %>% 
+  filter(type != "Disputed") %>% 
+  filter(type != "Indeterminate")
+```
+
+
+```{r}
+Lean_database <- Cyber %>% 
+  filter(Sponsor!="") %>% 
+  filter(Date!="") %>% 
+  select(Sponsor, Victims, Type, Title, Description, Date) %>% 
+  arrange(Sponsor,Date)
+
+UnknownSponsor<- Cyber %>% 
+  filter(Sponsor=="") %>% 
+  select(Victims, Type, Description, Title, Date)
+
+SingleSponsor <- Cyber %>% 
+  select(Sponsor, Type, Date) %>%
+  filter (!Sponsor %in% c(grep(",", Cyber$Sponsor, value=TRUE)), 
+          Sponsor!="",
+          Type!="") %>% 
+  mutate(Year = year(anydate(Date))) %>% 
+  mutate(Sponsor=case_when(
+    Sponsor=="Iran (Islamic Republic of)" ~ "Iran",
+    Sponsor=="Korea (Democratic People's Republic of)" ~ "North Korea",
+    Sponsor=="Korea (Republic of)" ~ "South Korea",
+    Sponsor=="Russian Federation" ~ "Russia",
+    Sponsor=="United States" ~ "United States of America",
+    TRUE ~ Sponsor)) %>% 
+  select(-Date) %>% 
+  arrange(Sponsor, Type, Year)
+
+Tidy_by_year <- SingleSponsor %>% 
+  group_by(Sponsor, Year) %>% 
+  summarize(Cases=n())
+
+Tidy_total <- SingleSponsor %>% 
+  group_by(Sponsor) %>% 
+  summarize(Cases=n()) %>% 
+  mutate(Cases= case_when(
+    Sponsor == "United States of America" ~ Cases+5,
+    Sponsor == "Israel" ~ Cases + 3,
+    Sponsor == "China" ~ Cases+1,
+    Sponsor == "Russia" ~ Cases+1,
+    Sponsor == "United Kingdom" ~ Cases+1,
+    Sponsor == "Taiwan" ~ Cases+1,
+    TRUE ~ Cases+0))
+
+Geo_Cyber <- left_join(world, Tidy_total, by=c("admin"="Sponsor"))
+```
+
+Known Sponsors
+
+```{r}
+datatable(Lean_database, 
+          extensions = 'Buttons',  
+                        options = list(dom = 'Bfrtip',
+                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+
+Global 2005-2018
+
+```{r}
+#pallette
+pal <- colorNumeric("Greens", domain=Geo_Cyber$Cases)
+
+#popup note
+popup_spend <- paste0("<strong>", Geo_Cyber$admin, 
+                      "</strong><br /> Known Cyber Operations Since 2005: ", Geo_Cyber$Cases)
+
+Geo_Cyber %>% 
+  leaflet() %>%
+  addTiles() %>%
+  setView(0, 0, zoom = 2) %>% 
+  addPolygons(data = Geo_Cyber, 
+              fillColor = ~pal(Geo_Cyber$Cases), 
+              fillOpacity = 0.5, 
+              weight = 0.2, 
+              smoothFactor = 0.2, 
+              popup = ~popup_spend) %>% 
+  addLegend(pal = pal, 
+            values = Geo_Cyber$Cases, 
+            na.label = "NA",
+            bins= 6,
+            position = "bottomright", 
+            title = "Cyber Operations")
+```
+
+Multiple Sponsors
+
+```{r}
+MultipleSponsors <- Cyber %>% 
+  select(Sponsor, Type, Date) %>%
+  filter(Sponsor %in% c(grep(",", Cyber$Sponsor, value=TRUE)))
+```
+
+```{r}
+MultipleSponsors
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

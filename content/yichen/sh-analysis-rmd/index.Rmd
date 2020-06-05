@@ -1,0 +1,69 @@
+---
+title: Shopping Analysis of Walmart
+subtitle: Shopping Analysis
+tags: ["R", "Sopping", LOPE]
+date: '2019-03-22'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+```
+
+
+```{r}
+# install.packages("arules")
+library(arules)
+# install.packages("arulesViz")
+library(arulesViz)
+```
+
+```{r}
+shopping = read.transactions("shopping.csv")
+```
+
+```{r}
+summary(shopping)
+```
+
+```{r}
+inspect(shopping[1:5])
+```
+
+```{r}
+itemFrequency(shopping)
+```
+
+```{r}
+itemFrequencyPlot(shopping,topN = 10)
+itemFrequencyPlot(shopping,topN = 10,type = "absolute")
+itemFrequencyPlot(shopping,topN = 10,horiz = T,
+ main = "Item Frequency",xlab = "Relative Frequency")
+
+#itemFrequencyPlot(groceries,support = 0.1,
+ #main = "Item Frequency with S = 0.1",ylab = "Relative Frequency")
+
+
+
+
+```
+
+```{r}
+apriori(shopping)
+
+rule = apriori(shopping,parameter = list(support = 0.006,confidence = 0.3))
+summary(rule)
+```
+
+```{r}
+inspect(rule[1:5])
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

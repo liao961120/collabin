@@ -1,0 +1,66 @@
+---
+title: Some notes and murmurs on codes and coding
+subtitle: ''
+tags: [lope]
+date: '2020-03-20'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+這週想分享的是在寫 code 的時候曾經遇到的問題，雖然不是很有組織架構，但有些自己覺得實用的功能想分享與紀錄。
+
+### 讀取檔案
+
+1. XML：
+(1) 很多語料庫的原始資料是以 XML 檔案儲存的，Python 內建有 ElementTree 的功能，無須安裝，但要 `import xml.etree.ElementTree as ET`。
+(2) 整個過程和 requests 以及美麗湯的感覺很像，先以 `tree = ET.parse(<file_path>)` 和 `root = tree.getroot()` 剖析檔案，接著再用 `<element>.tag`、`<element>.text`、`<element>.attrib` 等功能取出更細的資料。
+2. CSV：
+(1) import csv
+`import csv`
+(2) 一行一行讀取 csv 檔案，並存到 lst 變數裡。在這個過程中，也可以用 `for k, v in row.items():` 的方式將 csv 的 headers（k）和資料（v）做處理。
+```
+with open(f"{filename}.csv", newline="") as csvfile:
+           rows = csv.DictReader(csvfile)
+      
+           lst = []
+           for row in rows:
+               # do something here
+               lst.append(dic)
+```
+(3) 一開始會覺得這樣的方法把 csv 檔案切得好細，從讀取檔案時就要稍微對檔案結構有點想法，相較於 R 可以使用 `read_csv` 建立一個完整的 data.frame，覺得有點不習慣～但其實這樣的方法也賦予檔案讀取階段很大的彈性，可以把細部資料一個一個調整好。
+
+### 進度紀錄
+
+1. `print` 可以印出各種程式執行的結果，但有時候想要印的東西太多（有時候是太心急？），或想有更詳細的紀錄，在某次 meeting 聽到 Sean 分享 `logging` 的功能，覺得很實用！
+2. 在使用 logging 的各個功能之前，要先 `import logging`，但它是 Python 內建的功能，不需要安裝 pip install。
+3. logging 的紀錄可以直接印在螢幕上，或是存在檔案中，如果是前者就不需要指定 filename 這個參數。
+`logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO, filename="log.txt")`
+4. logging 還提供紀錄分級的服務！上面的 `logging.INFO` 表示只有 INFO 等級以上的訊息才會被記錄下來，其他等級依序為：critical > error > warning > info > debug。
+5. 完成以上的 import 和 basicConfig 後，用 `logging.info("<info_message>")` 就可以留下進度紀錄了～
+6. 對我而言，在寫 code 的時候其實比較像是步驟反過來的感覺，一開始先用 `print` 紀錄一些訊息，當需要使用 logging 的時候才用 find replace 把所有的 print 改成 `logging.INFO`。
+
+### Selenium
+
+1. 等待時間延遲
+(1) `time.sleep(1)`：無論如何，等待 1 秒。
+(2) `driver.implicitly_wait(30)`：等待到某個命令完成，最多等待 30 秒，例如：應用在輸入帳號和密碼的話，可以省去不少 coding 時間... XD
+(3) `WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, <xpath>)))`：在時間內檢查 until 的條件是否滿足，如不滿足則拋錯，但通常是因為有些元素還沒跑出來，需要等待一下。
+
+2. 有些元素無法直接對他進行動作，像是 click 某個元素或以 send_keys 輸入某個內容，這時候會需要 `ActionChains` 的幫忙，例如：
+```
+actions = ActionChains(driver)
+actions.move_to_element(<elem>)
+actions.click(<elem>)
+actions.perform()
+```
+
+3. 有的時候瀏覽器有 auto complete 的功能，使用 `clear` 清除某元素內的內容不一定有效，會回復為原本的內容，模擬按鍵的「全選 + 刪除」可能也是一種方法（`.send_keys(Keys.COMMAND, 'a')`、`.send_keys(Keys.BACKSPACE)`
+
+4. 基於資安的考量，selenium 似乎無法直接選取電腦上的檔案。
+
+###版本控制
+
+1. 下 `git status` 指令後，如果是更動檔名，在 untracked/unstaged 階段，也就是還沒有被 git add 前，顯示的是 `delete` 和 `untracked files` 這兩個訊息。被 `git add` 之後，就是被 tracked 了，就會顯示 `renamed`。
+在合併分支時，`git merge` 和 `git rebase` 的結果應該是相同的，但在 git log 樹狀圖上卻會不一樣，因為 git rebase 將	 commit 接到合併的 master 或分支上，因此樹狀圖會比較乾淨，`git log --graph` 可能會看不到原本的 commit，這時候可以借助 `git reflog` 來查看該 commit 的 reference ID 是什麼。但是，git rebase 常常會發生合併衝突，所以也是件需要提起勇氣的事...XD

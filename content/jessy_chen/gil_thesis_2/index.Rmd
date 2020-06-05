@@ -1,0 +1,68 @@
+---
+title: NTU GIL Thesis Analysis (2)
+subtitle: ''
+tags: [lope]
+date: '2019-05-31'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      dev='png', 
+                      dpi=300)
+```
+
+
+```{r}
+library(readr)
+library(jiebaR)
+library(tidyverse)
+library(tmcn)
+library(ggplot2)
+```
+
+```{r}
+data <- read_csv("thesis_ma_complete.csv", locale=locale(encoding="BIG-5"))
+```
+
+```{r}
+seg <- worker()
+data$abstract_cn_seg <- lapply(data$abstract_cn, function(x){seg[x]})
+```
+
+```{r}
+data_unnest <- data %>% unnest(abstract_cn_seg)
+data_unnest_detail <- data_unnest %>% group_by(title_cn, abstract_cn_seg) %>% summarize(n = length(abstract_cn_seg)) %>% arrange(desc(n)) %>% select(abstract_cn_seg, n, title_cn)
+```
+
+```{r}
+rmarkdown::paged_table(data_unnest_detail[1:50,])
+```
+
+```{r}
+data_unnest_freq <- data_unnest %>% filter(abstract_cn_seg != stopwordsCN()) %>% group_by(abstract_cn_seg, year) %>% summarize(freq = length(abstract_cn_seg)) %>% arrange(desc(freq, year))
+```
+
+```{r}
+data_unnest_freq[50:100,]
+```
+
+```{r}
+data_year <- data %>% group_by(year) %>% summarize(num = length(author)) %>% arrange(desc(num))
+df <- merge(data_unnest_freq, data_year) %>% mutate(freq_num = freq/num) %>% arrange(desc(freq_num, year))
+df <- df %>% filter(freq_num > 4 & abstract_cn_seg != "的" & abstract_cn_seg != "在" & abstract_cn_seg != "是" & abstract_cn_seg != "中" & abstract_cn_seg != "了" & abstract_cn_seg != "與" & abstract_cn_seg != "我們" & abstract_cn_seg != "為" & abstract_cn_seg != "及" & abstract_cn_seg != "之" & abstract_cn_seg != "和" & abstract_cn_seg != "也")
+```
+
+```{r}
+df
+```
+
+```{r}
+ggplot(df, aes(year, freq_num, group=abstract_cn_seg, color=abstract_cn_seg)) +
+  geom_line() +
+  geom_text(aes(label=abstract_cn_seg))
+```

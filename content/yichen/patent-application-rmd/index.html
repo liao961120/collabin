@@ -1,0 +1,234 @@
+---
+title: Patent Application
+subtitle: CG
+tags: [Patent Application, R, LOPE]
+date: '2019-04-12'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#install.packages(&#39;readxl&#39;)</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">rawdata =<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">&quot;MGR_patent control.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#install.packages(&#39;tidyverse&#39;)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">applications =<span class="st"> </span>rawdata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">separate</span>(., Journal, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;data&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw">separate</span>(., data, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;front&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw">separate</span>(., number, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;extra&quot;</span>, <span class="st">&quot;code&quot;</span>, <span class="st">&quot;id&quot;</span>, <span class="st">&quot;junk&quot;</span>, <span class="st">&quot;date&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>extra, <span class="op">-</span>junk) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">str_trim</span>(id, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw">unite</span>(application_number, <span class="kw">c</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">application_number =</span> <span class="kw">str_trim</span>(application_number, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">duplicated =</span> <span class="kw">duplicated</span>(application_number))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">head</span>(applications)</a></code></pre></div>
+<pre><code>#&gt; # A tibble: 6 x 7
+#&gt;   Organism    Journal         front   Company  application_num… date  duplicated
+#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt; &lt;lgl&gt;     
+#&gt; 1 methanocal… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… FALSE     
+#&gt; 2 pyrococcus… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… TRUE      
+#&gt; 3 pyrococcus… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… TRUE      
+#&gt; 4 pyrococcus… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… TRUE      
+#&gt; 5 pyrococcus… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… TRUE      
+#&gt; 6 pyrococcus… &quot;JOURNAL   Pat… JOURNA… Abbott … WO2011053699-A1  05-M… TRUE</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">applications <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(duplicated)</a></code></pre></div>
+<pre><code>#&gt; # A tibble: 2 x 2
+#&gt;   duplicated     n
+#&gt;   &lt;lgl&gt;      &lt;int&gt;
+#&gt; 1 FALSE        999
+#&gt; 2 TRUE       11999</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">unique =<span class="st"> </span>applications <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(duplicated <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> lubridate<span class="op">::</span><span class="kw">dmy</span>(date)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> lubridate<span class="op">::</span><span class="kw">year</span>(date))</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">unique_year =<span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(year)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">mean</span>(unique_year<span class="op">$</span>n)</a></code></pre></div>
+<pre><code>#&gt; [1] 41.625</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">median</span>(unique_year<span class="op">$</span>n)</a></code></pre></div>
+<pre><code>#&gt; [1] 47.5</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">unique_year <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">year</th>
+<th align="center">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1988</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1991</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">1992</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1993</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">1998</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">1999</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="center">2000</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">2001</td>
+<td align="center">66</td>
+</tr>
+<tr class="odd">
+<td align="center">2002</td>
+<td align="center">67</td>
+</tr>
+<tr class="even">
+<td align="center">2003</td>
+<td align="center">42</td>
+</tr>
+<tr class="odd">
+<td align="center">2004</td>
+<td align="center">56</td>
+</tr>
+<tr class="even">
+<td align="center">2005</td>
+<td align="center">66</td>
+</tr>
+<tr class="odd">
+<td align="center">2006</td>
+<td align="center">67</td>
+</tr>
+<tr class="even">
+<td align="center">2007</td>
+<td align="center">72</td>
+</tr>
+<tr class="odd">
+<td align="center">2008</td>
+<td align="center">68</td>
+</tr>
+<tr class="even">
+<td align="center">2009</td>
+<td align="center">90</td>
+</tr>
+<tr class="odd">
+<td align="center">2010</td>
+<td align="center">89</td>
+</tr>
+<tr class="even">
+<td align="center">2011</td>
+<td align="center">53</td>
+</tr>
+<tr class="odd">
+<td align="center">2012</td>
+<td align="center">54</td>
+</tr>
+<tr class="even">
+<td align="center">2013</td>
+<td align="center">30</td>
+</tr>
+<tr class="odd">
+<td align="center">2014</td>
+<td align="center">37</td>
+</tr>
+<tr class="even">
+<td align="center">2015</td>
+<td align="center">49</td>
+</tr>
+<tr class="odd">
+<td align="center">2016</td>
+<td align="center">46</td>
+</tr>
+<tr class="even">
+<td align="center">2017</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">unique_year <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y =</span> n)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(<span class="dt">n =</span> <span class="dv">20</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Trends in patent applications for Genetic Sequences&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;application year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;applications&quot;</span>)</a></code></pre></div>
+<p><img src="/yichen/patent-application-rmd/index_files/figure-html/unnamed-chunk-9-1.svg" width="576" /></p>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>協作閣</title>
+    <meta charset="utf-8">
+    <meta name="author" content="" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function() {
+      var links = document.getElementsByTagName('a');
+      for (var i = 0; i < links.length; i++) {
+        if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+          links[i].target = '_blank';
+        }
+      }
+    })();
+    
+    </script>
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# 協作閣
+## 文章撰寫、上傳、修改
+### <br><br>
+### April 16, 2019<br><br><a href='http://bit.ly/collabinDocs' style='font-size:0.7em;'>bit.ly/collabinDocs</a>
+
+---
+
+
+## Outline
+
+.larger[
+- 文章撰寫
+
+- 文章上傳
+
+- 修改文章
+]
+
+---
+
+class: inverse, center, middle
+
+# 文章撰寫
+
+---
+name: relative-path
+
+## 文章撰寫
+
+- 格式：
+    - **Markdown** (`.md`)
+    - **R Markdown** (`.Rmd`)
+    - **Jupyter Notebook** (`.ipynb`)
+    
+- **`.md`** 與 **`.Rmd`**：使用**.red[相對路徑 (relative path)]**
+
+      ````md
+      ![](path/to/img.png)                     &lt;!--Correct--&gt;
+      ![](https://example.com/img.png)         &lt;!--Correct--&gt;
+      ![](/this/is/absolute/path/on/collabin)  &lt;!--WRONG !!!--&gt;
+      ````
+      
+      ````r
+      source('./path/to/file.csv')               # Correct
+      source('path/to/file.csv')                 # Correct
+      source('/Users/who/i/cant/find/file.csv')  # WRONG !!!
+      ````
+
+- **`.ipynb`**：請**.red[先跑出結果]** (i.e. `.ipynb` 內含圖片、程式執行結果)
+
+
+---
+
+class: inverse, center, middle
+
+# 文章上傳
+
+---
+## 文章上傳
+
+
+.left-column[
+### R Markdown
+]
+
+.right-column[
+
+1. 撰寫：**`index.Rmd`** + dependencies (figures, `.R`)
+
+1. 確認：使用[相對路徑](#relative-path)、可 knit 成 HTML
+
+1. 壓縮：`index.Rmd` + dependencies → **`.zip`**
+
+1. [上傳](https://goo.gl/forms/t76C5JNDjMx8DxX42)：填寫文章資訊 (標題、文章標籤等)
+
+]
+
+---
+
+## 文章上傳
+
+.left-column[
+### R Markdown
+### Markdown
+]
+
+.right-column[
+
+1. 撰寫：**`index.md`** + dependencies (figures)
+
+1. 確認：使用[相對路徑](#relative-path)
+
+1. 壓縮：`index.md` + dependencies → **`.zip`**
+
+1. [上傳](https://goo.gl/forms/t76C5JNDjMx8DxX42)：填寫文章資訊 (標題、文章標籤等)
+
+]
+
+---
+
+## 文章上傳
+
+.left-column[
+### R Markdown
+### Markdown
+### Jupyter nb
+]
+
+.right-column[
+
+1. 撰寫：**`index.ipynb`**
+
+1. 執行：先跑出結果 (`.ipynb` 內含圖片、程式執行結果)
+
+1. 壓縮：`index.ipynb` + dependencies&lt;sup&gt;\*&lt;/sup&gt; → **`.zip`**
+
+1. [上傳](https://goo.gl/forms/t76C5JNDjMx8DxX42)：填寫文章資訊 (標題、文章標籤等)
+
+]
+
+.footnote[
+.smaller[
+\[\*\]: 不附上 dependencies 仍可在網頁正常顯示 (因為已先執行過 `.ipynb`)。
+]
+]
+
+---
+
+class: inverse, center, middle
+
+
+# 修改文章
+
+---
+
+## 文章修正
+
+.pull-left[
+
+#### (R) Markdown
+
+1. 協作閣文章頁面點擊 &lt;img style="display:inline-block;height: 1em;margin-bottom:0" src="https://bit.ly/2RRirG7"&gt;
+
+1. 透過 GitHub 修改文章&lt;sup&gt;\*&lt;/sup&gt;
+
+1. 提出 Pull Request
+
+![:gen 70%](edit-btn.png)
+
+.footnote[
+.smaller[
+\[\*\]: 第一次編輯時，會跳出需要 Fork 的畫面，請按確定。編輯的過程可完全透過網頁進行，別擔心會因為按錯什麼而毀損檔案。
+]]
+
+]
+
+--
+
+.pull-right[
+
+#### Jupyter Notebook
+
+.smaller[
+如果使用 Jupyter Notebook 撰寫文章，點擊 &lt;img style="display:inline;height:1em;margin-bottom:0" src="https://bit.ly/2RRirG7"&gt; 所修改的會是已轉換成 `.md` 的文件。換言之，原始的 `.ipynb` 並未被修改。
+
+若想保持兩者的一致，請在進入 &lt;img style="display:inline;height:1em;margin-bottom:0" src="https://bit.ly/2RRirG7"&gt; 進行修改之後，再透過 pull request **上傳、複寫 Repo 中的 `index.ipynb`** (與 `.md` 在同一個資料夾，並且檔名皆為 `index` 開頭)
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

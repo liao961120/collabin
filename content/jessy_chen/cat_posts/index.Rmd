@@ -1,0 +1,104 @@
+---
+title: 貓版文章分析
+subtitle: ''
+tags: [lope]
+date: '2019-03-22'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>", rownames.print = FALSE, cols.min.print = 3)
+```
+
+# <b>貓版文章分析</b>
+### 動機：
+### 重點：想要看看貓版的網友都在討論什麼樣的主題，但在整理資料的時候就發現有不少地方需要處理，尤其是有關時間資訊的部分，因此這個禮拜就把重點放在<b>了解時間的格式</b>。</br></br>
+
+
+#### <b><i>Step 1.</i> 利用 python 的 ptt-web-crawler package，抓取貓版近幾年的文章：</b>
+</br>a. package 傳送門：https://github.com/jwlin/ptt-web-crawler
+（感謝Sean!）
+</br>b. 下載 package 到自己的電腦。
+</br>c. 找到檔案的儲存路徑（可能會在 Documents/GitHub 資料夾之下）。
+</br>d. 在終端機輸入指令<code>python crawler.py -b cat -i 3500 4000</code>（3500、4000分別為起始頁數和結束頁數）。
+</br>e. 耐心等待爬蟲完成，就可以在資料夾中看到一個 .json 檔案，檔名為 cat-3500-4000.json。</br></br>
+
+
+#### <b><i>Step 2.</i> 讀入資料：</b>
+```{r}
+library(rjson) # for reading .json files
+library(jsonlite)
+library(tidyverse) # for dealing with data frame
+library(stringr) # for dealing with strings/characters
+library(jiebaR) # for segmenting words
+library(lubridate) # for dealing with time-related data (such as Date, POSIXct, and POSIXlt)
+library(ggplot2) # for visualzation
+library(DT)
+```
+
+</br></br>先以最近兩年（2017-01-01至2018-12-31）的資料作分析。
+```{r}
+data <- fromJSON("cat-3500-4000.json")$articles
+rmarkdown::paged_table(data[1:20,])
+```
+
+</br></br>若有機會分析更多年的資料，可以用下面的 code 來一次讀取多個檔案。
+```
+json_files <- list.files(pattern = "*.json")
+json_files
+data <- lapply(json_files, function(x){fromJSON(x)$articles})
+```
+ </br></br>
+
+#### <b><i>Step 3.</i> 整理 data frame：</b>
+</br>a. 將date欄位轉成日期格式，以便篩選出近兩年的文章。
+</br>在轉換日期的過程中，遇到英文月份簡寫（如：Jun、Sep）無法顯示的問題，可能是時區造成的。
+```{r}
+# First save your current locale
+loc <- Sys.getlocale("LC_TIME")
+
+# Set correct locale for the strings to be parsed
+# (in this particular case: English)
+# so that weekdays (e.g. "Thu"") and abbreviated month (e.g. "Nov"") are recognized
+Sys.setlocale("LC_TIME","C") 
+
+# proceed as you intended
+data$date <- strptime(data$date, "%a %b %e %H:%M:%S %Y", tz="UTC")
+# an example: "Thu Nov 8 15:41:45 2012"
+
+# Then set back to your old locale
+Sys.setlocale("LC_TIME", loc) 
+
+class(data$date)
+data[1,]
+```
+
+</br></br>strptime的其他符號可參考：http://www.learn-r-the-easy-way.tw/chapters/5?fbclid=IwAR1Ap-tTxwmKNWVIKwBSfCS-Uv9TfrjSMmbFyHRpcOsPsahLDX4hdLazOv4
+
+</br></br>b. 將文字部分用jieba斷詞。
+</br>原本以tidyverse套件裡的filter來找標題含有「認養」和「買貓」的文章，但因為這個json檔讀進來以後，竟然是一個巢狀data frame，無法使用filter這個功能，會回傳錯誤，因此改用了data[grepl("買貓", data$article_title), ]這個方式來找符合的文章。
+</br>但接著遇到的是標題或文章內容斷詞的問題，要篩掉「買貓飼料」、「買貓罐頭」這種標題，因此需要斷詞。
+```{r}
+seg <- worker()
+data$content_splited_n <- lapply(data$content, function(x){seg[x]})
+data$content_splited <- lapply(data$content_splited_n, function(x){paste(x, collapse=" ")})
+data$content_splited[1:3]
+```
+
+
+
+### 閱讀筆記
+目前正在閱讀「Python網路爬蟲與資料視覺化」這本書，作者是陳允傑，閱讀到第二章。
+
+</br></br><b>1. 關聯式資料庫（relational database）：</b>
+</br>不同的data frame中，如果有相同的欄位名稱（column name），就可以用外來鍵（foreign key）搜尋，例如：有兩個data frame，其中一個是客戶的基本資料，另一個是某個月份的訂單表格，兩個df都有客戶ID這個欄位，就可以得到像是「哪個地區的人在該月份訂購金額最大」這樣的資料，而對訂單這個df來說，客戶的居住地就是一個外來鍵。在建置df的時候，欄位的命名最好能夠一致，在往後的使用上會比較方便。
+
+</br></br><b>2. 欄頭信息（header information）：</b>
+</br>在爬取網頁資料時，可以透過Chrome查看欄頭信息，了解關於該網頁的一些組成成份，像是要下載一個.json檔的時候，會發現有一個「MIME type」的資訊裡寫著「application/json」，其他還有「text/csv」、「text/html」、「image/gif」等類型，基本上形式都是「type/subtype」，type主要有text、image、audio、video和application，我們在寄發email的時候電腦也是用這樣的模式在進行的。
+
+</br></br><b>3. Selector Gadget和Xpath Helper：實用的小工具：</b>
+</br>Selector Gadget 可以幫助我們在查看網頁的時候，以不同的顏色標示出我們想抓取的資料為何，再產生符合的 CSS 給我們。當我們點擊網頁的某個元素，會標示「綠色」，Selector Gadget會自動偵測其他符合的元素，標成「黃色」，之後再讓我們手動點掉不需要的元素，這時候會顯示「紅色」，接著就會出現最終的 CSS。可參考以下介紹：https://blog.gtwang.org/r/rvest-web-scraping-with-r/
+</br>Xpath Helper主要是搭配Chrome Inspector使用，輸入Xpath之後就會呈現抓取的結果。可參考：http://sweeteason.pixnet.net/blog/post/43059008-chrome-%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9---%E6%90%AD%E9%85%8D-xpath-helper-%E5%A5%97%E4%BB%B6

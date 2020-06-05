@@ -1,0 +1,106 @@
+theme: hugo-ivy
+baseurl: https://collabin.netlify.com/
+languageCode: zh-tw
+title: 協作閣
+ignoreFiles:
+  - \.Rmd$
+  - _cache$
+  - author_info
+  - \.7z$
+  - \.zip$
+hasCJKLanguage: true
+enableEmoji: true
+googleAnalytics: UA-133306175-1
+rssLimit: 100
+footnotereturnlinkcontents: ↩
+menu:
+  main:
+    - name: "Home\U0001F3E0"
+      url: /
+      weight: 1
+    - name: "發表\U0001F4C2"
+      url: /info/submit/
+      weight: 2
+    - name: About
+      url: /info/about/
+      weight: 3
+    - name: Tags
+      url: /tags/
+      weight: 4
+    - name: ' '
+      weight: 10
+    - name: "作者\U0001F465"
+      url: /info/authors/
+      weight: 15
+    - name: Yongfu Liao
+      url: /yongfu/
+      weight: 100   # author weights are always 100
+    - name: Jessica
+      url: /jessica/
+      weight: 100   # author weights are always 100
+    - name: Don
+      url: /don/
+      weight: 100   # author weights are always 100
+    - name: Joy
+      url: /joychiang/
+      weight: 100   # author weights are always 100
+    - name: Richard Lian
+      url: /richl/
+      weight: 100   # author weights are always 100
+    - name: Yolanda Chen
+      url: /yolanda_chen/
+      weight: 100   # author weights are always 100
+    - name: Jessy Chen
+      url: /jessy_chen/
+      weight: 100   # author weights are always 100
+    - name: Bénjī
+      url: /ka-sîng/
+      weight: 100   # author weights are always 100
+    - name: Freya
+      url: /yichen/
+      weight: 100   # author weights are always 100
+    - name: Sean Tseng
+      url: /seantyh/
+      weight: 100
+    - name: Debby
+      url: /debby/
+      weight: 100
+    - name: Yulin
+      url: /yu-lin/
+      weight: 100
+    - name: Derek Liao
+      url: /derek/
+      weight: 100
+    - name: Mao Chang
+      url: /mao-chang/
+      weight: 100
+    - name: Amber
+      url: /amber/
+      weight: 100
+    - name: Andrea
+      url: /andrea/
+      weight: 100
+params:
+  customJS:
+    - js/fix-toc.js
+    - js/center-img.js
+    - js/right-quote.js
+    - js/no-highlight.js
+    - js/fix-footnote.js
+    - js/math-code.js
+    - js/external-link.js
+    - js/alt-title.js
+  description: 開源協作部落格
+  disqusURL: 'http://corbloggers.disqus.com'
+  footer: '© [協作閣](/) 2019-2020'
+  githubContentURL: 'https://github.com/rbind/yihui/edit/master/content/'
+  highlightjsCDN: //cdn.bootcss.com
+  highlightjsLang:
+    - r
+    - yaml
+    - toml
+    - tex
+  highlightjsTheme: github
+  highlightjsVersion: 9.12.0
+  twitterImage: /images/logo.png
+  github: https://github.com/liao961120/collabin/ #need trailing slash #https://github.com/liao961120/collabin/blob/master/content

@@ -1,0 +1,198 @@
+---
+title: 貓版文章分析(II)
+subtitle: ''
+tags: [lope]
+date: '2019-03-29'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+<link href="/rmarkdown-libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/pagedtable/js/pagedtable.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(rjson)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(jsonlite)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">library</span>(gganimate)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw">library</span>(gifski)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">library</span>(png)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># read in data</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cat-3500-4000.rds&quot;</span>, <span class="st">&quot;cat-3000-3501.rds&quot;</span>, <span class="st">&quot;cat-2500-3001.rds&quot;</span>, <span class="st">&quot;cat-2000-2501.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">data_lst &lt;-<span class="st"> </span><span class="kw">lapply</span>(files, <span class="cf">function</span>(x){<span class="kw">readRDS</span>(x)})</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># check the column names of the data frame (message_count is a data frame)</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">names</span>(data_lst[[<span class="dv">1</span>]])</a></code></pre></div>
+<pre><code>#&gt;  [1] &quot;article_id&quot;        &quot;article_title&quot;     &quot;author&quot;           
+#&gt;  [4] &quot;board&quot;             &quot;content&quot;           &quot;date&quot;             
+#&gt;  [7] &quot;ip&quot;                &quot;message_count&quot;     &quot;messages&quot;         
+#&gt; [10] &quot;url&quot;               &quot;content_splited_n&quot; &quot;content_splited&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># re-create the date frame, otherwise tidyverse will not work</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">data_lst &lt;-<span class="st"> </span><span class="kw">lapply</span>(data_lst, <span class="cf">function</span>(x){<span class="kw">cbind</span>(x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>message_count),</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">                                               x<span class="op">$</span>message_count)})</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># convert the column &quot;date&quot; into POSIXct, otherwise tidyverse will not work</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(data_lst)){</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  data_lst[[n]]<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(data_lst[[n]]<span class="op">$</span>date)}</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># check the column names again</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">names</span>(data_lst[[<span class="dv">1</span>]])</a></code></pre></div>
+<pre><code>#&gt;  [1] &quot;article_id&quot;        &quot;article_title&quot;     &quot;author&quot;           
+#&gt;  [4] &quot;board&quot;             &quot;content&quot;           &quot;date&quot;             
+#&gt;  [7] &quot;ip&quot;                &quot;messages&quot;          &quot;url&quot;              
+#&gt; [10] &quot;content_splited_n&quot; &quot;content_splited&quot;   &quot;all&quot;              
+#&gt; [13] &quot;boo&quot;               &quot;count&quot;             &quot;neutral&quot;          
+#&gt; [16] &quot;push&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># bind all the data frames together</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(data_lst, <span class="dt">.id =</span> <span class="st">&quot;column_label&quot;</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">date_full=</span><span class="kw">as.Date</span>(date))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(<span class="kw">head</span>(data))</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["column_label"],"name":[1],"type":["chr"],"align":["left"]},{"label":["article_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["article_title"],"name":[3],"type":["chr"],"align":["left"]},{"label":["author"],"name":[4],"type":["chr"],"align":["left"]},{"label":["board"],"name":[5],"type":["chr"],"align":["left"]},{"label":["content"],"name":[6],"type":["chr"],"align":["left"]},{"label":["date"],"name":[7],"type":["S3: POSIXct"],"align":["right"]},{"label":["ip"],"name":[8],"type":["chr"],"align":["left"]},{"label":["messages"],"name":[9],"type":["list"],"align":["right"]},{"label":["url"],"name":[10],"type":["chr"],"align":["left"]},{"label":["content_splited_n"],"name":[11],"type":["list"],"align":["right"]},{"label":["content_splited"],"name":[12],"type":["list"],"align":["right"]},{"label":["all"],"name":[13],"type":["int"],"align":["right"]},{"label":["boo"],"name":[14],"type":["int"],"align":["right"]},{"label":["count"],"name":[15],"type":["int"],"align":["right"]},{"label":["neutral"],"name":[16],"type":["int"],"align":["right"]},{"label":["push"],"name":[17],"type":["int"],"align":["right"]},{"label":["date_full"],"name":[18],"type":["date"],"align":["right"]}],"data":[{"1":"1","2":"M.1529571783.A.45D","3":"[徵求] 中壢龍潭徵求誘捕籠","4":"ji3h9 (直線)","5":"cat","6":"公司裡面 放貨的空間裡 原本有一隻貓在那邊遊蕩，因為抓不到，也就放他在那邊不理他 隔了一個多月發現，是一隻母貓，而且還附帶了三隻小的...... 今天本來要去試著驅趕他們，一進去沒多久，就發現我的腳滿滿的跳蚤 所以我想跟各位徵求誘捕籠，讓我不傷害他們一家子的捕獲他們 麻煩各位了(跪","7":"2018-06-21 17:03:01","8":"59.120.180.220","9":"<data.frame [8 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529571783.A.45D.html","11":"<chr [75]>","12":"<chr [1]>","13":"8","14":"0","15":"6","16":"2","17":"6","18":"2018-06-21","_rn_":"1"},{"1":"1","2":"M.1529576101.A.9BD","3":"[問題/醫療] 台中興旺動物醫院的張醫師","4":"Herborist (我是QQ台南好熱)","5":"cat","6":"家中有一隻眼睛有缺陷的貓 前年一直在興旺給張書豪醫師看診 覺得張醫師真的很用心、很愛動物、眼科很專業 去年搬離台中之後就沒再關心興旺 今年又要搬到彰化，還是希望之後可以再跑台中找張醫師看診 看了興旺FB的醫師班表之後發現張醫師不見了QQQQ 請問有人知道張醫師是去了別間醫院還是去了哪嗎? 好哦謝謝~ 原本是想說如果醫師是離職了，這樣問好像有點尷尬XD 若沒人知道的話，會直接去問醫院的~ 因為我有往前翻醫院FB，前年9月公告張醫師要進修，11月才會回來 結果11月班表也沒張醫師，也沒特別公告QQ 啊啊是這樣，非常感謝","7":"2018-06-21 18:14:59","8":"36.238.206.131","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529576101.A.9BD.html","11":"<chr [146]>","12":"<chr [1]>","13":"3","14":"0","15":"2","16":"1","17":"2","18":"2018-06-21","_rn_":"2"},{"1":"1","2":"M.1529579233.A.663","3":"[認養/北部] 小虎斑一家人找家","4":"eking1987 (老闆，一斤多少錢?)","5":"cat","6":"貓咪所在地:台北/新北 聯絡人稱呼:譚S 電話:站內信交換 ========================================================================= 貓咪名字： 虎媽脾氣很好不怕人很顧小孩 一郎男生/很皮也很傻，是最大隻的哥哥 小開女孩/超會玩很聰明 噗噗女孩/最黏媽媽，傻萌膽小 貓咪年齡:約1.5個月 剛學會咬咬 貓咪花色:虎斑媽媽生小虎斑?3 是否結紮:請認養人配合節育手術 健康情況:已驅蟲，預計下禮拜打預防針 照片(必須提供): https://i.imgur.com/DUSEKZj.jpg https://i.imgur.com/4uskhcc.jpg https://i.imgur.com/a04LgN5.jpg https://i.imgur.com/RAxHbkb.jpg https://i.imgur.com/27zAUsl.jpg https://i.imgur.com/xy26eBO.jpg 送養原因:媽媽流浪街頭，遇到朋友好心幫她待產 其他補充： 可分送養，媽媽個性很好很穩定很溫柔 孩子傻傻天真的 如有人願意母帶一孩紙優先 認養人條件要求: 1.不排斥新手，請做足功課 2.基本經濟條件，寵物看醫生不便宜 3.不放養 4.定期健康檢查 備註:請站內信自我介紹","7":"2018-06-21 19:07:10","8":"203.77.65.62","9":"<data.frame [14 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579233.A.663.html","11":"<chr [183]>","12":"<chr [1]>","13":"14","14":"0","15":"12","16":"2","17":"12","18":"2018-06-21","_rn_":"3"},{"1":"1","2":"M.1529579668.A.2AC","3":"[交易] Will推車 WB03","4":"zzx ( )","5":"cat","6":"物品名稱:Will推車 WB03 尺寸大小:XXL 商品描述: 可拆式推車包包 照片: https://i.imgur.com/CHxmM8N.jpg 售價:2700 交貨方式:台南面交 地點:台南 聯絡方式:站內信 備註: 九成新，只使用過兩次 體積過大暫不考慮貨運 居住台南可面交優先","7":"2018-06-21 19:14:25","8":"110.28.42.161","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529579668.A.2AC.html","11":"<chr [49]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2018-06-21","_rn_":"4"},{"1":"1","2":"M.1529579947.A.F9C","3":"[問題] 新竹哪裡買的到全能貓","4":"Browder (Pimba)","5":"cat","6":"如題 找了很多間都跟我說沒賣 缺貨QQ 不知道有沒有板友可以告訴我新竹哪邊有得買 感謝 補充：是要買2.5~7.5公斤的","7":"2018-06-21 19:19:04","8":"1.160.151.244","9":"<data.frame [12 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579947.A.F9C.html","11":"<chr [33]>","12":"<chr [1]>","13":"12","14":"0","15":"8","16":"4","17":"8","18":"2018-06-21","_rn_":"5"},{"1":"1","2":"M.1529580211.A.535","3":"[交易] 壓克力貓餐桌含碗","4":"wang1234 (  王 )","5":"cat","6":"標題應為 [交易/OO]，發文完請再一次確認標題格式無誤。 發文表示您已讀過置底板規，一旦發生違反板規之情事，同意可能受到板規處罰。 看完請用[CTRLK]刪除這些預設文字。 物品名稱: 三口及雙口貓餐桌 含碗 各一組 尺寸大小: 高約8 9公分，有做傾斜 到期日:無 商品描述: 黑色壓克力雙口及三口貓餐桌碗架 含不鏽鋼碗五個 ，全新未使用 照片: 售價:兩個600 交貨方式: 面交 地點:台中逢甲 聯絡方式:站內信 備註:","7":"2018-06-21 19:23:28","8":"49.217.101.108","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529580211.A.535.html","11":"<chr [92]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2018-06-21","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(<span class="kw">tail</span>(data))</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["column_label"],"name":[1],"type":["chr"],"align":["left"]},{"label":["article_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["article_title"],"name":[3],"type":["chr"],"align":["left"]},{"label":["author"],"name":[4],"type":["chr"],"align":["left"]},{"label":["board"],"name":[5],"type":["chr"],"align":["left"]},{"label":["content"],"name":[6],"type":["chr"],"align":["left"]},{"label":["date"],"name":[7],"type":["S3: POSIXct"],"align":["right"]},{"label":["ip"],"name":[8],"type":["chr"],"align":["left"]},{"label":["messages"],"name":[9],"type":["list"],"align":["right"]},{"label":["url"],"name":[10],"type":["chr"],"align":["left"]},{"label":["content_splited_n"],"name":[11],"type":["list"],"align":["right"]},{"label":["content_splited"],"name":[12],"type":["list"],"align":["right"]},{"label":["all"],"name":[13],"type":["int"],"align":["right"]},{"label":["boo"],"name":[14],"type":["int"],"align":["right"]},{"label":["count"],"name":[15],"type":["int"],"align":["right"]},{"label":["neutral"],"name":[16],"type":["int"],"align":["right"]},{"label":["push"],"name":[17],"type":["int"],"align":["right"]},{"label":["date_full"],"name":[18],"type":["date"],"align":["right"]}],"data":[{"1":"4","2":"M.1487823860.A.68D","3":"[問題/飼料] 綠野鮮食哪裡買","4":"robert2692 (懶叫共九逃)","5":"cat","6":"請問有在買綠野鮮食的大大你們都去哪買的呢？ 想給我家主子吃這款飼料但找不到管道可買","7":"2017-02-23 12:24:17","8":"49.214.151.46","9":"<data.frame [12 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1487823860.A.68D.html","11":"<chr [24]>","12":"<chr [1]>","13":"12","14":"0","15":"8","16":"4","17":"8","18":"2017-02-23","_rn_":"40004"},{"1":"4","2":"M.1487828506.A.D57","3":"[問題] 住家附近的浪浪與疑似愛媽(？","4":"Roia (自創人物失控)","5":"cat","6":"不知不覺，帶著兩位公主搬來新家也快要半年了 因為以前舊家附近有許多貓咪聚集 所以搬來新環境以後，走在路上都會常常不自覺關注隙縫或是車底有沒有浪浪的蹤跡XD 隨著居住的日子越來越長 大概也發現附近公園有幾隻貓咪時常出沒 除了一隻特別怕生之外，另外兩隻都是親人的貓咪 偶爾會在我家樓下晃來晃去~ 結果昨天加班比較晚下班，回家路上看到其中一隻親人貓（暱稱小黑好了）正在跟一位目 測20出頭的女孩子對峙 那位女生一直在講電話，因為我剛好在旁邊等紅綠燈 所以正巧能聽到她的通話內容，似乎是想要撈小黑 （出現跑到車子底下、過馬路、躲起來了等等字眼） 還一直出聲叫小黑咪咪不要亂跑~ 身為一個熱心助人的貓版鄉民，我當然就主動問了要不要幫忙 結果那女生居然完全不理我QAQ 我後來問：請問這是你們的貓嗎？ 她也只是拿著電話搖頭，完全不予其他回應 其實我滿受傷的，我只是想幫忙而已啊QAQ 我的長相雖然不是驚為天人但也沒有其貌不揚 走在路上乾乾淨淨也是一般上班族打扮 為什麼要迴避我啊姐姐我好傷心 想請問各位貓友，如果你們在自家附近看到有人似乎企圖撈貓，會有什麼想法或反應呢？ 我要怎麼表達關心才不會失禮？ 你們又是怎麼跟附近的愛媽愛爸打好關係的呢？ 其實在路上看到人家抓貓，上前關切應該很正常不是嗎 註：最後小黑趁綠燈跟著我過馬路，然後回到牠的公園了，所以我猜那女生應該也沒有撈 成功吧","7":"2017-02-23 13:41:43","8":"39.10.228.142","9":"<data.frame [1 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1487828506.A.D57.html","11":"<chr [307]>","12":"<chr [1]>","13":"1","14":"0","15":"1","16":"0","17":"1","18":"2017-02-23","_rn_":"40005"},{"1":"4","2":"M.1487828557.A.4D7","3":"[交易/買賣] Richell超大貓砂盆","4":"missmilk (sheepsheep)","5":"cat","6":"物品名稱:Richell超大貓砂盆 尺寸大小:604548cm 到期日:用到壞為止 商品描述:78成新 照片:（照片是之前拍的，有壓痕，不介意者再購入） http://i.imgur.com/BDD5HOG.jpg 售價:300（可議價 交貨方式:面交 地點:高雄楠梓（需自行騎車或開車來載 聯絡方式:站內信 備註:因為想幫家中貓咪換成雙層貓砂盆，所以出售","7":"2017-02-23 13:42:35","8":"27.246.1.177","9":"<list [0]>","10":"https://www.ptt.cc/bbs/cat/M.1487828557.A.4D7.html","11":"<chr [67]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2017-02-23","_rn_":"40006"},{"1":"4","2":"M.1487829241.A.C1C","3":"[交易] Seeds MamaMia機能愛貓雞湯餐冠 - 多口味","4":"mexicomo (阿墨)","5":"cat","6":"物品名稱: Seeds MamaMia機能愛貓雞湯餐罐 多種口味 尺寸大小: 170g 到期日: 2019後 商品描述: 現有 雞肉鵪鶉 3 雞肉 白身鮪魚 3 雞肉 牛肉 2 100%純雞肉 3 雞肉 吻子魚 2 雞肉 小麥草 3 照片: https://goo.gl/A3FYCZ 參考網址 售價: 30元/罐 交貨方式: 面交/店到店需付運費 地點: 新竹清大/交大/金山街/好市多附近可 聯絡方式: 站內信先 備註: 之前買了一箱結果家中兩隻貓完全不賞臉，故售出 謝謝","7":"2017-02-23 13:53:57","8":"210.242.68.163","9":"<list [0]>","10":"https://www.ptt.cc/bbs/cat/M.1487829241.A.C1C.html","11":"<chr [90]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2017-02-23","_rn_":"40007"},{"1":"4","2":"M.1487831642.A.5ED","3":"[交易] [交易/淡水]崩解式松木砂 兩包","4":"peggy750609 (淇)","5":"cat","6":"物品名稱: 力奇崩解式松木砂(大顆粒) 尺寸大小:6kg 有兩包 到期日:無 商品描述: http://i.imgur.com/gY25fxK.jpg 我家的不愛松木砂唉 售價: 拋售一包120，兩包一起帶就算200 交貨方式:面交有點重量唷 地點: 淡水北新路141巷寶鏵江山。 聯絡方式: 站內信/手機 備註:","7":"2017-02-23 14:34:00","8":"101.138.163.131","9":"<data.frame [1 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1487831642.A.5ED.html","11":"<chr [60]>","12":"<chr [1]>","13":"1","14":"0","15":"0","16":"1","17":"0","18":"2017-02-23","_rn_":"40008"},{"1":"4","2":"M.1487831738.A.C83","3":"[交易/買賣] 每客思 主食罐","4":"cherimore (浮生若夢)","5":"cat","6":"seeds每客思主食罐 115g 到期日: 2019年 http://www.petseeds.com.tw/productcat_src.php?key_word=Main%20Course 純雞肉、雞肉牛肉、雞肉白身鮪魚、白身鮪魚羊肉 共四種口味 4罐150元（四種口味各一），9罐300元（四種口味各二，可再自挑一口味）。 卡尼商業生食 一組三顆 220元/組 冷凍限面交，請自備保冷袋。 卡尼官網： https://www.carnivoreraw.com/ourproducts/catfood 口味：一組三顆，雞牛、鴨、雞各一。加一顆加70元。 補充：官網有試吃組三顆２５０免運，只想要同一種口味的可以參考。 貓王環保草砂 500元/10磅 http://www.youso.com.tw/main/news_content/36 交貨方式: 以面交為主（宜蘭市宜蘭大學附近）。 如需郵寄、店到店，運費一次100元。","7":"2017-02-23 14:35:36","8":"None","9":"<list [0]>","10":"https://www.ptt.cc/bbs/cat/M.1487831738.A.C83.html","11":"<chr [144]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2017-02-23","_rn_":"40009"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># filter articles published within the past 2 years</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">two_yrs_data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(date<span class="op">&gt;</span><span class="st">&quot;2017-01-01&quot;</span><span class="op">&amp;</span>date<span class="op">&lt;=</span><span class="st">&quot;2018-12-31&quot;</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># see how many articles are published</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">nrow</span>(two_yrs_data)</a></code></pre></div>
+<pre><code>#&gt; [1] 29110</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(two_yrs_data[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["column_label"],"name":[1],"type":["chr"],"align":["left"]},{"label":["article_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["article_title"],"name":[3],"type":["chr"],"align":["left"]},{"label":["author"],"name":[4],"type":["chr"],"align":["left"]},{"label":["board"],"name":[5],"type":["chr"],"align":["left"]},{"label":["content"],"name":[6],"type":["chr"],"align":["left"]},{"label":["date"],"name":[7],"type":["S3: POSIXct"],"align":["right"]},{"label":["ip"],"name":[8],"type":["chr"],"align":["left"]},{"label":["messages"],"name":[9],"type":["list"],"align":["right"]},{"label":["url"],"name":[10],"type":["chr"],"align":["left"]},{"label":["content_splited_n"],"name":[11],"type":["list"],"align":["right"]},{"label":["content_splited"],"name":[12],"type":["list"],"align":["right"]},{"label":["all"],"name":[13],"type":["int"],"align":["right"]},{"label":["boo"],"name":[14],"type":["int"],"align":["right"]},{"label":["count"],"name":[15],"type":["int"],"align":["right"]},{"label":["neutral"],"name":[16],"type":["int"],"align":["right"]},{"label":["push"],"name":[17],"type":["int"],"align":["right"]},{"label":["date_full"],"name":[18],"type":["date"],"align":["right"]}],"data":[{"1":"1","2":"M.1529571783.A.45D","3":"[徵求] 中壢龍潭徵求誘捕籠","4":"ji3h9 (直線)","5":"cat","6":"公司裡面 放貨的空間裡 原本有一隻貓在那邊遊蕩，因為抓不到，也就放他在那邊不理他 隔了一個多月發現，是一隻母貓，而且還附帶了三隻小的...... 今天本來要去試著驅趕他們，一進去沒多久，就發現我的腳滿滿的跳蚤 所以我想跟各位徵求誘捕籠，讓我不傷害他們一家子的捕獲他們 麻煩各位了(跪","7":"2018-06-21 17:03:01","8":"59.120.180.220","9":"<data.frame [8 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529571783.A.45D.html","11":"<chr [75]>","12":"<chr [1]>","13":"8","14":"0","15":"6","16":"2","17":"6","18":"2018-06-21","_rn_":"1"},{"1":"1","2":"M.1529576101.A.9BD","3":"[問題/醫療] 台中興旺動物醫院的張醫師","4":"Herborist (我是QQ台南好熱)","5":"cat","6":"家中有一隻眼睛有缺陷的貓 前年一直在興旺給張書豪醫師看診 覺得張醫師真的很用心、很愛動物、眼科很專業 去年搬離台中之後就沒再關心興旺 今年又要搬到彰化，還是希望之後可以再跑台中找張醫師看診 看了興旺FB的醫師班表之後發現張醫師不見了QQQQ 請問有人知道張醫師是去了別間醫院還是去了哪嗎? 好哦謝謝~ 原本是想說如果醫師是離職了，這樣問好像有點尷尬XD 若沒人知道的話，會直接去問醫院的~ 因為我有往前翻醫院FB，前年9月公告張醫師要進修，11月才會回來 結果11月班表也沒張醫師，也沒特別公告QQ 啊啊是這樣，非常感謝","7":"2018-06-21 18:14:59","8":"36.238.206.131","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529576101.A.9BD.html","11":"<chr [146]>","12":"<chr [1]>","13":"3","14":"0","15":"2","16":"1","17":"2","18":"2018-06-21","_rn_":"2"},{"1":"1","2":"M.1529579233.A.663","3":"[認養/北部] 小虎斑一家人找家","4":"eking1987 (老闆，一斤多少錢?)","5":"cat","6":"貓咪所在地:台北/新北 聯絡人稱呼:譚S 電話:站內信交換 ========================================================================= 貓咪名字： 虎媽脾氣很好不怕人很顧小孩 一郎男生/很皮也很傻，是最大隻的哥哥 小開女孩/超會玩很聰明 噗噗女孩/最黏媽媽，傻萌膽小 貓咪年齡:約1.5個月 剛學會咬咬 貓咪花色:虎斑媽媽生小虎斑?3 是否結紮:請認養人配合節育手術 健康情況:已驅蟲，預計下禮拜打預防針 照片(必須提供): https://i.imgur.com/DUSEKZj.jpg https://i.imgur.com/4uskhcc.jpg https://i.imgur.com/a04LgN5.jpg https://i.imgur.com/RAxHbkb.jpg https://i.imgur.com/27zAUsl.jpg https://i.imgur.com/xy26eBO.jpg 送養原因:媽媽流浪街頭，遇到朋友好心幫她待產 其他補充： 可分送養，媽媽個性很好很穩定很溫柔 孩子傻傻天真的 如有人願意母帶一孩紙優先 認養人條件要求: 1.不排斥新手，請做足功課 2.基本經濟條件，寵物看醫生不便宜 3.不放養 4.定期健康檢查 備註:請站內信自我介紹","7":"2018-06-21 19:07:10","8":"203.77.65.62","9":"<data.frame [14 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579233.A.663.html","11":"<chr [183]>","12":"<chr [1]>","13":"14","14":"0","15":"12","16":"2","17":"12","18":"2018-06-21","_rn_":"3"},{"1":"1","2":"M.1529579668.A.2AC","3":"[交易] Will推車 WB03","4":"zzx ( )","5":"cat","6":"物品名稱:Will推車 WB03 尺寸大小:XXL 商品描述: 可拆式推車包包 照片: https://i.imgur.com/CHxmM8N.jpg 售價:2700 交貨方式:台南面交 地點:台南 聯絡方式:站內信 備註: 九成新，只使用過兩次 體積過大暫不考慮貨運 居住台南可面交優先","7":"2018-06-21 19:14:25","8":"110.28.42.161","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529579668.A.2AC.html","11":"<chr [49]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2018-06-21","_rn_":"4"},{"1":"1","2":"M.1529579947.A.F9C","3":"[問題] 新竹哪裡買的到全能貓","4":"Browder (Pimba)","5":"cat","6":"如題 找了很多間都跟我說沒賣 缺貨QQ 不知道有沒有板友可以告訴我新竹哪邊有得買 感謝 補充：是要買2.5~7.5公斤的","7":"2018-06-21 19:19:04","8":"1.160.151.244","9":"<data.frame [12 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579947.A.F9C.html","11":"<chr [33]>","12":"<chr [1]>","13":"12","14":"0","15":"8","16":"4","17":"8","18":"2018-06-21","_rn_":"5"},{"1":"1","2":"M.1529580211.A.535","3":"[交易] 壓克力貓餐桌含碗","4":"wang1234 (  王 )","5":"cat","6":"標題應為 [交易/OO]，發文完請再一次確認標題格式無誤。 發文表示您已讀過置底板規，一旦發生違反板規之情事，同意可能受到板規處罰。 看完請用[CTRLK]刪除這些預設文字。 物品名稱: 三口及雙口貓餐桌 含碗 各一組 尺寸大小: 高約8 9公分，有做傾斜 到期日:無 商品描述: 黑色壓克力雙口及三口貓餐桌碗架 含不鏽鋼碗五個 ，全新未使用 照片: 售價:兩個600 交貨方式: 面交 地點:台中逢甲 聯絡方式:站內信 備註:","7":"2018-06-21 19:23:28","8":"49.217.101.108","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529580211.A.535.html","11":"<chr [92]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2018-06-21","_rn_":"6"},{"1":"1","2":"M.1529580363.A.09E","3":"Re: [問題] 大家多久倒一次貓砂的糞便?(礦砂)","4":"libralouis (   louis)","5":"cat","6":"我用豆腐砂（2隻），大約2週換整盆砂 但最近觀察下來，很多沾了尿的細沙鏟不起來 這些細沙久了（也不過2、3天），也會讓整個貓砂盆充斥尿味 這時整盆換掉又太傷本，不知道有沒有什麼好解法 另外，有人試過豆腐砂混合礦砂嗎@@ Sent from JPTT on my iPhone","7":"2018-06-21 19:25:51","8":"27.247.103.110","9":"<data.frame [30 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529580363.A.09E.html","11":"<chr [64]>","12":"<chr [1]>","13":"30","14":"0","15":"10","16":"20","17":"10","18":"2018-06-21","_rn_":"7"},{"1":"1","2":"M.1529580594.A.535","3":"[交易] 台北古亭 贈送貓沙香球","4":"yilun (香蕉)","5":"cat","6":"https://i.imgur.com/PRa5Hgo.jpg 貓沙的去味香香球 25包 贈送 自取 古亭","7":"2018-06-21 19:29:52","8":"101.9.150.3","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529580594.A.535.html","11":"<chr [17]>","12":"<chr [1]>","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2018-06-21","_rn_":"8"},{"1":"1","2":"M.1529581682.A.6E4","3":"[問題] 叫貓的時候搖尾巴，代表什麼意思?","4":"gotopark (無限風光在險峰)","5":"cat","6":"剛剛本魯的米克斯貓貓 躺在床上 呈大字型休息睡覺 魯每叫他的名字 他的尾巴就搖一下 這代表什麼意思?? 以上 謝謝 想知道 是開心 還是什麼? 怎麼樣的情緒?","7":"2018-06-21 19:48:00","8":"110.28.74.41","9":"<data.frame [62 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529581682.A.6E4.html","11":"<chr [39]>","12":"<chr [1]>","13":"62","14":"0","15":"51","16":"11","17":"51","18":"2018-06-21","_rn_":"9"},{"1":"1","2":"M.1529582069.A.E47","3":"[交易] 渴望牧野鮮雞5.4kg 1900","4":"Take2Bank (R)","5":"cat","6":"物品名稱: 渴望牧野鮮雞 尺寸大小: 5.4kg 到期日: 2019/2 商品描述: 全新未拆封 售價: 1900 交貨方式: 郵寄免運（無法超取），或台北東區自取 地點: 台北 聯絡方式: 站內 備註: 提供合庫、王道、中信、富邦、街口收款，也可開蝦皮賣場，但酌收賣場要收的手 續費，無PC賣場。面交無法其他地點，並請配合我的時間，郵寄五天內會幫你寄出，急需 者請自行斟酌。","7":"2018-06-21 19:54:26","8":"42.74.153.193","9":"<data.frame [5 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529582069.A.E47.html","11":"<chr [78]>","12":"<chr [1]>","13":"5","14":"0","15":"3","16":"2","17":"3","18":"2018-06-21","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># plotting 1: </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">df1 &lt;-<span class="st"> </span>two_yrs_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(date_full) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number_of_articles=</span><span class="kw">length</span>(article_id)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date_y=</span><span class="kw">year</span>(date_full),</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">         <span class="dt">date_m=</span><span class="kw">month</span>(date_full),</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">         <span class="dt">date_d=</span><span class="kw">day</span>(date_full),</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">         <span class="dt">date_md=</span><span class="kw">format</span>(date_full, <span class="st">&quot;%m-%d&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(number_of_articles))</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(df1[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date_full"],"name":[1],"type":["date"],"align":["right"]},{"label":["number_of_articles"],"name":[2],"type":["int"],"align":["right"]},{"label":["date_y"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["date_m"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["date_d"],"name":[5],"type":["int"],"align":["right"]},{"label":["date_md"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"2017-10-15","2":"94","3":"2017","4":"10","5":"15","6":"10-15"},{"1":"2017-10-14","2":"92","3":"2017","4":"10","5":"14","6":"10-14"},{"1":"2017-10-12","2":"82","3":"2017","4":"10","5":"12","6":"10-12"},{"1":"2017-10-11","2":"78","3":"2017","4":"10","5":"11","6":"10-11"},{"1":"2017-10-16","2":"76","3":"2017","4":"10","5":"16","6":"10-16"},{"1":"2017-06-05","2":"71","3":"2017","4":"6","5":"5","6":"06-05"},{"1":"2017-07-09","2":"66","3":"2017","4":"7","5":"9","6":"07-09"},{"1":"2017-02-22","2":"65","3":"2017","4":"2","5":"22","6":"02-22"},{"1":"2018-01-04","2":"64","3":"2018","4":"1","5":"4","6":"01-04"},{"1":"2017-01-22","2":"63","3":"2017","4":"1","5":"22","6":"01-22"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">df1<span class="op">$</span>date_y_f &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>date_y)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">df1<span class="op">$</span>date_m_f &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>date_m)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">df1<span class="op">$</span>date_d_f &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>date_d)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">df1<span class="op">$</span>date_md_f &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>date_md)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1, <span class="kw">aes</span>(date_md, number_of_articles, <span class="dt">group=</span>date_m_f, <span class="dt">color=</span>date_y_f)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Number of articles published on PTT Cat board&quot;</span>,</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">       <span class="dt">x =</span> <span class="st">&quot;Month-Day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Number of articles&quot;</span>,</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">       <span class="dt">color =</span> <span class="st">&quot;Year&quot;</span>)</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">p1</a></code></pre></div>
+<p><img src="/jessy_chen/cat-viz1/index_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<pre><code># another way of extracting the day, month, and year
+df &lt;- df %&gt;% 
+  mutate(date = ymd(date)) %&gt;% 
+  mutate_at(vars(date), funs(year, month, day))</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># plotting 2</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">df2 &lt;-<span class="st"> </span>df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(date_full<span class="op">&gt;</span><span class="st">&quot;2017-01-01&quot;</span><span class="op">&amp;</span>date_full<span class="op">&lt;=</span><span class="st">&quot;2017-12-31&quot;</span>)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">pl &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(date_d, number_of_articles, <span class="dt">group=</span>date_m_f, <span class="dt">color=</span>date_m_f)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> <span class="dv">31</span>, <span class="dt">yend =</span> number_of_articles), <span class="dt">linetype =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&#39;grey&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">31.1</span>, <span class="dt">label =</span> date_m), <span class="dt">hjust =</span> <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="st">  </span><span class="kw">transition_reveal</span>(date_d) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">clip =</span> <span class="st">&quot;off&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Number of articles published on PTT Cat board&quot;</span>,</a>
+<a class="sourceLine" id="cb15-12" data-line-number="12">       <span class="dt">x =</span> <span class="st">&quot;Month-Day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Number of articles&quot;</span>,</a>
+<a class="sourceLine" id="cb15-13" data-line-number="13">       <span class="dt">color =</span> <span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">margin</span>(<span class="fl">5.5</span>, <span class="dv">40</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>))</a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb15-17" data-line-number="17">gganimate<span class="op">::</span><span class="kw">animate</span>(pl)</a></code></pre></div>
+<p><img src="/jessy_chen/cat-viz1/index_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># reference: Temperature time series</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co"># https://github.com/thomasp85/gganimate/wiki/Temperature-time-series</span></a></code></pre></div>

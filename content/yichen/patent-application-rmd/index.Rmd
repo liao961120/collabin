@@ -1,0 +1,81 @@
+---
+title: Patent Application
+subtitle: CG
+tags: [Patent Application, R, LOPE]
+date: '2019-04-12'
+author: Freya
+mysite: /yichen/
+comment: yes
+output: html_document
+isRmd: yes
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+```
+
+
+```{r}
+#install.packages('readxl')
+library(readxl)
+rawdata = readxl::read_excel("MGR_patent control.xlsx", sheet = 5)
+```
+
+
+```{r}
+#install.packages('tidyverse')
+library(tidyverse)
+applications = rawdata %>%
+  separate(., Journal, into = c("data"), sep = ";", extra = "drop", remove = FALSE) %>% 
+  separate(., data, into = c("front", "number"), sep = ":") %>% 
+  separate(., number, into = c("extra", "code", "id", "junk", "date"), sep = " ") %>% 
+  select(-extra, -junk) %>% 
+  mutate(id = str_trim(id, side = "both")) %>% 
+  unite(application_number, c("code", "id"), sep = "") %>% 
+  mutate(application_number = str_trim(application_number, side = "both")) %>% 
+  mutate(duplicated = duplicated(application_number))
+```
+
+```{r}
+head(applications)
+```
+
+```{r}
+applications %>%
+  count(duplicated)
+```
+
+```{r}
+unique = applications %>% 
+  filter(duplicated == FALSE) %>% 
+  mutate(date = lubridate::dmy(date)) %>% 
+  mutate(year = lubridate::year(date))
+```
+
+```{r}
+unique_year = unique %>% 
+  count(year)
+
+mean(unique_year$n)
+```
+
+```{r}
+median(unique_year$n)
+```
+
+```{r}
+unique_year %>% knitr::kable(align = "c")
+```
+
+```{r}
+unique_year %>%
+  ggplot(., aes(x=year, y = n)) +
+  ylim(0,100) +
+  geom_point() +
+  geom_line() +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 20)) +
+  labs(title = "Trends in patent applications for Genetic Sequences", x = "application year", y = "applications")
+```
+

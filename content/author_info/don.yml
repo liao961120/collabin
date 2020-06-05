@@ -1,0 +1,8 @@
+author: "Don"        # article info
+mysite: /don/  # article info
+comment: true        # article info
+id: don                   # site info (on /<id>)
+pageTitle: "房間沒鎖"     # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""

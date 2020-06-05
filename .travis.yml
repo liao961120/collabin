@@ -1,0 +1,60 @@
+language: r
+r: 3.6
+dist: trusty
+latex: false
+pandoc_version: 2.3.1
+sudo: false
+
+branches:
+  only:
+    - master
+
+cache:
+  packages: yes
+  directories:
+    - $HOME/bin
+
+#r_packages:
+#  - sf
+
+before_install:
+  - sudo apt-get install cargo
+  - sudo apt-get install libmagick++-dev # install magick R package dependency
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+  - sudo add-apt-repository ppa:opencpu/jq --yes
+  - sudo apt-get --yes --force-yes update -qq
+  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev libv8-dev
+  - sudo apt-get install --yes libjq-dev libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-ncdf4
+  - sudo timedatectl set-timezone Asia/Taipei  # Set timezone
+  - sudo apt-get install language-pack-zh*                              # install Chinese lang support
+  - sudo apt-get install chinese*                                       # install Chinese lang support
+  - sudo mkdir /usr/share/fonts/truetype/noto                           # install Chinese font NotoSansCJK TC
+  - sudo cp ./NotoSansCJKtc.otf /usr/share/fonts/truetype/noto          # install Chinese font NotoSansCJK TC
+  - sudo chmod 755 /usr/share/fonts/truetype/noto/NotoSansCJKtc.otf     # install Chinese font NotoSansCJK TC
+  - fc-cache    
+
+before_script:
+  - export TZ=Asia/Taipei
+
+script:
+  - Rscript -e 'install.packages("remotes")'
+  - Rscript -e 'remotes::install_github("rstudio/blogdown")'
+#  - Rscript -e 'blogdown::install_hugo(version = "v0.52")'
+  - Rscript check_rmd_pkg.R; cat need_install.txt
+  - Rscript -e 'blogdown::build_site(run_hugo = FALSE)'
+  - echo '*.zip' >> .gitignore  # dont push zip filese to branch:web
+  - echo '*.7z' >> .gitignore   # dont push zip filese to branch:web
+
+after_success:
+  - ls -d content/* | xargs -n 1 basename > static/invalid_names.txt
+  - mv need_install.txt static/
+
+deploy:
+  provider: pages
+  target-branch: web
+  skip-cleanup: true
+  github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: false
+  on:
+    branch: master
+#  local_dir: public

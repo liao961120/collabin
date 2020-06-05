@@ -1,0 +1,168 @@
+---
+title: NTU GIL Thesis Analysis (2)
+subtitle: ''
+tags: [lope]
+date: '2019-05-31'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+<link href="/rmarkdown-libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/pagedtable/js/pagedtable.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(jiebaR)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(tmcn)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;thesis_ma_complete.csv&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="dt">encoding=</span><span class="st">&quot;BIG-5&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">seg &lt;-<span class="st"> </span><span class="kw">worker</span>()</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">data<span class="op">$</span>abstract_cn_seg &lt;-<span class="st"> </span><span class="kw">lapply</span>(data<span class="op">$</span>abstract_cn, <span class="cf">function</span>(x){seg[x]})</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">data_unnest &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(abstract_cn_seg)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">data_unnest_detail &lt;-<span class="st"> </span>data_unnest <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(title_cn, abstract_cn_seg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">length</span>(abstract_cn_seg)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(abstract_cn_seg, n, title_cn)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(data_unnest_detail[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["abstract_cn_seg"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["title_cn"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"的","2":"135","3":"客家話大埔音聲調之聲學研究"},{"1":"的","2":"78","3":"隱喻熟悉度以及個人心像認知能力對於理解動作隱喻之影響:事件相關電位研究"},{"1":"的","2":"69","3":"中文近義詞「之前/以前」及「之後/以後」之時間距離差異研究"},{"1":"情緒","2":"65","3":"台灣閩南語情緒動詞及其構式:從認知觀點分析"},{"1":"的","2":"63","3":"水漾女人、動物男人、與隱喻：性別與年齡交互影響之性別隱喻研究"},{"1":"的","2":"62","3":"性向、偏好、與身分認同論述：以台灣交友網站的異性戀常規性為例"},{"1":"的","2":"59","3":"噶瑪蘭語之情緒語言"},{"1":"的","2":"59","3":"從認知語用觀點看中文雙關語廣告的理解：以台北捷運站內廣告為例"},{"1":"的","2":"58","3":"賽德克太魯閣語句法探究"},{"1":"的","2":"57","3":"中文語前助詞的語用功能：以Eh2和Oh為例"},{"1":"的","2":"57","3":"檢視「詞彙概念及認知模型」理論：以漢語「走」為基礎的研究"},{"1":"的","2":"56","3":"詞彙穩定的秘密—對各語言學面向的質性與量化分析"},{"1":"的","2":"54","3":"中文口語言談中的轉喻呈現"},{"1":"的","2":"54","3":"動詞偏態對處理中文關係子句的影響: 事件相關電位研究"},{"1":"的","2":"53","3":"小城故事：繪本中的都市意象之多模態隱喻研究"},{"1":"的","2":"51","3":"台灣閩南語情緒動詞及其構式:從認知觀點分析"},{"1":"情緒","2":"51","3":"噶瑪蘭語之情緒語言"},{"1":"的","2":"51","3":"從語料庫看中文互動言談中隱喻的動態表現"},{"1":"的","2":"48","3":"「心」的語意分析：從語言分類和文化認知談起"},{"1":"的","2":"48","3":"中文口語言談中規避詞的使用"},{"1":"的","2":"48","3":"以事件相關電位研究情緒預測在句子處理中的影響"},{"1":"的","2":"48","3":"阿美語的比較句結構"},{"1":"的","2":"47","3":"英語句之焦點字的語調研究 : 以台灣之英語學習者為例"},{"1":"的","2":"46","3":"語義優勢性對語法語境中詞彙歧義解析之影響—中文歧義詞處理的事件相關電位研究"},{"1":"的","2":"46","3":"賽德克語韻律研究"},{"1":"的","2":"45","3":"中文空殼名詞之互動功能: 以問題是、事實上、這樣(子)和什麼意思為例"},{"1":"的","2":"45","3":"以事件相關電位看句法處理側化、半腦間互動關係以及語言能力的相互關係"},{"1":"的","2":"45","3":"很棒的想法？很霸的想法？：從反霸凌海報比較霸凌的概念"},{"1":"的","2":"43","3":"詞彙特指性與詞彙習得之探討"},{"1":"的","2":"42","3":"四種情緒與顏色的變化 : 認知語言學和生理學的解釋"},{"1":"的","2":"41","3":"左右半腦非相鄰依存統計學習之初探"},{"1":"的","2":"41","3":"由分類看認知: 以英語量詞為例"},{"1":"聲調","2":"40","3":"客家話大埔音聲調之聲學研究"},{"1":"的","2":"38","3":"撒奇萊雅語音韻與語音交流研究—母音、重音節、句子語調"},{"1":"的","2":"37","3":"中文詞類訊息處理的腦側化現象：事件相關電位研究"},{"1":"的","2":"37","3":"中英雙語者之中文動態事件組裝探討：英語經驗的影響"},{"1":"的","2":"37","3":"台灣報紙論述中的王建民現象:批判隱喻模式分析"},{"1":"的","2":"37","3":"概念隱喻網絡研究：以國語流行歌曲之愛情主題為例"},{"1":"的","2":"37","3":"漢語口語之情緒語言"},{"1":"的","2":"37","3":"英文為外語學習者理解英文隱喻的神經認知機制"},{"1":"的","2":"36","3":"兒童的動詞運用:工具的延伸性"},{"1":"隱喻","2":"36","3":"隱喻熟悉度以及個人心像認知能力對於理解動作隱喻之影響:事件相關電位研究"},{"1":"的","2":"35","3":"中文學齡前兒童非詞覆誦測驗與音韻處理能力之探討"},{"1":"在","2":"35","3":"客家話大埔音聲調之聲學研究"},{"1":"的","2":"35","3":"情緒對中文聲調影響之研究"},{"1":"致使","2":"35","3":"汶水泰雅語中致使概念的語言表現：致使連續體的觀點"},{"1":"的","2":"35","3":"漢語「結果」的言談語用功能"},{"1":"比較","2":"35","3":"阿美語的比較句結構"},{"1":"的","2":"34","3":"台灣閩南語自然語料中言談單位交界之音長訊號"},{"1":"的","2":"34","3":"左右半腦差異與句法結構複雜度之學習——以事件相關腦電位分析人工語法處理狀況"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">data_unnest_freq &lt;-<span class="st"> </span>data_unnest <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(abstract_cn_seg <span class="op">!=</span><span class="st"> </span><span class="kw">stopwordsCN</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(abstract_cn_seg, year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">freq =</span> <span class="kw">length</span>(abstract_cn_seg)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(freq, year))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">data_unnest_freq[<span class="dv">50</span><span class="op">:</span><span class="dv">100</span>,]</a></code></pre></div>
+<pre><code>## # A tibble: 51 x 3
+## # Groups:   abstract_cn_seg [30]
+##    abstract_cn_seg  year  freq
+##    &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
+##  1 在               2006    40
+##  2 為               2013    40
+##  3 聲調             2007    40
+##  4 使用             2012    39
+##  5 和               2013    39
+##  6 與               2012    39
+##  7 不同             2009    38
+##  8 我們             2008    38
+##  9 結構             2008    38
+## 10 語言             2012    38
+## # … with 41 more rows</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data_year &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">num =</span> <span class="kw">length</span>(author)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(num))</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">merge</span>(data_unnest_freq, data_year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">freq_num =</span> freq<span class="op">/</span>num) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(freq_num, year))</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(freq_num <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;的&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;在&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;是&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;中&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;了&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;與&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;我們&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;為&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;及&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;之&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;和&quot;</span> <span class="op">&amp;</span><span class="st"> </span>abstract_cn_seg <span class="op">!=</span><span class="st"> &quot;也&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">df</a></code></pre></div>
+<pre><code>##    year abstract_cn_seg freq num  freq_num
+## 1  2019            語義   23   2 11.500000
+## 2  2010            隱喻   45   5  9.000000
+## 3  2006            情緒   51   6  8.500000
+## 4  2019            實驗   17   2  8.500000
+## 5  2011            使用   33   4  8.250000
+## 6  2013            情緒   65   8  8.125000
+## 7  2007            聲調   40   5  8.000000
+## 8  2019            語境   15   2  7.500000
+## 9  2012            隱喻   65   9  7.222222
+## 10 2014            隱喻   36   5  7.200000
+## 11 2018            實驗   43   6  7.166667
+## 12 2019            學習   14   2  7.000000
+## 13 2007            情緒   34   5  6.800000
+## 14 2019              較   13   2  6.500000
+## 15 2019            處理   13   2  6.500000
+## 16 2012            研究   58   9  6.444444
+## 17 2009            研究   69  11  6.272727
+## 18 2007            轉喻   31   5  6.200000
+## 19 2016            研究   86  14  6.142857
+## 20 2011            功能   24   4  6.000000
+## 21 2013            構式   47   8  5.875000
+## 22 2008            比較   69  12  5.750000
+## 23 2015              詞   34   6  5.666667
+## 24 2018            動詞   34   6  5.666667
+## 25 2014            動詞   28   5  5.600000
+## 26 2019            語法   11   2  5.500000
+## 27 2019          受試者   11   2  5.500000
+## 28 2019            文法   11   2  5.500000
+## 29 2010            中文   27   5  5.400000
+## 30 2007            研究   26   5  5.200000
+## 31 2007            使用   26   5  5.200000
+## 32 2015            詞彙   31   6  5.166667
+## 33 2019              於   10   2  5.000000
+## 34 2019            研究   10   2  5.000000
+## 35 2008            研究   59  12  4.916667
+## 36 2015            情緒   29   6  4.833333
+## 37 2018            處理   29   6  4.833333
+## 38 2018            子句   28   6  4.666667
+## 39 2007            調值   23   5  4.600000
+## 40 2013            致使   36   8  4.500000
+## 41 2019            句法    9   2  4.500000
+## 42 2019            效果    9   2  4.500000
+## 43 2019            電位    9   2  4.500000
+## 44 2006            兒童   26   6  4.333333
+## 45 2012            使用   39   9  4.333333
+## 46 2012            語言   38   9  4.222222
+## 47 2007            音韻   21   5  4.200000
+## 48 2013            動詞   33   8  4.125000</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(year, freq_num, <span class="dt">group=</span>abstract_cn_seg, <span class="dt">color=</span>abstract_cn_seg)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abstract_cn_seg))</a></code></pre></div>
+<p><img src="/jessy_chen/gil_thesis_2/index_files/figure-html/unnamed-chunk-10-1.png" width="1800" /></p>

@@ -1,0 +1,115 @@
+---
+title: "LittleLight 3"
+author: "Joy"
+date: "2019-03-18" #格式使用'-'
+comment: true #開放留言
+tags: ['lope'] #文章 tag
+mysite: /joy/ #Joy 連結
+isRmd: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "#>")
+```
+
+## 前情提要
+把這件事的緣起說得簡單一點就是在 Lope 團隊中被啟發，學著做一點資料科學相關的練習與紀錄。 ：）  
+
+#### LittleLight 成長咒語  
+1. 自己開燈照路慢慢走，輕鬆寫、用心記，好玩很重要。  
+2. 每次只能走一小小步，不要被自己打敗。
+
+#### 資料&提問的重點資訊
+- 主要提問：這些年來大家是否對語言學的了解多更多了呢？  
+- 回應方式：分析歷年語奧報名表中必答題「_請用幾句話形容你/妳對語言學的瞭解_」的資料。  
+- 已有進度：完成原始檔案建立、讀檔、斷詞並加入停用字表、建立詞頻表。    
+
+## 小小的第三步
+延續上一週，目前都只是在清資料的迴旋中，一直繞啊繞阿繞～  
+很真切地體會到清資料、把資料清乾淨這點真的滿重要的！畢竟，若連要處理的資料是什麼類型、有什麼特性都不知道的話，接下來一切就會有點麻煩了。 ~~其實我也是碰到了才回頭清資料的~~   
+
+小小的第三步是只抽出資料中的中文字詞，去除全英文字詞。  
+因此，可以預期結果應該會是 **詞頻表中的英文字會完全被除去** 。  立刻來試一下～  
+
+
+```{r}
+#讀取原始資料
+comling <- read.csv(file = 'com_ling.csv')
+
+#由於每個欄位不等長，故分別定義成四個變數，以利後續操作。
+TOL2019 <- comling[[1]]
+TOL2018 <- comling[[2]]
+TOL2017 <- comling[[3]]
+TOL2016 <- comling[[4]]
+
+#使用 grep() 來找英文開頭的資料 （回傳 index 值）
+grep("^[A-Za-z\\,’ .!'\n]", TOL2019)
+
+#檢查英文開頭的資料
+TOL2019[grep("^[A-Za-z\\,’ .!'\n]", TOL2019)]
+
+#以 gsub 直接將英文與標點符號取代為空白＆確認資料型態
+clean2019 <- gsub(pattern ="[A-Za-z\\,’ .!'\n]", "", TOL2019)
+mode(clean2019)
+
+#對 TOL2016~2018 重複做同樣的動作
+clean2018 <- gsub(pattern ="[A-Za-z\\,’ .!'\n]", "", TOL2018)
+clean2017 <- gsub(pattern ="[A-Za-z\\,’ .!'\n]", "", TOL2017)
+clean2016 <- gsub(pattern ="[A-Za-z\\,’ .!'\n]", "", TOL2016)
+
+```
+  
+  
+清完了英文字，接下來就是斷詞並製作詞頻表啦~~~ 這次多加了輸出為 csv 檔案的步驟，希望之後會用到。  
+
+
+```{r}
+#準備使用jiebaR斷詞
+library(jiebaR)
+
+#定義分詞引擎，在這邊就先加入停用字表
+segger <- worker(stop_word = "stopword.txt")
+
+#進行斷詞（將 char. 轉為 Strings 方能進行）
+cleanseg2019 <- segger[toString(clean2019)]
+
+#建立詞頻表
+wfTOL2019 <- as.data.frame(sort(table(cleanseg2019), decreasing = T))
+
+#存檔
+write.csv(wfTOL2019, file = "wfTOL2019.csv")
+
+#如法炮製，製作clean2016~2018 的詞頻表並存檔
+cleanseg2016 <- segger[toString(clean2016)]
+wfTOL2016 <- as.data.frame(sort(table(cleanseg2016), decreasing = T))
+write.csv(wfTOL2016, file = "wfTOL2016.csv")
+
+cleanseg2017 <- segger[toString(clean2017)]
+wfTOL2017 <- as.data.frame(sort(table(cleanseg2017), decreasing = T))
+write.csv(wfTOL2017, file = "wfTOL2017.csv")
+
+cleanseg2018 <- segger[toString(clean2018)]
+wfTOL2018 <- as.data.frame(sort(table(cleanseg2018), decreasing = T))
+write.csv(wfTOL2018, file = "wfTOL2018.csv")
+
+```
+
+## 再回頭看一下
+天哪～～～重複寫 code 好累啊～～～  Ｑ＿＿＿Ｑ  
+其實以前有用過流程控制與 formate 之類的說... ~~竟然還給老師了~~  
+下一次就來研究怎麼在Ｒ裡面做變數取代(是這個詞嗎？)，希望可以改良一下這個一看就是新手寫的、無聊的 code 。    
+
+## 學習筆記
+1. 上週五勇敢地抱著進取心問了 Sean 後有大發現：原來 data frame 會希望是雙邊齊長、方方正正的表格喔！我的原始資料本來就是每個欄位不等長的資料說......  
+
+2. 承上，另一個發現是：原來在Ｒ裡面將每個欄位設為變數進行處理是很直覺的啊！（我就直腦筋的想著要整塊一起處理最方便... ~~也許是因為我腦子裡住著兩條蛇？~~）  
+
+3. 在使用 'grep' 和 'gsub' 時發現原來 `\n` 會直接對到，不需要使用跳脫字元 (天知道我在這上面鑽研了幾次 Ｔ＿Ｔ)  
+
+
+
+  
+想說的話太多了，先這樣好了... （~~重複寫一樣的 code 殺掉了太多活力與能量了啦~~）
+
+
+ 

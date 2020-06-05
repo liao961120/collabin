@@ -1,0 +1,182 @@
+---
+title: 貓版文章分析
+subtitle: ''
+tags: [lope]
+date: '2019-03-22'
+author: Jessy Chen
+mysite: /jessy_chen/
+comment: yes
+isRmd: yes
+---
+
+<link href="/rmarkdown-libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/pagedtable/js/pagedtable.js"></script>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<div id="貓版文章分析" class="section level1">
+<h1><b>貓版文章分析</b></h1>
+<div id="動機" class="section level3">
+<h3>動機：</h3>
+</div>
+<div id="重點想要看看貓版的網友都在討論什麼樣的主題但在整理資料的時候就發現有不少地方需要處理尤其是有關時間資訊的部分因此這個禮拜就把重點放在了解時間的格式" class="section level3">
+<h3>重點：想要看看貓版的網友都在討論什麼樣的主題，但在整理資料的時候就發現有不少地方需要處理，尤其是有關時間資訊的部分，因此這個禮拜就把重點放在<b>了解時間的格式</b>。</br></br></h3>
+<div id="step-1.-利用-python-的-ptt-web-crawler-package抓取貓版近幾年的文章" class="section level4">
+<h4><b><i>Step 1.</i> 利用 python 的 ptt-web-crawler package，抓取貓版近幾年的文章：</b></h4>
+<p></br>a. package 傳送門：<a href="https://github.com/jwlin/ptt-web-crawler" class="uri">https://github.com/jwlin/ptt-web-crawler</a>
+（感謝Sean!）
+</br>b. 下載 package 到自己的電腦。
+</br>c. 找到檔案的儲存路徑（可能會在 Documents/GitHub 資料夾之下）。
+</br>d. 在終端機輸入指令<code>python crawler.py -b cat -i 3500 4000</code>（3500、4000分別為起始頁數和結束頁數）。
+</br>e. 耐心等待爬蟲完成，就可以在資料夾中看到一個 .json 檔案，檔名為 cat-3500-4000.json。</br></br></p>
+</div>
+<div id="step-2.-讀入資料" class="section level4">
+<h4><b><i>Step 2.</i> 讀入資料：</b></h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(rjson) <span class="co"># for reading .json files</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(jsonlite)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(tidyverse) <span class="co"># for dealing with data frame</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(stringr) <span class="co"># for dealing with strings/characters</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(jiebaR) <span class="co"># for segmenting words</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(lubridate) <span class="co"># for dealing with time-related data (such as Date, POSIXct, and POSIXlt)</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(ggplot2) <span class="co"># for visualzation</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(DT)</a></code></pre></div>
+<p></br></br>先以最近兩年（2017-01-01至2018-12-31）的資料作分析。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(<span class="st">&quot;cat-3500-4000.json&quot;</span>)<span class="op">$</span>articles</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">rmarkdown<span class="op">::</span><span class="kw">paged_table</span>(data[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,])</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["article_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["article_title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["author"],"name":[3],"type":["chr"],"align":["left"]},{"label":["board"],"name":[4],"type":["chr"],"align":["left"]},{"label":["content"],"name":[5],"type":["chr"],"align":["left"]},{"label":["date"],"name":[6],"type":["chr"],"align":["left"]},{"label":["ip"],"name":[7],"type":["chr"],"align":["left"]},{"label":["message_count"],"name":[8],"type":["data.frame"],"align":["right"]},{"label":["messages"],"name":[9],"type":["list"],"align":["right"]},{"label":["url"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"M.1529571783.A.45D","2":"[徵求] 中壢龍潭徵求誘捕籠","3":"ji3h9 (直線)","4":"cat","5":"公司裡面 放貨的空間裡 原本有一隻貓在那邊遊蕩，因為抓不到，也就放他在那邊不理他 隔了一個多月發現，是一隻母貓，而且還附帶了三隻小的...... 今天本來要去試著驅趕他們，一進去沒多久，就發現我的腳滿滿的跳蚤 所以我想跟各位徵求誘捕籠，讓我不傷害他們一家子的捕獲他們 麻煩各位了(跪","6":"Thu Jun 21 17:03:01 2018","7":"59.120.180.220","8":"<data.frame [20 × 5]>","9":"<data.frame [8 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529571783.A.45D.html"},{"1":"M.1529576101.A.9BD","2":"[問題/醫療] 台中興旺動物醫院的張醫師","3":"Herborist (我是QQ台南好熱)","4":"cat","5":"家中有一隻眼睛有缺陷的貓 前年一直在興旺給張書豪醫師看診 覺得張醫師真的很用心、很愛動物、眼科很專業 去年搬離台中之後就沒再關心興旺 今年又要搬到彰化，還是希望之後可以再跑台中找張醫師看診 看了興旺FB的醫師班表之後發現張醫師不見了QQQQ 請問有人知道張醫師是去了別間醫院還是去了哪嗎? 好哦謝謝~ 原本是想說如果醫師是離職了，這樣問好像有點尷尬XD 若沒人知道的話，會直接去問醫院的~ 因為我有往前翻醫院FB，前年9月公告張醫師要進修，11月才會回來 結果11月班表也沒張醫師，也沒特別公告QQ 啊啊是這樣，非常感謝","6":"Thu Jun 21 18:14:59 2018","7":"36.238.206.131","8":"<data.frame [20 × 5]>","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529576101.A.9BD.html"},{"1":"M.1529579233.A.663","2":"[認養/北部] 小虎斑一家人找家","3":"eking1987 (老闆，一斤多少錢?)","4":"cat","5":"貓咪所在地:台北/新北 聯絡人稱呼:譚S 電話:站內信交換 ========================================================================= 貓咪名字： 虎媽脾氣很好不怕人很顧小孩 一郎男生/很皮也很傻，是最大隻的哥哥 小開女孩/超會玩很聰明 噗噗女孩/最黏媽媽，傻萌膽小 貓咪年齡:約1.5個月 剛學會咬咬 貓咪花色:虎斑媽媽生小虎斑?3 是否結紮:請認養人配合節育手術 健康情況:已驅蟲，預計下禮拜打預防針 照片(必須提供): https://i.imgur.com/DUSEKZj.jpg https://i.imgur.com/4uskhcc.jpg https://i.imgur.com/a04LgN5.jpg https://i.imgur.com/RAxHbkb.jpg https://i.imgur.com/27zAUsl.jpg https://i.imgur.com/xy26eBO.jpg 送養原因:媽媽流浪街頭，遇到朋友好心幫她待產 其他補充： 可分送養，媽媽個性很好很穩定很溫柔 孩子傻傻天真的 如有人願意母帶一孩紙優先 認養人條件要求: 1.不排斥新手，請做足功課 2.基本經濟條件，寵物看醫生不便宜 3.不放養 4.定期健康檢查 備註:請站內信自我介紹","6":"Thu Jun 21 19:07:10 2018","7":"203.77.65.62","8":"<data.frame [20 × 5]>","9":"<data.frame [14 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579233.A.663.html"},{"1":"M.1529579668.A.2AC","2":"[交易] Will推車 WB03","3":"zzx ( )","4":"cat","5":"物品名稱:Will推車 WB03 尺寸大小:XXL 商品描述: 可拆式推車包包 照片: https://i.imgur.com/CHxmM8N.jpg 售價:2700 交貨方式:台南面交 地點:台南 聯絡方式:站內信 備註: 九成新，只使用過兩次 體積過大暫不考慮貨運 居住台南可面交優先","6":"Thu Jun 21 19:14:25 2018","7":"110.28.42.161","8":"<data.frame [20 × 5]>","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529579668.A.2AC.html"},{"1":"M.1529579947.A.F9C","2":"[問題] 新竹哪裡買的到全能貓","3":"Browder (Pimba)","4":"cat","5":"如題 找了很多間都跟我說沒賣 缺貨QQ 不知道有沒有板友可以告訴我新竹哪邊有得買 感謝 補充：是要買2.5~7.5公斤的","6":"Thu Jun 21 19:19:04 2018","7":"1.160.151.244","8":"<data.frame [20 × 5]>","9":"<data.frame [12 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529579947.A.F9C.html"},{"1":"M.1529580211.A.535","2":"[交易] 壓克力貓餐桌含碗","3":"wang1234 (  王 )","4":"cat","5":"標題應為 [交易/OO]，發文完請再一次確認標題格式無誤。 發文表示您已讀過置底板規，一旦發生違反板規之情事，同意可能受到板規處罰。 看完請用[CTRLK]刪除這些預設文字。 物品名稱: 三口及雙口貓餐桌 含碗 各一組 尺寸大小: 高約8 9公分，有做傾斜 到期日:無 商品描述: 黑色壓克力雙口及三口貓餐桌碗架 含不鏽鋼碗五個 ，全新未使用 照片: 售價:兩個600 交貨方式: 面交 地點:台中逢甲 聯絡方式:站內信 備註:","6":"Thu Jun 21 19:23:28 2018","7":"49.217.101.108","8":"<data.frame [20 × 5]>","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529580211.A.535.html"},{"1":"M.1529580363.A.09E","2":"Re: [問題] 大家多久倒一次貓砂的糞便?(礦砂)","3":"libralouis (   louis)","4":"cat","5":"我用豆腐砂（2隻），大約2週換整盆砂 但最近觀察下來，很多沾了尿的細沙鏟不起來 這些細沙久了（也不過2、3天），也會讓整個貓砂盆充斥尿味 這時整盆換掉又太傷本，不知道有沒有什麼好解法 另外，有人試過豆腐砂混合礦砂嗎@@ Sent from JPTT on my iPhone","6":"Thu Jun 21 19:25:51 2018","7":"27.247.103.110","8":"<data.frame [20 × 5]>","9":"<data.frame [30 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529580363.A.09E.html"},{"1":"M.1529580594.A.535","2":"[交易] 台北古亭 贈送貓沙香球","3":"yilun (香蕉)","4":"cat","5":"https://i.imgur.com/PRa5Hgo.jpg 貓沙的去味香香球 25包 贈送 自取 古亭","6":"Thu Jun 21 19:29:52 2018","7":"101.9.150.3","8":"<data.frame [20 × 5]>","9":"<data.frame [0 × 0]>","10":"https://www.ptt.cc/bbs/cat/M.1529580594.A.535.html"},{"1":"M.1529581682.A.6E4","2":"[問題] 叫貓的時候搖尾巴，代表什麼意思?","3":"gotopark (無限風光在險峰)","4":"cat","5":"剛剛本魯的米克斯貓貓 躺在床上 呈大字型休息睡覺 魯每叫他的名字 他的尾巴就搖一下 這代表什麼意思?? 以上 謝謝 想知道 是開心 還是什麼? 怎麼樣的情緒?","6":"Thu Jun 21 19:48:00 2018","7":"110.28.74.41","8":"<data.frame [20 × 5]>","9":"<data.frame [62 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529581682.A.6E4.html"},{"1":"M.1529582069.A.E47","2":"[交易] 渴望牧野鮮雞5.4kg 1900","3":"Take2Bank (R)","4":"cat","5":"物品名稱: 渴望牧野鮮雞 尺寸大小: 5.4kg 到期日: 2019/2 商品描述: 全新未拆封 售價: 1900 交貨方式: 郵寄免運（無法超取），或台北東區自取 地點: 台北 聯絡方式: 站內 備註: 提供合庫、王道、中信、富邦、街口收款，也可開蝦皮賣場，但酌收賣場要收的手 續費，無PC賣場。面交無法其他地點，並請配合我的時間，郵寄五天內會幫你寄出，急需 者請自行斟酌。","6":"Thu Jun 21 19:54:26 2018","7":"42.74.153.193","8":"<data.frame [20 × 5]>","9":"<data.frame [5 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529582069.A.E47.html"},{"1":"M.1529582853.A.4E2","2":"[認養/新北] 引擎蓋中救出的極品小黑貓","3":"GRcat (Green)","4":"cat","5":"代朋友PO文 貓咪所在地:新北 聯絡人稱呼:MIMI 電話:請先站內 ========================================================================= 貓咪名字:黑嚕嚕 貓咪年齡:二個多月 貓咪花色:黑貓 貓咪性別:有點不確定，會再問醫生 貓咪個性:超親人，愛撒嬌討摸摸 是否結紮:否 健康情況:有驗過貓瘟、白血、傳染性腹膜炎都過關 鼻氣管炎治療吃藥中，已經好多了，之後還會回診到治癒 照片(必須提供): 第一張看起來好委屈XD https://i.imgur.com/uEquO5y.jpg https://i.imgur.com/8y8VJl5.jpg https://i.imgur.com/VrQXx5d.jpg https://i.imgur.com/C4WlCSB.jpg 三項檢驗都過關 https://i.imgur.com/blteyhj.jpg 送養原因: 在汽車引擎蓋中救出的小黑貓， 剛撈出來的時候非常瘦，現在已經養胖一點了 很親人，愛撒嬌討摸摸，但晚上睡覺的時候安靜不會吵喔。 其他補充: 親人的極品黑貓，快來帶走>_< 認養人條件要求: ２０歲以上、非學生、男役畢。 貓咪大了以後需帶去結紮， 不關籠飼養，不棄養、不放養，有貓咪飼養經驗者佳。 需配合前期回傳照片，穩定之後不會再打擾。 備註: 有其他問題可先站內我， 有意願認養欲詳談者，我會再給朋友的Line，感謝。 是沒那麼純黑，但又沒玳瑁那麼花（？）","6":"Thu Jun 21 20:07:31 2018","7":"114.44.9.72","8":"<data.frame [20 × 5]>","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529582853.A.4E2.html"},{"1":"M.1529591579.A.863","2":"[情報/商家] 金王子寵物量販店 渴望飼料特價","3":"migan22 (migan22)","4":"cat","5":"轉貼店家line的特惠訊息，真的很划算喔~~ 不過電洽詢問只有實體店面有這樣的優惠 網路賣場沒有 渴望貓糧超低下殺 成幼貓野牧鮮雞5.45kg 1799 室內低鎂貓5.45kg 1599 6月獨家活動 依全台門市店面公告為主 https://i.imgur.com/SUbSONx.jpg 桃園龜山店 桃園市龜山區自強西路118.120號 033592111 台中北屯店 台中市北屯區文心路四段583號 0422479292 10:0022:00 台中西屯店 台中市西屯區西屯路三段921號 0424618811 9:0022:00 台南永康店 台南市永康區中華路651號 063023456 9:0023:00 高雄莒光店 高雄市楠梓區後昌路811號 073626133 9:0022:00","6":"Thu Jun 21 22:32:56 2018","7":"101.13.224.215","8":"<data.frame [20 × 5]>","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529591579.A.863.html"},{"1":"M.1529592059.A.8B8","2":"[問題]流浪貓的疑問","3":"XXXXOAY (台中金城武)","4":"cat","5":"家裡附近常有一些流浪貓，所以見怪不怪了，最近有一隻流浪貓有別於其它流浪貓，這隻 完全不怕人還會對人撒嬌， 除了掃晶片外，還有沒有方式可以分辨家貓跟流浪貓的方式? https://imgur.com/a/fS3D86o","6":"Thu Jun 21 22:40:57 2018","7":"114.41.162.82","8":"<data.frame [20 × 5]>","9":"<data.frame [10 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529592059.A.8B8.html"},{"1":"M.1529592868.A.43A","2":"[心得] ［心得/亂尿］活了五年的貓一貫的壞習慣","3":"a124762518 (mohaha)","4":"cat","5":"養了五年的貓依舊不爽就亂尿 曾經以為有什麼疾病，帶去獸醫院驗血驗尿該做都做 沒任何疾病 突然心情不好，床上遭殃 水一天忘記換，床上遭殃 工作太久沒陪，床上遭殃 不給上床睡覺，床上遭殃 唉最近工作都超過十小時沒陪 床上遭殃兩次，實在太無奈了 貓費洛蒙也試過、貓草貓薄荷也試過 只要他不爽不順眼，我就倒霉啊 燒香拜拜收收驚，看來我應該要拜瞬神夜一讓她好好教教你 抱怨歸抱怨，其實貓也是有自閉焦慮疾病的 看了幾個醫生，最後都是心理因素結尾 讓我拜託拜託，我們還有十年以上，我還是會儘量以包容偉大點心幫你洗被單、沙發套 求你可憐可憐我的床單、沙發套、水費和洗衣機的哀嚎 嗚嗚嗚嗚嗚嗚 你卻回我一聲：喵（喔) 還是愛你，只好忍氣吞聲繼續做你的僕人。 （純抱怨舒壓一下） https://i.imgur.com/wqLNLi3.jpg 怎麼有貓什麼事情都用尿來抗議啊","6":"Thu Jun 21 22:54:26 2018","7":"114.25.113.54","8":"<data.frame [20 × 5]>","9":"<data.frame [104 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529592868.A.43A.html"},{"1":"M.1529593262.A.5FA","2":"[交易] 台中 烏日區IRIS-663三層貓籠","3":"tetracycline (tetracycline)","4":"cat","5":"物品名稱:IRIS663三層貓籠 尺寸大小:長65.8cmX寬50.7cmX高155cm 主要材質:ABS樹脂 購買時間:2017年1月 到期日:用壞為止 商品描述:只用來隔離新貓一個月， 之後就洗好拆開收起來沒在使用了， 不確定輪子是否還在，其餘配件以及組裝說明書都齊全 照片:（借用他人網路照片） https://www.kukebear.com/product/detail/89420 售價:4500 交貨方式:限面交自取目前已裝箱（已經問過貨運宅配，體積較大不收） 地點:台中市烏日區 （成功嶺學田社區附近） 聯絡方式:站內信 備註:","6":"Thu Jun 21 23:01:00 2018","7":"223.138.35.79","8":"<data.frame [20 × 5]>","9":"<data.frame [3 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529593262.A.5FA.html"},{"1":"M.1529594380.A.F14","2":"[交易] 永和costco 紫包分售","3":"momo0904 (毛毛彤)","4":"cat","5":"物品名稱: costco紫包 購買日: 2018/06/21 開封日: 2018/06/21 到期日: 2019/09/18 售價: 70/1kg 交貨方式: 面交(現金不找零) 地點: 頂溪、永安市場站、古亭站 聯絡方式: 站內信 備註: 2KG一包2 有密封袋包裝 請自備購物袋。","6":"Thu Jun 21 23:19:37 2018","7":"101.13.82.108","8":"<data.frame [20 × 5]>","9":"<data.frame [1 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529594380.A.F14.html"},{"1":"M.1529594759.A.831","2":"[徵求/新北市] 輸血貓A型","3":"abigail1429 (apple)","4":"cat","5":"聯絡人稱呼: 盧先生 電話:0963717272 （請先站內信，謝謝） 詳細地點: 新北三重區宏誠動物醫院 發現/徵求時間: 徵到為止 貓咪性別/大小/年紀: 公/ 4.1公斤/ 13歲 健康狀況: 脾臟腫瘤約5公分，醫生建議應儘速開刀，但貧血無法開刀，需輸血。已驗過血型A型，目前每兩到三天打造血針。 是否負擔相關費用: 可提供車馬費與營養費。 補充: 這隻貓咪跟我到美國讀書，結婚，然後搬回台灣，現在有了兩個小孩，他都會讓小孩跟他玩，看他生病食慾變差很難過，希望能快點找到輸血貓，讓他盡快完成手術，可以好受一點。再麻煩大家了 Sent from JPTT on my iPhone","6":"Thu Jun 21 23:25:56 2018","7":"223.137.78.230","8":"<data.frame [20 × 5]>","9":"<data.frame [5 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529594759.A.831.html"},{"1":"M.1529597498.A.A9D","2":"[問題/骨折浪貓] 台中 半夜怎麼處理","3":"plzluktrue ()","4":"cat","5":"https://i.imgur.com/KQPCr7K.jpg https://i.imgur.com/O6pEYoq.jpg 老公加班到十點多回家看到樓下有一隻浪貓 窩在角落不會動 因為我們只有養狗 拿狗的鮭魚飼料或水 他都不吃不喝 半夜不知道怎麼處理... 明天還得早起上班也無法臨時找急診處理... 目前我們只能求他能撐到週六...QQ 有沒有人能幫忙...嗚嗚","6":"Fri Jun 22 00:11:36 2018","7":"223.137.217.11","8":"<data.frame [20 × 5]>","9":"<data.frame [25 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529597498.A.A9D.html"},{"1":"M.1529599145.A.0A6","2":"[問題/求救] 永和小貓困在三樓","3":"g456040 (想要當海龜)","4":"cat","5":"(更新:已抓到小貓) 大家好 求救的人家在五樓 小貓在三樓的屋頂 請問這種狀況怎麼處理比較妥當 我們是有想到從五樓的放外出籠下去 可是不知道小貓會不會進去 請問這種狀況可以警察或消防隊嗎？ Sent from JPTT on my Asus ASUS_Z01HDA. 找到了唷 找到了唷 抓到了唷 貓咪抓到了唷您是永和人嗎？我最近在找中途，幫一些浪浪找家 ><好可怕","6":"Fri Jun 22 00:39:03 2018","7":"223.140.113.17","8":"<data.frame [20 × 5]>","9":"<data.frame [7 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529599145.A.0A6.html"},{"1":"M.1529604026.A.1E6","2":"[交易/贈送] 單層貓砂盆","3":"wticyar ()","4":"cat","5":"物品名稱: 單層貓砂盆 尺寸大小: 如照片 到期日: 送出為止 商品描述: 二手 已清洗過，但難免有使用過的痕跡 照片: https://imgur.com/T8fkN5C https://imgur.com/hBRQK3B 售價: 贈送 交貨方式: 自取 地點: 台北市中正紀念堂附近 聯絡方式: 站內信 備註: 恕不一一回信","6":"Fri Jun 22 02:00:23 2018","7":"150.116.196.179","8":"<data.frame [20 × 5]>","9":"<data.frame [1 × 4]>","10":"https://www.ptt.cc/bbs/cat/M.1529604026.A.1E6.html"}],"options":{"columns":{"min":[3],"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p></br></br>若有機會分析更多年的資料，可以用下面的 code 來一次讀取多個檔案。</p>
+<pre><code>json_files &lt;- list.files(pattern = &quot;*.json&quot;)
+json_files
+data &lt;- lapply(json_files, function(x){fromJSON(x)$articles})</code></pre>
+<p></br></br></p>
+</div>
+<div id="step-3.-整理-data-frame" class="section level4">
+<h4><b><i>Step 3.</i> 整理 data frame：</b></h4>
+<p></br>a. 將date欄位轉成日期格式，以便篩選出近兩年的文章。
+</br>在轉換日期的過程中，遇到英文月份簡寫（如：Jun、Sep）無法顯示的問題，可能是時區造成的。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># First save your current locale</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">loc &lt;-<span class="st"> </span><span class="kw">Sys.getlocale</span>(<span class="st">&quot;LC_TIME&quot;</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># Set correct locale for the strings to be parsed</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># (in this particular case: English)</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># so that weekdays (e.g. &quot;Thu&quot;&quot;) and abbreviated month (e.g. &quot;Nov&quot;&quot;) are recognized</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">Sys.setlocale</span>(<span class="st">&quot;LC_TIME&quot;</span>,<span class="st">&quot;C&quot;</span>) </a></code></pre></div>
+<pre><code>#&gt; [1] &quot;C&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># proceed as you intended</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">data<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">strptime</span>(data<span class="op">$</span>date, <span class="st">&quot;%a %b %e %H:%M:%S %Y&quot;</span>, <span class="dt">tz=</span><span class="st">&quot;UTC&quot;</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># an example: &quot;Thu Nov 8 15:41:45 2012&quot;</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># Then set back to your old locale</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">Sys.setlocale</span>(<span class="st">&quot;LC_TIME&quot;</span>, loc) </a></code></pre></div>
+<pre><code>#&gt; [1] &quot;en_US.UTF-8&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">class</span>(data<span class="op">$</span>date)</a></code></pre></div>
+<pre><code>#&gt; [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">data[<span class="dv">1</span>,]</a></code></pre></div>
+<pre><code>#&gt;           article_id             article_title       author board
+#&gt; 1 M.1529571783.A.45D [徵求] 中壢龍潭徵求誘捕籠 ji3h9 (直線)   cat
+#&gt;                                                                                                                                                                                                                                                                          content
+#&gt; 1 公司裡面 放貨的空間裡 原本有一隻貓在那邊遊蕩，因為抓不到，也就放他在那邊不理他 隔了一個多月發現，是一隻母貓，而且還附帶了三隻小的...... 今天本來要去試著驅趕他們，一進去沒多久，就發現我的腳滿滿的跳蚤 所以我想跟各位徵求誘捕籠，讓我不傷害他們一家子的捕獲他們 麻煩各位了(跪 
+#&gt;                  date             ip message_count.all message_count.boo
+#&gt; 1 2018-06-21 17:03:01 59.120.180.220                 8                 0
+#&gt;   message_count.count message_count.neutral message_count.push
+#&gt; 1                   6                     2                  6
+#&gt;                                                                                                                                                                                                                                                                                                                                                                                                        messages
+#&gt; 1 高調, 高調, 高調, 我覺得你先在牠們背上點除蚤藥，才能讓貓成為活動除蚤機, 抓不到啊....., 動物醫院應該會有吧?, 兩星期前在中壢環中東路上的美達寵物精品借過誘捕籠，老, 闆人很好也很有愛心，可接洽看看, 06/21 18:33, 06/21 18:33, 06/21 18:33, 06/21 20:45, 06/21 21:41, 06/21 22:36, 06/21 23:10, 06/21 23:10, 推, 推, 推, 推, →, 推, 推, →, mashu520, MidoBanA, stw0975, jonie, ji3h9, kobe770403, bbrrnn, bbrrnn
+#&gt;                                                  url
+#&gt; 1 https://www.ptt.cc/bbs/cat/M.1529571783.A.45D.html</code></pre>
+<p></br></br>strptime的其他符號可參考：<a href="http://www.learn-r-the-easy-way.tw/chapters/5?fbclid=IwAR1Ap-tTxwmKNWVIKwBSfCS-Uv9TfrjSMmbFyHRpcOsPsahLDX4hdLazOv4" class="uri">http://www.learn-r-the-easy-way.tw/chapters/5?fbclid=IwAR1Ap-tTxwmKNWVIKwBSfCS-Uv9TfrjSMmbFyHRpcOsPsahLDX4hdLazOv4</a></p>
+<p></br></br>b. 將文字部分用jieba斷詞。
+</br>原本以tidyverse套件裡的filter來找標題含有「認養」和「買貓」的文章，但因為這個json檔讀進來以後，竟然是一個巢狀data frame，無法使用filter這個功能，會回傳錯誤，因此改用了data[grepl(“買貓”, data$article_title), ]這個方式來找符合的文章。
+</br>但接著遇到的是標題或文章內容斷詞的問題，要篩掉「買貓飼料」、「買貓罐頭」這種標題，因此需要斷詞。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">seg &lt;-<span class="st"> </span><span class="kw">worker</span>()</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">data<span class="op">$</span>content_splited_n &lt;-<span class="st"> </span><span class="kw">lapply</span>(data<span class="op">$</span>content, <span class="cf">function</span>(x){seg[x]})</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">data<span class="op">$</span>content_splited &lt;-<span class="st"> </span><span class="kw">lapply</span>(data<span class="op">$</span>content_splited_n, <span class="cf">function</span>(x){<span class="kw">paste</span>(x, <span class="dt">collapse=</span><span class="st">&quot; &quot;</span>)})</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">data<span class="op">$</span>content_splited[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] &quot;公司 裡面 放貨 的 空間 裡 原本 有 一隻 貓在 那邊 遊蕩 因為 抓 不到 也 就 放 他 在 那邊 不理 他 隔 了 一個多月 發現 是 一隻 母貓 而且 還 附帶 了 三隻 小 的 今天 本來 要 去 試著 驅趕 他們 一 進去 沒多久 就 發現 我 的 腳 滿滿的 跳蚤 所以 我 想 跟 各位 徵求 誘捕 籠 讓 我 不 傷害 他們 一家子 的 捕獲 他們 麻煩 各位 了 跪&quot;
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] &quot;家中 有 一隻 眼睛 有 缺陷 的貓 前年 一直 在 興旺 給張 書豪 醫師 看診 覺得 張 醫師 真的 很 用心 很 愛 動物 眼科 很 專業 去年 搬離 台中 之後 就 沒 再 關心 興旺 今年 又 要 搬 到 彰化 還是 希望 之後 可以 再 跑 台 中 找 張 醫師 看診 看 了 興旺 FB 的 醫師 班表 之後 發現 張 醫師 不見 了 QQQQ 請問 有人 知道 張 醫師 是 去 了 別間 醫院 還是 去 了 哪 嗎 好 哦 謝謝 原本 是 想 說 如果 醫師 是 離職 了 這樣 問 好像 有點 尷尬 XD 若 沒人 知道 的話 會 直接 去問 醫院 的 因為 我 有 往前 翻 醫院 FB 前年 9 月 公告 張 醫師 要 進修 11 月 才 會 回來 結果 11 月班表 也 沒張 醫師 也 沒 特別 公告 QQ 啊 啊 是 這樣 非常感謝&quot;
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] &quot;貓咪 所在地 台北 新北 聯絡人 稱呼 譚 S 電話 站 內信 交換 貓咪 名字 虎媽 脾氣 很 好 不怕 人 很 顧 小孩 一郎 男生 很皮 也 很傻 是 最 大隻 的 哥哥 小開 女孩 超會 玩 很 聰明 噗 噗 女孩 最 黏 媽媽 傻萌 膽小 貓咪 年齡 約 1.5 個 月 剛 學會 咬咬 貓咪 花色 虎斑 媽媽 生小虎斑 3 是否 結紮 請 認養 人 配合 節育手術 健康 情況 已 驅蟲 預計 下禮拜 打預防針 照片 必須 提供 https i imgur com DUSEKZj jpg https i imgur com 4 uskhcc jpg https i imgur com a04LgN5 jpg https i imgur com RAxHbkb jpg https i imgur com 27 zAUsl jpg https i imgur com xy26eBO jpg 送養 原因 媽媽 流浪 街頭 遇到 朋友 好心 幫 她 待產 其他 補充 可 分送 養 媽媽 個性 很 好 很 穩定 很 溫柔 孩子 傻傻 天 真的 如 有人 願意 母帶 一孩紙 優先 認養 人 條件 要求 1. 不 排斥 新手 請 做 足 功課 2. 基本 經濟 條件 寵物 看 醫生 不 便宜 3. 不 放養 4. 定期 健康檢查 備註 請 站 內信 自我介紹&quot;</code></pre>
+</div>
+</div>
+<div id="閱讀筆記" class="section level3">
+<h3>閱讀筆記</h3>
+<p>目前正在閱讀「Python網路爬蟲與資料視覺化」這本書，作者是陳允傑，閱讀到第二章。</p>
+<p></br></br><b>1. 關聯式資料庫（relational database）：</b>
+</br>不同的data frame中，如果有相同的欄位名稱（column name），就可以用外來鍵（foreign key）搜尋，例如：有兩個data frame，其中一個是客戶的基本資料，另一個是某個月份的訂單表格，兩個df都有客戶ID這個欄位，就可以得到像是「哪個地區的人在該月份訂購金額最大」這樣的資料，而對訂單這個df來說，客戶的居住地就是一個外來鍵。在建置df的時候，欄位的命名最好能夠一致，在往後的使用上會比較方便。</p>
+<p></br></br><b>2. 欄頭信息（header information）：</b>
+</br>在爬取網頁資料時，可以透過Chrome查看欄頭信息，了解關於該網頁的一些組成成份，像是要下載一個.json檔的時候，會發現有一個「MIME type」的資訊裡寫著「application/json」，其他還有「text/csv」、「text/html」、「image/gif」等類型，基本上形式都是「type/subtype」，type主要有text、image、audio、video和application，我們在寄發email的時候電腦也是用這樣的模式在進行的。</p>
+<p></br></br><b>3. Selector Gadget和Xpath Helper：實用的小工具：</b>
+</br>Selector Gadget 可以幫助我們在查看網頁的時候，以不同的顏色標示出我們想抓取的資料為何，再產生符合的 CSS 給我們。當我們點擊網頁的某個元素，會標示「綠色」，Selector Gadget會自動偵測其他符合的元素，標成「黃色」，之後再讓我們手動點掉不需要的元素，這時候會顯示「紅色」，接著就會出現最終的 CSS。可參考以下介紹：<a href="https://blog.gtwang.org/r/rvest-web-scraping-with-r/" class="uri">https://blog.gtwang.org/r/rvest-web-scraping-with-r/</a>
+</br>Xpath Helper主要是搭配Chrome Inspector使用，輸入Xpath之後就會呈現抓取的結果。可參考：<a href="http://sweeteason.pixnet.net/blog/post/43059008-chrome-%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9---%E6%90%AD%E9%85%8D-xpath-helper-%E5%A5%97%E4%BB%B6" class="uri">http://sweeteason.pixnet.net/blog/post/43059008-chrome-%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9---%E6%90%AD%E9%85%8D-xpath-helper-%E5%A5%97%E4%BB%B6</a></p>
+</div>
+</div>

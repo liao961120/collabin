@@ -1,0 +1,287 @@
+---
+title: "網路時代下的寫作"
+subtitle: "Why R Markdown?"
+author: "Yongfu Liao"
+mysite: https://liao961120.github.io  # 作者網站
+isRmd: true
+date: "2019-01-22"
+comment: true  # 文章是否開放留言
+FBquote: false  # 是否使用 FB 引文外掛, 見 bit.ly/2sL31Jt
+tags: ['R Markdown', 'blogging', 'rblog']  # 文章 tag
+bibliography: ref.bib             # 參考文獻資料檔
+link-citations: false
+toc-title: '目錄' # option for pagedown
+lot: false  # option for pagedown
+lof: false  # option for pagedown
+links-to-footnotes: true # option for pagedown
+paged-footnotes: true    # option for pagedown
+output:
+  pagedown::book_crc:
+    toc: true
+    number_sections: false
+    self_contained: true
+    pandoc_args: "--mathjax"
+    mathjax: NULL
+  rmdformats::readthedown:
+    use_bookdown: true
+    number_sections: false
+    toc_depth: 2
+  bookdown::html_document2:
+    number_sections: false
+    self_contained: true
+    pandoc_args: "--mathjax"
+    mathjax: NULL
+    theme: NULL
+    template: /home/liao/R/x86_64-pc-linux-gnu-library/3.4/rmarkdown/rmd/fragment/default.html
+---
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<p>這篇文章並非 <strong>R Markdown</strong> 的教學文<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>，而是一篇<strong>企圖說服</strong>讀者採用 <strong>R Markdown</strong> 作為寫作工具的文章。本文以 <strong>R Markdown</strong> 撰寫並使用 <strong>blogdown</strong> 輸出部落格文章。原始碼<a href="https://github.com/liao961120/collabin/tree/master/content/yongfu/write-in-rmd">託管於 GitHub</a>。</p>
+<p><img src="RmdOutputFormats.png" style="width:30%;float: right;padding-left:18px" />
+從第一次接觸 <strong>R Markdown</strong> 至今經過了一年又三個月。而最近六個多月，我都沒有使用過 Microsoft Word 寫東西，因為 <strong>R Markdown</strong> 強大的功能使我得以不用 Word 也能生存 – 我用 <strong>R Markdown</strong> 寫<a href="https://liao961120.github.io/notes/106-2/multivariate">作業</a>、<a href="https://github.com/liao961120/ling-rmd/blob/master/main.pdf">文章</a>、<a href="https://liao961120.github.io/MVA">書</a>、<a href="https://liao961120.github.io/ntuthesis">論文</a>和部落格 (本文)，製作<a href="https://liao961120.github.io/notes/mylinux.html">筆記</a>、<a href="https://liao961120.github.io/slides/xaringan">投影片</a>、甚至<a href="https://twlangsurvey.github.io">網頁</a>。事實上，這正是 <strong>R Markdown</strong> 最吸引人的地方：</p>
+<blockquote>
+<p>用相同的語法撰寫各式類型的文件。</p>
+</blockquote>
+<div id="printing-vs-surfing" class="section level2">
+<h2>兩種媒介：紙本 vs. 網頁</h2>
+<p>寫作的目的有一部分是<strong>要給人看</strong>，因此<a href="https://zh.wikipedia.org/wiki/排版">排版</a>自然而然就成為作者的工作之一。在文字普及後的絕大多數時間，排版僅需要考慮<strong>紙本印刷物</strong>。即使十幾年前電腦已十分盛行，排版軟體仍主要在解決<strong>紙本印刷物</strong>的排版問題。這本身不是個問題，但今日網路已成為主流的資訊傳播管道，<strong>網頁因而成為與紙本同等 (甚至更加) 重要的文字承載媒介</strong>。</p>
+<p>這對文字工作者<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>造成了新的負擔，因為兩種不同的文字承載媒介 – <strong>紙本</strong>與<strong>網頁</strong>，在歷史上各自衍生出兩種設計邏輯十分迥異的排版系統， <a href="https://zh.wikipedia.org/wiki/TeX"><span class="math inline">\(\TeX\)</span></a> 以及 <a href="https://zh.wikipedia.org/wiki/HTML">HTML</a>，而這兩種系統彼此是無法 (輕易) 相互轉換的 (例如，嘗試使用 Chrome 將網頁轉存成 PDF 時，你會發現一張圖片常被分割在不同頁面)。因此，今日的文字工作者在寫作前得先回答一個問題：</p>
+<blockquote>
+<p>我的作品會活在<strong>網路上</strong>還是要<strong>印出來</strong>？</p>
+</blockquote>
+</div>
+<div id="WYSIWYG-vs-WYSIWYM" class="section level2">
+<h2>兩種工具：WYSIWYG vs. WYSIWYM</h2>
+<p>上一段內容或許對許多人來說相當陌生，因為<strong>我們都是用 Microsoft Word 長大的</strong>，根本不知道什麼是 <span class="math inline">\(\TeX\)</span>。MS Word 和 <span class="math inline">\(\TeX\)</span> 一樣，皆是以紙本排版為目的而設計，但 MS Word 不同於 <span class="math inline">\(\TeX\)</span> 在於其為<a href="https://zh.wikipedia.org/wiki/所見即所得">所見即所<strong>得</strong></a> (What You See Is What You <strong>Get</strong>, WYSIWYG) 的排版軟體，讓使用者不須接觸到複雜的<a href="https://zh.wikipedia.org/wiki/標記式語言">標記式語言</a> (Markup Language)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>。但簡潔的使用界面需付出代價 – 複雜的檔案格式<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>，因而較難進行檔案管理<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>。</p>
+
+<div class="figure"><span id="fig:tex"></span>
+<img src="tex.png" alt="\(\TeX\) 排版系統" width="1372" />
+<p class="caption">
+Figure 1: <span class="math inline">\(\TeX\)</span> 排版系統
+</p>
+</div>
+<p>相較於<strong>所見即所得</strong>的排版軟體，<a href="https://en.wikipedia.org/wiki/WYSIWYM">所見即所<strong>思</strong></a> (What You See Is What You <strong>Mean</strong>, WYSIWYM) 的系統如 <span class="math inline">\(\TeX\)</span> 和 HTML 通常以純文字檔的形式儲存，再以編譯器輸出或以閱讀軟體 (瀏覽器即是 HTML 的閱讀軟體) 讓讀者看到最終的排版結果。這類系統少了 Word 難以管理的缺點，但卻有一個<strong>令許多使用者卻步的大缺點</strong> – 太過複雜的標記式語言讓作者難以專注在<strong>寫作的內容</strong>，必須時時擔心<strong>排版</strong>問題。</p>
+<div class="figure"><span id="fig:wysiwym"></span>
+<img src="https://bit.ly/2DsQ9Od" alt="所見即所得 (WYSIWYG) vs. 所見即所思 (WYSIWYM)" width="60%" />
+<p class="caption">
+Figure 2: 所見即所得 (WYSIWYG) vs. 所見即所思 (WYSIWYM)
+</p>
+</div>
+</div>
+<div id="md-enhance" class="section level2">
+<h2>Markdown：改善 WYSIWYM</h2>
+<p>面對過於複雜的標記式語言，<a href="https://en.wikipedia.org/wiki/John_Gruber">John Gruber</a> 發明了 Markdown 以避開撰寫網頁時過於複雜的 HTML 語法。Markdown 是一種容易學習、極為簡化的標記式語言。事實上，由於原始的 Markdown 語法過於簡單<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>，造成許多衍生「風格」Markdown 的發明以擴充原本不足的語法。這也間接導致今日 Markdown 並非可通行 (portable) 於所有聲稱支援 Markdown 的平台。</p>
+<div class="figure"><span id="fig:md2html"></span>
+<img src="md2html.png" alt="Markdown 轉換成 HTML" width="736" />
+<p class="caption">
+Figure 3: Markdown 轉換成 HTML
+</p>
+</div>
+<p>Markdown 的出現使得<strong>所見即所思</strong>的排版方式不再如此地惡名昭彰，因為 Markdown 簡潔的語法使其極易閱讀(比較圖 <a href="#fig:md2html">3</a> 最左與最右)。原本為了處理網頁排版而設計的 Markdown，也將目標擴展到了<strong>紙本媒介</strong> (將 Markdown 轉換成 <span class="math inline">\(\TeX\)</span> 再輸出成 PDF)，這大大增強了使用 Markdown 撰寫文件的動機：<strong>同一份文件能選擇輸出成適合「網頁瀏覽」或「紙本列印」的格式</strong>。</p>
+<p>總結來說，Markdown 的出現使過去排版系統的問題出現了改善的契機：</p>
+<ol style="list-style-type: decimal">
+<li>簡化複雜的標記式語言，讓 <strong>WYSIWYM</strong> 的排版方式變得平易近人</li>
+<li>使用相同原始檔 (source file) 輸出適合<strong>網頁</strong>及<strong>印刷</strong>的格式</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>所見即所得</th>
+<th>所見即所思</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>紙本</strong></td>
+<td>MS Word</td>
+<td><span class="math inline">\(\TeX\)</span>,<br>Markdown (近年目標)</td>
+</tr>
+<tr class="even">
+<td><strong>網頁</strong></td>
+<td>部落格文章撰寫後台<br>(e.g. WordPress, Medium)</td>
+<td>HTML,<br>Markdown (初創目的)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-plus-md" class="section level2">
+<h2><strong>R Markdown</strong>：R + Markdown</h2>
+<p><strong>R Markdown</strong>，顧名思義就是 <strong>R 語言</strong> + <strong>Markdown</strong>。<a href="https://zh.wikipedia.org/wiki/R語言"><strong>R</strong></a> 是一個統計計算的程式語言。你可能會好奇結合程式語言和 <strong>Markdown</strong> 的用途為何？<strong>R Markdown</strong> 最初發展的目的，有一部份與 <strong>R 語言</strong>強大的繪圖功能有關：</p>
+<blockquote>
+<p>透過在 <strong>Markdown</strong> 文件中穿插「程式語言區塊 (code chunk) 」，可以讓程式語言執行的結果直接顯示於文件中。如此就不須手動將 (統計軟體跑出來的) 圖片插入文件中。</p>
+</blockquote>
+<p>下方的是個簡單的例子，用 3 行 <strong>R</strong> 指令畫出著名的<a href="https://zh.wikipedia.org/wiki/安德森鸢尾花卉数据集">鳶尾花數據集</a>：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length,</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">                 <span class="dt">y =</span> Petal.Width,</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">                 <span class="dt">color =</span> Species)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">            )</a></code></pre></div>
+<p><img src="/yongfu/write-in-rmd/index_files/figure-html/unnamed-chunk-1-1.svg" width="65%" /></p>
+<p>這項功能對從事數據分析或科學研究的使用者非常實用，因為它自動化了麻煩的事情。</p>
+<p>但對於<strong>非 R 語言使用者</strong>，使用 <strong>R Markdown</strong> 有比較好嗎 (相對 <strong>Markdown</strong> 而言)？</p>
+<div id="r-community" class="section level3">
+<h3>R 社群</h3>
+<p>一個程式語言 (包含套件擴充功能) 的發展與特色，很大部份與使用族群之組成相關。不同於其它多數程式語言，使用 <strong>R 語言</strong>的人，<strong>絕大多數都屬於使用者 (user) 而非開發者 (developer)</strong>。換言之，許多 <strong>R</strong> 使用者並沒有深厚的程式基礎，使用 <strong>R</strong> 的目的是為了 (快速) 解決當下問題，而非開發工具給其他人使用。</p>
+<p><strong>R</strong> 社群因此發展出非常友善的文化，而 <strong>R</strong> 許多套件的設計也<strong>預設使用者是沒有程式經驗的</strong>。例如，許多 <strong>R Markdown</strong> 相關套件 (e.g. <a href="https://cran.r-project.org/web/packages/shiny">shiny</a>, <a href="https://cran.r-project.org/web/packages/htmlwidgets">htmlwidgets</a>) 目的在於幫助不熟悉或完全不懂 HTML/CSS/JS 的使用者快速製作 (互動式) 網頁。此外，<strong>R</strong> 套件常將外部功能整合進 <strong>R</strong> 的世界，並且提供簡單易讀的說明文件，讓使用者省去自行研究的麻煩 – <strong>R Markdown</strong> 正是這樣的例子。</p>
+</div>
+<div id="pandoc" class="section level3">
+<h3>Pandoc</h3>
+<p><strong>R Markdown</strong> 背後運作的關鍵是 <a href="https://zh.wikipedia.org/wiki/Pandoc">Pandoc</a>，一個用於不同標記式語言間格式轉換的工具。如上文所述，Markdown 原本被用作簡化的標記式語言來撰寫網頁，而 Pandoc 則是用來將 Markdown 轉換成 HTML 的 (其中一種) 工具。然而，Pandoc <strong>不只能將 Markdown 轉換成 HTML</strong>。它也能將 Markdown 轉換成其它<a href="https://zh.wikipedia.org/wiki/Pandoc#Pandoc支持的标记语言格式">多種格式</a>，而其中最實用的就是前述以<strong>紙本媒介</strong>為目標的 <span class="math inline">\(\TeX\)</span> 及 PDF。</p>
+<p>透過 Pandoc 的加持，<strong>R Markdown</strong> 能輸出成多種格式。此外，也因為 Pandoc Markdown<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> 的語法完整，<strong>R Markdown</strong> 能進行非常精緻的排版 (精緻到能輸出<a href="https://yihui.name/en/2018/08/bookdown-crc/">可直接送印出版的書籍</a>)。但 Pandoc 強大的功能卻反而讓它與<strong>沒有程式經驗的使用者</strong>絕緣，因為這些使用者不可能會去研究、下載、打開 Command Line 執行 Pandoc。<strong>R Markdown</strong> 將對於新手過於複雜的 Pandoc 隱藏起來，讓使用者透過 GUI 界面就能直覺地使用 Pandoc 的功能。</p>
+
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="rmarkdownflow.png" alt="R Markdown 運作流程。先由 knitr 將 .Rmd 中的程式碼執行結果插入 .md (文件由 .Rmd 轉換為 .md)，再透過 Pandoc 將 .md 轉換成其它輸出格式。" width="354" />
+<p class="caption">
+Figure 4: <strong>R Markdown</strong> 運作流程。先由 <code>knitr</code> 將 <code>.Rmd</code> 中的程式碼執行結果插入 <code>.md</code> (文件由 <code>.Rmd</code> 轉換為 <code>.md</code>)，再透過 Pandoc 將 <code>.md</code> 轉換成其它輸出格式。
+</p>
+</div>
+</div>
+<div id="back-to-rmd" class="section level3">
+<h3>回到 <strong>R Markdown</strong></h3>
+<blockquote>
+<p>對於非 <strong>R 語言</strong>使用者而言，<strong>R Markdown</strong> 有比 <strong>Markdown</strong> 好嗎？</p>
+</blockquote>
+<p>我的答案是肯定的。<strong>R</strong> 社群的組成使得 <strong>R Markdown</strong> 致力於讓自己更易於使用。因此，縱使使用目的並非資料分析或科學研究這類「硬」功能，使用者仍能從 <strong>R Markdown</strong> 獲得許多好處：</p>
+<ul>
+<li><p>美觀的預設樣式</p>
+<p>Markdown 轉換成 HTML 後能在網頁上正常顯示，但要<strong>漂亮</strong>的顯示，需要額外的 CSS 裝飾。這對一般使用者來說是非常困難的 (誰懂 CSS 啊？)。<strong>R Markdown</strong> 內建許多相當美觀的輸出樣式 (<a href="https://getbootstrap.com">Bootstrap</a>)，所以使用者不須去擔心 CSS 的問題。甚至對於更龜毛的使用者 (對所有內建樣式都不滿)，也可以安裝社群中<a href="https://slides.yihui.name/2017-rstudio-conf-ext-rmd-Yihui-Xie.html#15">其他人開發的樣式</a>。例如，你可以在<a href="https://liao961120.github.io/notes/write-in-rmd/rmdformats.html">這裡</a>看到本文透過 <a href="https://github.com/juba/rmdformats">rmdformats</a> 套件以 <a href="https://docs.readthedocs.io">Read The Docs</a> 風格輸出的樣式。</p></li>
+<li><p>統一的 Markdown 語法</p>
+<p>文章前面提及，原始的 Markdown 因為語法過於簡化，導致各種「風格」 Markdown 語法的出現。例如，GitHub, Stack Overflow, Jekyll (靜態網頁產生器), Hugo (靜態網頁產生器) 等等所支援的 Markdown 在語法上都有些微差異。換句話說，使用者無法使用相同的 Markdown 語法橫行各個平台，需要記得不同平台支援哪些語法<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>。</p>
+<p>這個問題對於自行架設部落格的使用者可能是個問題，因為當其想換新的網頁模板時，可能使用不同的靜態網頁產生器 (例如，Jekyll → Hugo)，而原本以 Markdown 撰寫的文章在新的靜態網頁產生器可能會語法不相容。<strong>R Markdown</strong> 在此可以解決這個問題：透過 <a href="https://rmarkdown.rstudio.com/html_fragment_format.html"><code>html_fragment</code></a> 輸出格式，靜態網頁產生器能透過 <strong>R Markdown</strong> 輸出的 HTML，而不非語法不一的 Markdown，產生網頁。</p></li>
+<li><p>程式語言支持</p>
+<p><strong>R Markdown</strong> 的另一個特色是程式語言的整合。<strong>即使不會寫程式，背後有程式語言支持的 R Markdown 仍能提供使用者非常方便的功能</strong>。<strong>R Markdown</strong> 支援使用特殊語法在文件<strong>內文插入變項</strong>，例如，我可以在文內插入 <strong>R</strong> 「回傳目前時間的函數」，自動顯示文件輸出時的時間：</p>
+<p><code>上次更新：`r Sys.time()`</code> 會輸出成：<code>上次更新：2020-06-05 14:47:33</code></p>
+<p>這個功能對於從事數據分析的使用者 (e.g. 寫統計學作業的學生) 非常方便。例如，他可以使用 <code><em>p</em>-value = `r pval`</code> (<code>pval</code> 儲存先前計算出來的數值) 直接在內文插入 <em>p</em>-value，而不用在每次數據更新時 (例如發現之前資料有誤)，重新手動複製貼上數值。</p></li>
+<li><p>強大的靠山</p>
+<p><strong>R</strong> 社群今日能如此活躍，有很大一部分是因為 <a href="https://www.rstudio.com/">RStudio</a> 這家公司的推行。<strong>R</strong> 使用者用到的許多套件是由 RStudio 僱用的工程師專職開發的，因此，這些套件會持續的維護、更新、出現更強大的新功能。</p>
+<p><strong>R Markdown</strong> 的生態圈最主要的貢獻者 – <a href="https://yihui.name">Yihui Xie</a> 即是 RStudio 的工程師。在這些開發者的努力下，<strong>R Markdown</strong> 在這幾年功能越來越強大：涵蓋的範圍從簡單的文件、投影片、互動式網頁、學術期刊、書籍甚至到網站與部落格 <span class="citation">(Xie, Allaire, and Grolemund 2018)</span>。</p></li>
+</ul>
+</div>
+</div>
+<div id="future-of-rmd" class="section level2">
+<h2>R Markdown 的未來</h2>
+<p>以紙本印刷為主流的過去在今日留下許多痕跡。學術論文格式和印刷物排版的處理仍以 <span class="math inline">\(\LaTeX\)</span> 和 <span class="math inline">\(\TeX\)</span> 的功能最為齊全，但以 <span class="math inline">\(\LaTeX\)</span> 撰寫而成的文件難以轉換為適合網頁閱讀的格式。至於另一個方向，以 HTML/CSS/JS 為基礎排版的網頁，有機會轉換成排版美觀、適合印刷的 PDF 格式嗎？</p>
+<p>以目前資訊科技的發展來看，後者是比較可能的，畢竟網路科技是程式軟體開發的重要焦點，以網頁為媒介的文件只會越來越多；相對來說，<span class="math inline">\(\LaTeX\)</span> 可能只剩學術界在使用，學術界本身更是缺乏人力去做這種吃力不討好的工作 (開發程式將 <span class="math inline">\(\LaTeX\)</span> 轉換成 HTML)。</p>
+<p>事實上，目前已有實際的專案在嘗試這件事。例如，網頁的 CSS 可定義 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Paged_Media">page media</a>，嘗試控制瀏覽器如何生成 PDF。另一個更有前景的專案是 <strong>R Markdown</strong> 生態圈裡的新套件 – <a href="https://github.com/rstudio/pagedown">pagedown</a>。pagedown 旨在直接生成<strong>以印刷為目的的 HTML 文件</strong>，而略過 <strong>R Markdown</strong> 透過 Pandoc 及 <span class="math inline">\(\LaTeX\)</span> 生成 PDF 的歷程<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>。你可以在<a href="https://liao961120.github.io/notes/write-in-rmd/paged.html">這裡</a>看看本文以 pagedown 輸出的樣式。我完全不需更動文章內容，只要使用不同的輸出指令，就能從部落格文章瞬間轉換成漂亮的紙本印刷物 (可用 chrome 列印 → 儲存成 PDF)。</p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>小結</h2>
+<ul>
+<li><p>因為歷史因素，現存兩種文字承載媒介 – 紙本和網頁。對多數人來說，必需<strong>在使用紙本或使用網頁發表之間抉擇</strong>。</p></li>
+<li><p>排版軟體的兩種設計邏輯 – WYSIWYG vs. WYSIWYM，各自存在優缺點。WYSIWYG 使用起來直覺，但檔案管理不便；WYSIWYM 則語法複雜，但能作出十分精美之排版且檔案管理方便。</p></li>
+<li><p>Markdown 結合了過去 WYSIWYG 和 WYSIWYM 的優點，也解決了兩者的缺點。同時，Markdown 也有潛力解決紙本發表與網頁發表之間的矛盾。</p></li>
+<li><p>R Markdown 擴充 Markdown 語法使其能撰寫相當複雜的文件 (如期刊文章、書籍、網站等) 並結合程式語言的支持，自動化許多麻煩事，讓使用者能快速上手使用。</p></li>
+<li><p>面對<strong>紙本 vs. 網頁</strong>，未來似乎向著以網頁為文字承載媒介主流的世界前進。而資訊科技的發展，使得紙本印刷之排版困難逐漸能被網頁技術解決。</p></li>
+</ul>
+<hr />
+<blockquote>
+<p>I have a dream that one day all students and researchers will forget what “formatting a paper” even means. I have a dream that one day journals and grad schools no longer have style guides. I have a dream that one day no missing $ is inserted, and \hbox is never overfull.</p>
+<p>— Yihui Xie<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+</blockquote>
+<p>這段文字是 Yihui 的夢想，我想也是 R Markdown 的終極目標：讓文字工作者能<strong>專注在寫作內容</strong>，而將格式與排版等麻煩事交給 R Markdown。</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>參考資料</h2>
+<p>這篇文章的想法源自下列資源。</p>
+<!-- 以下語法用於插入 ref.bib 中所有文獻
+     見 https://pandoc.org/MANUAL.html#citations -->
+<div id="refs" class="references">
+<div id="ref-ginev2017">
+<p>Ginev, Deyan. 2017. “LaTeX Is Dead (Long Live LaTeX) Typesetting in the Digital Age.” Authorea. December 18, 2017. <a href="https://www.authorea.com/users/5713/articles/19359-latex-is-dead-long-live-latex-typesetting-in-the-digital-age/_show_article">https://www.authorea.com/users/5713/articles/19359-latex-is-dead-long-live-latex-typesetting-in-the-digital-age/_show_article</a>.</p>
+</div>
+<div id="ref-peng2018">
+<p>Peng, Roger. 2018. “Teaching R to New Users - from Tapply to the Tidyverse <span class="math inline">\(\cdot\)</span> Simply Statistics.” Simply Statistics. July 12, 2018. <a href="https://simplystatistics.org/2018/07/12/use-r-keynote-2018/">https://simplystatistics.org/2018/07/12/use-r-keynote-2018/</a>.</p>
+</div>
+<div id="ref-xie2018">
+<p>Xie, Yihui. 2018a. “The User-Developer Spectrum in the R Ecosystem.” Yihui Xie | 谢益辉. July 13, 2018. <a href="https://yihui.name/en/2018/07/user-developer/">https://yihui.name/en/2018/07/user-developer/</a>.</p>
+</div>
+<div id="ref-xie2018a">
+<p>———. 2018b. “Write a Book with Bookdown and Publish with Chapman &amp; Hall.” Yihui Xie | 谢益辉. August 6, 2018. <a href="https://yihui.name/en/2018/08/bookdown-crc/">https://yihui.name/en/2018/08/bookdown-crc/</a>.</p>
+</div>
+<div id="ref-xie2018r">
+<p>Xie, Yihui, JJ Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. CRC Press.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>關於 <strong>R Markdown</strong> 的介紹有許多網路資源，繁體中文可參考此文 (<a href="http://www.learn-r-the-easy-way.tw/chapters/17" class="uri">http://www.learn-r-the-easy-way.tw/chapters/17</a>)，英文資源可先從 bookdown (<a href="https://bookdown.org/yihui/bookdown" class="uri">https://bookdown.org/yihui/bookdown</a>) 下手。<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>這裡對文字工作者的定義很廣，任何常寫文章的人都可算是文字工作者 (例如，學生) 。<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>排版是一件複雜的問題。試想，電腦要如何知道哪些字需要粗體、斜體、空行、縮排等等？標記式語言處理的就是這類問題：透過特殊字元標記出文字中需要特殊格式的地方。<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Word 檔 (<code>.docx</code>) 不是純文字檔案，只能用 Word 等複雜的軟體才能閱讀編輯，更不能直接於網頁中顯示。<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>舉例來說，假設我的資料夾中有 200 份 <strong>Word 檔</strong>，我要如何找出其中哪幾份文件有出現特定字元，例如，「王小明」？</p>
+<p>相較之下，如果這 200 份文件是<strong>純文字檔</strong>，要找出哪幾份文件中有出現「王小明」就非常簡單。在類 unix 的電腦上(如 Mac 或 Linux)，只需要打開 Command Line 輸入 <code>grep -r '王小明' *.Rmd</code> 就可找到這些檔案 (在 Windows 上也行，但指令可能不太一樣)。<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>Markdown 的語法雖然簡單，但這並不代表其排版能力弱於 HTML，因為 Markdown 語法可與 HTML 混用。<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>Pandoc 自行定義的 Markdown 語法，是市面上盛行的其中一種 Markdown「風格」。Pandoc Markdown 的特色在於其<strong>支援功能非常完整</strong>，例如，它除了大幅擴充原本的 Markdown 語法外，甚至還增加了插入文獻引用的功能 (如同 Endnote，自動處理文獻引用格式)。<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>其中一種解決方法是只用<strong>最簡化的 Markdown</strong> (<a href="https://daringfireball.net/projects/markdown/syntax" class="uri">https://daringfireball.net/projects/markdown/syntax</a>)。如果還需更複雜的排版，就使用 HTML tag。<a href="#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p>這是一個困難重重的過程，看見 <span class="math inline">\(\LaTeX\)</span> 噴錯是一件驚心動魄的事。<a href="#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p><a href="https://twitter.com/xieyihui/status/1022873179532996609" class="uri">https://twitter.com/xieyihui/status/1022873179532996609</a>)<a href="#fnref10" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

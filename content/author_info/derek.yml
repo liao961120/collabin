@@ -1,0 +1,7 @@
+author: "Derek Liao"        # article info
+mysite: /derek/  # article info
+comment: true        # article info
+id: derek                   # site info (on /<id>)
+pageSubtitle: ""          # site info (on /<id>)
+# site info (on /info/authors)
+selfIntro: ""
