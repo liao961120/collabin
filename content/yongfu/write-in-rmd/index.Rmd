@@ -16,23 +16,18 @@ lof: false  # option for pagedown
 links-to-footnotes: true # option for pagedown
 paged-footnotes: true    # option for pagedown
 output:
+  bookdown::html_fragment2:
+    section_divs: false
+  rmdformats::readthedown:
+    use_bookdown: true
+    number_sections: false
+    toc_depth: 2
   pagedown::book_crc:
     toc: true
     number_sections: false
     self_contained: true
     pandoc_args: "--mathjax"
     mathjax: NULL
-  rmdformats::readthedown:
-    use_bookdown: true
-    number_sections: false
-    toc_depth: 2
-  bookdown::html_document2:
-    number_sections: false
-    self_contained: true
-    pandoc_args: "--mathjax"
-    mathjax: NULL
-    theme: NULL
-    template: /home/liao/R/x86_64-pc-linux-gnu-library/3.4/rmarkdown/rmd/fragment/default.html
 ---
 
 ```{r setup, include=FALSE}
