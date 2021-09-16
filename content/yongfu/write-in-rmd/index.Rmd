@@ -58,21 +58,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 (ref:tex) $\TeX$ 排版系統
 
-```{r tex, echo=FALSE, fig.cap="(ref:tex)"}
+```{r tex, echo=FALSE, fig.cap="(ref:tex)", out.width="100%"}
 knitr::include_graphics('tex.png')
 ```
 
 相較於**所見即所得**的排版軟體，[所見即所**思**](https://en.wikipedia.org/wiki/WYSIWYM) (What You See Is What You **Mean**, WYSIWYM) 的系統如 $\TeX$ 和 HTML 通常以純文字檔的形式儲存，再以編譯器輸出或以閱讀軟體 (瀏覽器即是 HTML 的閱讀軟體) 讓讀者看到最終的排版結果。這類系統少了 Word 難以管理的缺點，但卻有一個**令許多使用者卻步的大缺點** -- 太過複雜的標記式語言讓作者難以專注在**寫作的內容**，必須時時擔心**排版**問題。
 
 ```{r wysiwym, echo=FALSE, fig.cap='所見即所得 (WYSIWYG) vs. 所見即所思 (WYSIWYM)', out.width='60%'}
-knitr::include_graphics('https://bit.ly/2DsQ9Od')
+knitr::include_graphics('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/ViewsIceberg.svg/640px-ViewsIceberg.svg.png')
 ```
 
 ## Markdown：改善 WYSIWYM {#md-enhance}
 
 面對過於複雜的標記式語言，[John Gruber](https://en.wikipedia.org/wiki/John_Gruber) 發明了 Markdown 以避開撰寫網頁時過於複雜的 HTML 語法。Markdown 是一種容易學習、極為簡化的標記式語言。事實上，由於原始的 Markdown 語法過於簡單^[Markdown 的語法雖然簡單，但這並不代表其排版能力弱於 HTML，因為 Markdown 語法可與 HTML 混用。]，造成許多衍生「風格」Markdown 的發明以擴充原本不足的語法。這也間接導致今日 Markdown 並非可通行 (portable) 於所有聲稱支援 Markdown 的平台。
 
-```{r md2html, echo=FALSE, fig.cap='Markdown 轉換成 HTML'}
+```{r md2html, echo=FALSE, fig.cap='Markdown 轉換成 HTML', out.width="100%"}
 knitr::include_graphics('md2html.png')
 ```
 
@@ -187,7 +187,7 @@ knitr::include_graphics('rmarkdownflow.png')
 >
 > --- Yihui Xie[^quote]
 
-[^quote]: https://twitter.com/xieyihui/status/1022873179532996609)
+[^quote]: https://twitter.com/xieyihui/status/1022873179532996609
 
 這段文字是 Yihui 的夢想，我想也是 R Markdown 的終極目標：讓文字工作者能**專注在寫作內容**，而將格式與排版等麻煩事交給 R Markdown。
 
@@ -216,4 +216,4 @@ nocite: |
 
 [^pandoc-md]: Pandoc 自行定義的 Markdown 語法，是市面上盛行的其中一種 Markdown「風格」。Pandoc Markdown 的特色在於其**支援功能非常完整**，例如，它除了大幅擴充原本的 Markdown 語法外，甚至還增加了插入文獻引用的功能 (如同 Endnote，自動處理文獻引用格式)。
 
-[^md-variety]: 其中一種解決方法是只用**最簡化的 Markdown** (https://daringfireball.net/projects/markdown/syntax)。如果還需更複雜的排版，就使用 HTML tag。
+[^md-variety]: 其中一種解決方法是只用[最簡化的 Markdown](https://daringfireball.net/projects/markdown/syntax)。如果還需更複雜的排版，就使用 HTML tag。
